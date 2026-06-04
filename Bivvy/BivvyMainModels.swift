@@ -30,6 +30,7 @@ struct BivvyVideoItem {
     let userName: String
     let description: String
     let coverImageName: String
+    let coverURL: String?
     let likes: String
     let saves: String
     let comments: String
@@ -38,13 +39,16 @@ struct BivvyVideoItem {
 
 struct BivvyProfileItem {
     let imageName: String
+    let imageURL: String?
     let title: String
+    let dynamicId: String?
 }
 
 struct BivvyRecommendationUser {
     let id: String
     let name: String
     let avatarName: String
+    let avatarURL: String?
     let brief: String
 }
 
@@ -73,9 +77,9 @@ enum BivvyMockContent {
     ]
 
     static let recommendationUsers: [BivvyRecommendationUser] = [
-        BivvyRecommendationUser(id: "creator-howard", name: "Howard", avatarName: "bivvy_profile_avatar_main", brief: "productDemo"),
-        BivvyRecommendationUser(id: "creator-mira", name: "Mira", avatarName: "bivvy_auth_profile_avatar", brief: "hiddenGem"),
-        BivvyRecommendationUser(id: "creator-cole", name: "Cole", avatarName: "bivvy_profile_avatar_main", brief: "homeGood")
+        BivvyRecommendationUser(id: "creator-howard", name: "Howard", avatarName: "bivvy_profile_avatar_main", avatarURL: nil, brief: "productDemo"),
+        BivvyRecommendationUser(id: "creator-mira", name: "Mira", avatarName: "bivvy_auth_profile_avatar", avatarURL: nil, brief: "hiddenGem"),
+        BivvyRecommendationUser(id: "creator-cole", name: "Cole", avatarName: "bivvy_profile_avatar_main", avatarURL: nil, brief: "homeGood")
     ]
 
     static let videos: [BivvyVideoItem] = [
@@ -85,6 +89,7 @@ enum BivvyMockContent {
             userName: "Anders",
             description: "Can't believe I didn't get this sooner",
             coverImageName: "bivvy_video_cover_featured",
+            coverURL: nil,
             likes: "23.8k",
             saves: "4.1k",
             comments: "862",
@@ -96,6 +101,7 @@ enum BivvyMockContent {
             userName: "Mira",
             description: "A tiny desk gadget that made my workspace feel cleaner.",
             coverImageName: "bivvy_find_local_10005_main",
+            coverURL: nil,
             likes: "9.6k",
             saves: "1.8k",
             comments: "324",
@@ -107,6 +113,7 @@ enum BivvyMockContent {
             userName: "Nora",
             description: "This organizer bag saved my weekend packing routine.",
             coverImageName: "bivvy_find_local_10007_main",
+            coverURL: nil,
             likes: "12.4k",
             saves: "2.2k",
             comments: "491",
@@ -118,6 +125,7 @@ enum BivvyMockContent {
             userName: "Ari",
             description: "Reusable bottle check for outdoor days and daily hydration.",
             coverImageName: "bivvy_find_local_10010_main",
+            coverURL: nil,
             likes: "7.3k",
             saves: "980",
             comments: "215",
@@ -129,6 +137,7 @@ enum BivvyMockContent {
             userName: "Evan",
             description: "A compact keyboard that makes short reviews easier to write.",
             coverImageName: "bivvy_find_local_10011_main",
+            coverURL: nil,
             likes: "18.1k",
             saves: "3.6k",
             comments: "738",
@@ -137,8 +146,8 @@ enum BivvyMockContent {
     ]
 
     static let profileGrid: [BivvyProfileItem] = [
-        BivvyProfileItem(imageName: "bivvy_profile_grid_find_one", title: "productShowcase"),
-        BivvyProfileItem(imageName: "bivvy_profile_grid_find_two", title: "favoriteFind"),
-        BivvyProfileItem(imageName: "bivvy_profile_grid_find_three", title: "communityFind")
+        BivvyProfileItem(imageName: "bivvy_profile_grid_find_one", imageURL: nil, title: "productShowcase", dynamicId: nil),
+        BivvyProfileItem(imageName: "bivvy_profile_grid_find_two", imageURL: nil, title: "favoriteFind", dynamicId: nil),
+        BivvyProfileItem(imageName: "bivvy_profile_grid_find_three", imageURL: nil, title: "communityFind", dynamicId: nil)
     ]
 }

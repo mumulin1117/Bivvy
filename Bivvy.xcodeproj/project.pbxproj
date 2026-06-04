@@ -41,6 +41,8 @@
 		2B1C5D4E2C00000100B1B032 /* BivvyH5Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */; };
 		2B1C5D4E2C00000100B1B033 /* BivvyComplianceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */; };
 		2B1C5D4E2C00000100B1B034 /* BivvyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A035 /* BivvyMessageViewController.swift */; };
+		2B1C5D4E2D00000100B1B036 /* BivvyRemoteImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */; };
+		2B1C5D4E2D00000100B1B037 /* BivvyNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A037 /* BivvyNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyH5Route.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyComplianceStore.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A035 /* BivvyMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMessageViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyRemoteImageLoader.swift; sourceTree = "<group>"; };
+		2B1C5D4E2D00000100B1A037 /* BivvyNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyNetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,8 @@
 				2B1C5D4E2C00000100B1A017 /* BivvyRegisterViewController.swift */,
 				2B1C5D4E2C00000100B1A018 /* BivvyProfileSetupViewController.swift */,
 				2B1C5D4E2C00000100B1A019 /* BivvyMainModels.swift */,
+				2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */,
+				2B1C5D4E2D00000100B1A037 /* BivvyNetworkService.swift */,
 				2B1C5D4E2C00000100B1A020 /* BivvyMainTabBarController.swift */,
 				2B1C5D4E2C00000100B1A021 /* BivvyHomeViewController.swift */,
 				2B1C5D4E2C00000100B1A022 /* BivvyVideoViewController.swift */,
@@ -238,6 +244,8 @@
 				2B1C5D4E2C00000100B1B016 /* BivvyRegisterViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B017 /* BivvyProfileSetupViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B018 /* BivvyMainModels.swift in Sources */,
+				2B1C5D4E2D00000100B1B037 /* BivvyNetworkService.swift in Sources */,
+				2B1C5D4E2D00000100B1B036 /* BivvyRemoteImageLoader.swift in Sources */,
 				2B1C5D4E2C00000100B1B019 /* BivvyMainTabBarController.swift in Sources */,
 				2B1C5D4E2C00000100B1B020 /* BivvyHomeViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B021 /* BivvyVideoViewController.swift in Sources */,

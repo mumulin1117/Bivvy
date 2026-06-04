@@ -17,7 +17,7 @@ final class BivvyHomeUserCell: UICollectionViewCell {
     }
 
     func configure(with user: BivvyRecommendationUser) {
-        avatarView.image = UIImage(named: user.avatarName)
+        BivvyRemoteImageLoader.shared.load(user.avatarURL, into: avatarView, placeholder: UIImage(named: user.avatarName))
         nameLabel.text = user.name
         briefLabel.text = user.brief
     }

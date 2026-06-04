@@ -6,6 +6,7 @@ final class BivvyHomeViewController: UIViewController {
     private let findCollectionView: UICollectionView
     private var allFinds: [BivvyFindItem] = []
     private var visibleFinds: [BivvyFindItem] = []
+    private var recommendationUsers = BivvyMockContent.recommendationUsers
     private var selectedCategoryIndex = 0
     private var findCollectionHeightConstraint: NSLayoutConstraint?
 
@@ -36,6 +37,7 @@ final class BivvyHomeViewController: UIViewController {
         super.viewDidLoad()
         reloadFinds()
         buildLayout()
+        loadRecommendationUsers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -110,19 +112,14 @@ final class BivvyHomeViewController: UIViewController {
         findCollectionView.delegate = self
         findCollectionView.register(BivvyHomeFindCell.self, forCellWithReuseIdentifier: BivvyHomeFindCell.reuseIdentifier)
 
-        let peopleRow = UIStackView(arrangedSubviews: [aiButton, userCollectionView])
-        peopleRow.translatesAutoresizingMaskIntoConstraints = false
-        peopleRow.axis = .horizontal
-        peopleRow.alignment = .center
-        peopleRow.spacing = 12
-
+       
         let findTitle = makeSectionTitle("Good Finds")
 
         view.addSubview(backgroundImageView)
        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [postButton, peopleRow, categoryCollectionView, findTitle, findCollectionView].forEach(contentView.addSubview)
+        [postButton, aiButton,userCollectionView, categoryCollectionView, findTitle, findCollectionView].forEach(contentView.addSubview)
 
         findCollectionHeightConstraint = findCollectionView.heightAnchor.constraint(equalToConstant: 610)
 
@@ -150,15 +147,16 @@ final class BivvyHomeViewController: UIViewController {
             postButton.widthAnchor.constraint(equalToConstant: 64),
             postButton.heightAnchor.constraint(equalToConstant: 67),
 
-            peopleRow.topAnchor.constraint(equalTo: postButton.bottomAnchor, constant: 38),
-            peopleRow.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            peopleRow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            peopleRow.heightAnchor.constraint(equalToConstant: 90),
-
+            aiButton.topAnchor.constraint(equalTo: postButton.bottomAnchor, constant: 38),
+            aiButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+           
             aiButton.widthAnchor.constraint(equalToConstant: 90),
             aiButton.heightAnchor.constraint(equalToConstant: 90),
-
-            categoryCollectionView.topAnchor.constraint(equalTo: peopleRow.bottomAnchor, constant: 22),
+            userCollectionView.leadingAnchor.constraint(equalTo: aiButton.trailingAnchor, constant: 20),
+            userCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -22),
+            userCollectionView.heightAnchor.constraint(equalToConstant: 90),
+            userCollectionView.centerYAnchor.constraint(equalTo: aiButton.centerYAnchor),
+            categoryCollectionView.topAnchor.constraint(equalTo: aiButton.bottomAnchor, constant: 22),
             categoryCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             categoryCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             categoryCollectionView.heightAnchor.constraint(equalToConstant: 90),
@@ -207,6 +205,16 @@ final class BivvyHomeViewController: UIViewController {
         let rows = max(1, Int(ceil(Double(visibleFinds.count) / 2.0)))
         findCollectionHeightConstraint?.constant = CGFloat(rows) * 266 + CGFloat(max(0, rows - 1)) * 16
     }
+
+    private func loadRecommendationUsers() {
+        BivvyNetworkService.shared.fetchRecommendationUsers { [weak self] result in
+            guard let self else { return }
+            if case .success(let users) = result, !users.isEmpty {
+                self.recommendationUsers = users
+                self.userCollectionView.reloadData()
+            }
+        }
+    }
 }
 
 extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -215,7 +223,7 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
             return BivvyMockContent.categories.count
         }
         if collectionView === userCollectionView {
-            return BivvyMockContent.recommendationUsers.count
+            return recommendationUsers.count
         }
         return visibleFinds.count
     }
@@ -228,7 +236,7 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
         }
         if collectionView === userCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BivvyHomeUserCell.reuseIdentifier, for: indexPath) as! BivvyHomeUserCell
-            cell.configure(with: BivvyMockContent.recommendationUsers[indexPath.item])
+            cell.configure(with: recommendationUsers[indexPath.item])
             return cell
         }
 
@@ -263,7 +271,7 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
         if collectionView === findCollectionView {
             pushSecondary(BivvyFindDetailViewController(item: visibleFinds[indexPath.item]))
         } else if collectionView === userCollectionView {
-            openUserWeb(userId: BivvyMockContent.recommendationUsers[indexPath.item].id)
+            openUserWeb(userId: recommendationUsers[indexPath.item].id)
         }
     }
 

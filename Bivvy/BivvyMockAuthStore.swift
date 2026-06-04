@@ -27,14 +27,9 @@ final class BivvyMockAuthStore {
     }
 
     func login(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
-            let users = self.users()
-            guard let savedPassword = users[email] else {
-                completion(.failure(AuthError.accountMissing))
-                return
-            }
-            guard savedPassword == password else {
-                completion(.failure(AuthError.incorrectPassword))
+        BivvyNetworkService.shared.emailLogin(email: email, password: password) { result in
+            guard case .success = result else {
+                completion(result)
                 return
             }
             self.defaults.set(email, forKey: self.loggedInEmailKey)
@@ -43,12 +38,12 @@ final class BivvyMockAuthStore {
     }
 
     func register(draft: BivvyProfileDraft, completion: @escaping (Result<Void, Error>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
-            var users = self.users()
-            guard users[draft.email] == nil else {
-                completion(.failure(AuthError.accountExists))
+        BivvyNetworkService.shared.register(draft: draft) { result in
+            guard case .success = result else {
+                completion(result)
                 return
             }
+            var users = self.users()
             users[draft.email] = draft.password
             self.defaults.set(users, forKey: self.registeredUsersKey)
             self.defaults.set(draft.email, forKey: self.loggedInEmailKey)

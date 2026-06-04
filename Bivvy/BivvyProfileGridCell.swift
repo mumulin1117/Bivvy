@@ -16,7 +16,7 @@ final class BivvyProfileGridCell: UICollectionViewCell {
     }
 
     func configure(with item: BivvyProfileItem) {
-        imageView.image = UIImage(named: item.imageName)
+        BivvyRemoteImageLoader.shared.load(item.imageURL, into: imageView, placeholder: UIImage(named: item.imageName))
         titleLabel.text = item.title
     }
 

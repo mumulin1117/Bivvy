@@ -26,6 +26,7 @@ final class BivvyVideoViewController: UIViewController {
         visibleVideos = videosForSelectedCategory()
         buildLayout()
         renderCurrentVideo()
+        loadVideos()
     }
 
     private func buildLayout() {
@@ -201,8 +202,20 @@ final class BivvyVideoViewController: UIViewController {
         let item = visibleVideos[currentIndex]
         nameLabel.text = item.userName
         descriptionLabel.text = "  \(item.description)"
-        coverImageView.image = UIImage(named: item.coverImageName)
+        BivvyRemoteImageLoader.shared.load(item.coverURL, into: coverImageView, placeholder: UIImage(named: item.coverImageName))
         updateLikeVisual(for: item)
+    }
+
+    private func loadVideos() {
+        BivvyNetworkService.shared.fetchVideos(page: 1) { [weak self] result in
+            guard let self else { return }
+            if case .success(let videos) = result, !videos.isEmpty {
+                self.allVideos = videos
+                self.currentIndex = 0
+                self.visibleVideos = self.videosForSelectedCategory()
+                self.renderCurrentVideo()
+            }
+        }
     }
 
     private func updateLikeVisual(for item: BivvyVideoItem) {
@@ -273,7 +286,9 @@ final class BivvyVideoViewController: UIViewController {
             let shouldAdvance = abs(translation.x) > 90
             if shouldAdvance {
                 if translation.x > 0, !visibleVideos.isEmpty {
-                    likedVideoIds.insert(visibleVideos[currentIndex].id)
+                    let dynamicId = visibleVideos[currentIndex].id
+                    likedVideoIds.insert(dynamicId)
+                    BivvyNetworkService.shared.like(dynamicId: dynamicId)
                 }
                 let direction: CGFloat = translation.x >= 0 ? 1 : -1
                 UIView.animate(withDuration: 0.18, animations: {

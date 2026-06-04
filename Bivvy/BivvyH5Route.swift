@@ -15,7 +15,7 @@ enum BivvyH5Route {
     }
 
     private var path: String {
-        let token = BivvyMockAuthStore.shared.currentEmail ?? ""
+        let token = BivvyNetworkService.shared.token ?? ""
         switch self {
         case .aiAssistant:
             return "\(Self.gateway)pages/AIexpert/index?token=\(token)&appID=\(Self.appId)"
