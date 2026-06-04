@@ -1,0 +1,559 @@
+[
+  {
+    "customPath": "/dxxqbpwnukz/iloyrhtibnbh",
+    "resReplace": {
+      "communitySharing": "userStatus",
+      "sustainableSharing": "userFans",
+      "engagementMetric": "bundleId",
+      "itemCollection": "userBrief",
+      "communityFind": "userImgUrl",
+      "productShowcase": "vipExpireTime",
+      "secondLifeProduct": "userFriends",
+      "productReview": "userName",
+      "curatedList": "userVipStatus",
+      "everydayDiscovery": "userEmail",
+      "peerInteraction": "userAttention",
+      "usefulFind": "userBirthday",
+      "savedItem": "userGender",
+      "sharingMechanic": "userPassword",
+      "userRecommendation": "equipmentNo",
+      "contentCuration": "userBalance",
+      "itemExchange": "userHeight",
+      "videoSnippet": "userType",
+      "lifestyleVlog": "userLocation",
+      "productTagging": "createUserId",
+      "videoDiscovery": "userId",
+      "circularEconomy": "userWeight"
+    },
+    "reqReplace": {
+      "recommendationFeed": "bundleId"
+    },
+    "systemPath": "/sj/user/selectUserIndexList"
+  },
+  {
+    "customPath": "/kugdwsxiyimmz/zbtmutmroriojsf",
+    "resReplace": {
+      "ecoFriendlySharing": "createDate",
+      "videoUpload": "praiseNum",
+      "interactiveFeed": "userName",
+      "greenExchange": "dynamicImgList",
+      "declutterFind": "dynamicImgList",
+      "communityMarket": "storeNum",
+      "contentCreator": "userImgUrl",
+      "repurposeProduct": "attentionFlag",
+      "interestExploration": "dynamicType",
+      "itemSwap": "forwardNum",
+      "handpickedItem": "dynamicId",
+      "itemGifting": "videoImgUrl",
+      "userDiscovery": "userId",
+      "sustainableLifestyle": "bundleId",
+      "smartDiscovery": "storeFlag",
+      "peerToPeerExchange": "dynamicClassify",
+      "trendingProduct": "dynamicTitle",
+      "recommendationEngine": "commentVoList",
+      "productHighlight": "commentNum",
+      "commentVoList": {
+        "personalizedFeed": "dynamicId",
+        "contentFiltering": "commentId",
+        "multimediaContent": "replyUserImgUrl",
+        "collectionSharing": "beReplyUserId",
+        "wishlistItem": "beReplyUserName",
+        "creativeShowcase": "replyContent",
+        "trustedReview": "bundleId",
+        "videoStreaming": "replyUserName",
+        "productCuration": "praiseNum",
+        "interestMatching": "replyUserId",
+        "favoriteFind": "beReplyContent",
+        "communityVetted": "beReplyCommentId"
+      },
+      "hiddenGem": "dynamicContent",
+      "lifestyleSharing": "friendFlag",
+      "productMatching": "fileTimes"
+    },
+    "reqReplace": {
+      "productDemo": "size",
+      "unboxingVideo": "current",
+      "dailyFind": "dynamicClassify",
+      "authenticReview": "selectVersion",
+      "conversationStarter": "userId",
+      "sharedInterest": "dynamicType",
+      "communityHub": "selectType",
+      "interestGroup": "bundleId"
+    },
+    "systemPath": "/sj/dynamic/selectDynamicList"
+  },
+  {
+    "customPath": "/sbphtdz/rfsdoukc",
+    "reqReplace": {
+      "creativeVlog": "dynamicUserId",
+      "productInspiration": "version",
+      "dailyInspiration": "dynamicId"
+    },
+    "systemPath": "/sj/dynamic/updateDynamicStore"
+  },
+  {
+    "customPath": "/jgcuuvzdlz/wveqxmkfkm",
+    "reqReplace": {
+      "productDiscussion": "dynamicId",
+      "communityInteraction": "beHandleUserName",
+      "discussionStarter": "beHandleUserImg",
+      "lifestyleDiscovery": "version",
+      "topicThread": "hanldeType",
+      "videoEngagement": "beHandleUserId"
+    },
+    "systemPath": "/sj/user/updateUserRelation"
+  },
+  {
+    "customPath": "/saxpgtbwfrygz/oihsctl",
+    "resReplace": {
+      "innovativeProduct": "messageUserVoList",
+      "messageUserVoList": {
+        "outdoorFind": "readFlag",
+        "gadgetReview": "receiveUserName",
+        "fashionFind": "content",
+        "homeGood": "sendUserName",
+        "organizingHack": "receiveUserId",
+        "householdFind": "messageId",
+        "wellnessProduct": "sendUserImgUrl",
+        "gearShowcase": "receiveUserImg",
+        "fitnessGear": "createDate",
+        "techDiscovery": "title",
+        "beautyRecommendation": "sendUserId"
+      }
+    },
+    "reqReplace": {
+      "utilityProduct": "bundleId",
+      "cleverDesign": "receiveUserId"
+    },
+    "systemPath": "/sj/message/selectMessageInfo"
+  },
+  {
+    "customPath": "/spdurxektvz/atfhqobdrmkvgz",
+    "resReplace": {
+      "nicheInterest": "userId",
+      "smartCuration": "userGender",
+      "engagedUser": "userImgUrl",
+      "authenticSharing": "attentionFlag",
+      "honestReview": "userDynamicVoList",
+      "mustHaveItem": "frameId",
+      "utilityTest": "labelList",
+      "videoFeed": "userEmail",
+      "everydayHero": "userFrameImg",
+      "detailedReview": "userFriends",
+      "productTesting": "historyNum",
+      "durabilityTest": "friendFlag",
+      "infiniteScroll": "userBrief",
+      "contentDiscovery": "userBirthday",
+      "cleverSolution": "userImgList",
+      "algorithmicFeed": "vipExpireTime",
+      "personalizedRecommendation": "userLocation",
+      "userDynamicVoList": {
+        "ecoFriendlySharing": "createDate",
+        "videoUpload": "praiseNum",
+        "interactiveFeed": "userName",
+        "greenExchange": "dynamicImgList",
+        "declutterFind": "dynamicImgList",
+        "communityMarket": "storeNum",
+        "contentCreator": "userImgUrl",
+        "repurposeProduct": "attentionFlag",
+        "interestExploration": "dynamicType",
+        "itemSwap": "forwardNum",
+        "handpickedItem": "dynamicId",
+        "itemGifting": "videoImgUrl",
+        "userDiscovery": "userId",
+        "sustainableLifestyle": "bundleId",
+        "smartDiscovery": "storeFlag",
+        "peerToPeerExchange": "dynamicClassify",
+        "trendingProduct": "dynamicTitle",
+        "recommendationEngine": "commentVoList",
+        "productHighlight": "commentNum",
+        "commentVoList": {
+          "personalizedFeed": "dynamicId",
+          "contentFiltering": "commentId",
+          "multimediaContent": "replyUserImgUrl",
+          "collectionSharing": "beReplyUserId",
+          "wishlistItem": "beReplyUserName",
+          "creativeShowcase": "replyContent",
+          "trustedReview": "bundleId",
+          "videoStreaming": "replyUserName",
+          "productCuration": "praiseNum",
+          "interestMatching": "replyUserId",
+          "favoriteFind": "beReplyContent",
+          "communityVetted": "beReplyCommentId"
+        },
+        "hiddenGem": "dynamicContent",
+        "lifestyleSharing": "friendFlag",
+        "productMatching": "fileTimes"
+      },
+      "passionateCommunity": "userName",
+      "labelList": {
+        "functionalProduct": "labelName",
+        "aestheticFind": "labelId",
+        "minimalistDesign": "userId",
+        "designAppreciation": "userLabelId",
+        "spaceSaving": "sort",
+        "ergonomicDesign": "labelLog"
+      },
+      "problemSolver": "userImgList",
+      "userGeneratedContent": "userWeight",
+      "dynamicFeed": "userHeight",
+      "inDepthLook": "userFans",
+      "firstImpression": "userAttention",
+      "performanceReview": "likeNum"
+    },
+    "reqReplace": {
+      "collectibleShowcase": "version",
+      "hobbyItem": "userId"
+    },
+    "systemPath": "/sj/user/selectUserInfo"
+  },
+  {
+    "customPath": "/uxwgelmuxz/plahnhnbzn",
+    "resReplace": {
+      "smartGadget": "userBirthday",
+      "vintageDiscovery": "userWeight",
+      "practicalTip": "vipExpireTime",
+      "usefulHack": "equipmentNo",
+      "dailyEssential": "userName",
+      "creativeIdea": "userLocation",
+      "handmadeFind": "userHeight",
+      "doItYourself": "userStatus",
+      "routineEnhancer": "userImgUrl",
+      "timeSaver": "userBrief",
+      "projectShowcase": "bundleId",
+      "artisanProduct": "userType",
+      "craftDiscovery": "token",
+      "lifeChanger": "userId",
+      "productivityTool": "userEmail",
+      "innovativeSolution": "userGender"
+    },
+    "reqReplace": {},
+    "systemPath": "/sj/user/getUseInfo"
+  },
+  {
+    "customPath": "/rugkkixrtdhz/xgexunnxjkhpvc",
+    "reqReplace": {},
+    "systemPath": "/sj/user/selectUserBalance"
+  },
+  {
+    "customPath": "/pxxqcqfez/ykbgsddj",
+    "resReplace": {
+      "smartGadget": "userBirthday",
+      "vintageDiscovery": "userWeight",
+      "practicalTip": "vipExpireTime",
+      "usefulHack": "equipmentNo",
+      "dailyEssential": "userName",
+      "creativeIdea": "userLocation",
+      "handmadeFind": "userHeight",
+      "doItYourself": "userStatus",
+      "routineEnhancer": "userImgUrl",
+      "timeSaver": "userBrief",
+      "projectShowcase": "bundleId",
+      "artisanProduct": "userType",
+      "craftDiscovery": "token",
+      "lifeChanger": "userId",
+      "productivityTool": "userEmail",
+      "innovativeSolution": "userGender"
+    },
+    "reqReplace": {
+      "rareFind": "bundleId",
+      "limitedEdition": "type",
+      "antiqueCollection": "password",
+      "memberRecommendation": "userBrief",
+      "retroFind": "userEmail",
+      "communityFavorite": "userImgUrl",
+      "exclusiveItem": "userName"
+    },
+    "systemPath": "/sj/user/emailLogin"
+  },
+  {
+    "customPath": "/qlqugcydqgdeyez/peewwnclvyvn",
+    "resReplace": {
+      "creativeExpression": "liveStatus",
+      "engagingContent": "liveIncome",
+      "dailyRoutine": "userName",
+      "personalJourney": "liveLocation",
+      "mustWatchVideo": "liveTime",
+      "skincareRoutine": "videoUrl",
+      "morningRoutine": "userImgUrl",
+      "buzzworthyProduct": "liveTitle",
+      "fitnessRoutine": "bundleId",
+      "userList": {
+        "circularConsumption": "bundleId",
+        "consciousSharing": "liveId",
+        "sustainableChoice": "userName",
+        "ecoConsciousFind": "userImgUrl",
+        "mindfulConsumption": "liveUserId",
+        "reducedWaste": "userId"
+      },
+      "gentlyUsed": "livePassword",
+      "trendingTopic": "userId",
+      "healthyLiving": "userList",
+      "dietRecommendation": "createDate",
+      "storytellingVideo": "liveUserNum",
+      "viralVideo": "liveCoverImg",
+      "nightRoutine": "videoTimes",
+      "preLovedItem": "liveClassify",
+      "popularDemand": "liveId"
+    },
+    "reqReplace": {
+      "userChoice": "liveClassify",
+      "staffPick": "bundleId",
+      "editorChoice": "size",
+      "curatorSelection": "selectType",
+      "highlyRecommended": "liveStatus",
+      "expertPick": "current"
+    },
+    "systemPath": "/sj/live/selectLivePage"
+  },
+  {
+    "customPath": "/sskmhjoccvtxz/yhxamxktybjyf",
+    "resReplace": {
+      "birthdayGift": "userBirthday",
+      "seasonalRecommendation": "attentionFlag",
+      "wellMaintained": "userId",
+      "timelyFind": "userBrief",
+      "holidayGiftIdea": "userLocation",
+      "qualityProduct": "userName",
+      "durableGood": "userImgUrl",
+      "specialOccasion": "friendFlag"
+    },
+    "reqReplace": {
+      "excellentCondition": "selectType"
+    },
+    "systemPath": "/sj/user/selectUserRelation"
+  },
+  {
+    "customPath": "/bzqvtez/qpdyiruhbsindph",
+    "resReplace": {
+      "collectorClub": "userId",
+      "advancedSearch": "activityTitle",
+      "enthusiastCommunity": "createDate",
+      "interestCircle": "activityPhoneNum",
+      "keywordDiscovery": "activityDetailsTime",
+      "activityUserVoList": {
+        "mutualAppreciation": "userImgUrl",
+        "commonInterest": "userName",
+        "sharedPassion": "userId",
+        "groupCollection": "attentionFlag"
+      },
+      "meaningfulConnection": "activityUserVoList",
+      "nicheCategory": "activityLable",
+      "subCommunity": "activityLableImg",
+      "interestTag": "activityLocation",
+      "productCategory": "activityUserNum",
+      "livelyConversation": "userImgUrl",
+      "smartFilter": "activityId",
+      "collaborativeList": "addFlag",
+      "hobbyistGroup": "activityCoverImg",
+      "categoryExploration": "activityIntroduce",
+      "tagBrowsing": "activityDate",
+      "vibrantDiscussion": "userName"
+    },
+    "reqReplace": {
+      "personalizedGift": "activityId",
+      "diyGift": "selectType",
+      "tailoredRecommendation": "version",
+      "uniquePresent": "beSelectUserId",
+      "thoughtfulGift": "bundleId",
+      "customCreation": "activityLable"
+    },
+    "systemPath": "/sj/activity/selectActivityPage"
+  },
+  {
+    "customPath": "/lxjpzxtzytiz/ajtbwqldlmetxmg",
+    "reqReplace": {
+      "sharedWishlist": "activityId"
+    },
+    "systemPath": "/sj/activity/joinQuitActivity"
+  },
+  {
+    "customPath": "/lrlrhz/hajsgoa",
+    "reqReplace": {
+      "communityBoard": "bundleId"
+    },
+    "systemPath": "/sj/activity/selectAcLabel"
+  },
+  {
+    "customPath": "/vfqomlulztrofsbz/yohblmuff",
+    "reqReplace": {
+      "userFeedback": "password",
+      "interactivePoll": "equipmentNo",
+      "productRating": "type"
+    },
+    "systemPath": "/sj/user/selectUpdateUser"
+  },
+  {
+    "customPath": "/zdltbz/gmgzhbwgav",
+    "resReplace": {
+      "emojiReaction": "topicImg",
+      "influentialUser": "praiseFlag",
+      "videoComment": "topicId",
+      "textResponse": "topicContent",
+      "peerValidation": "bundleId",
+      "socialProof": "labelLog",
+      "trustedVoice": "createDate",
+      "contentSharing": "labelName"
+    },
+    "reqReplace": {
+      "writtenReview": "bundleId"
+    },
+    "systemPath": "/sj/topic/selectTopicPage"
+  },
+  {
+    "customPath": "/tteggnznrz/vbttiaypgkb",
+    "resReplace": {
+      "educationalContent": "userLabelInfoVos",
+      "userLabelInfoVos": {
+        "functionalProduct": "labelName",
+        "aestheticFind": "labelId",
+        "minimalistDesign": "userId",
+        "designAppreciation": "userLabelId",
+        "spaceSaving": "sort",
+        "ergonomicDesign": "labelLog"
+      },
+      "topicExpert": "userId",
+      "knowledgeSharing": "userName",
+      "insightfulReview": "userImgUrl"
+    },
+    "reqReplace": {
+      "communityLeader": "bundleId"
+    },
+    "systemPath": "/sj/user/selectMatchUser"
+  },
+  {
+    "customPath": "/tqzppnyhwtz/gawkj",
+    "reqReplace": {
+      "tutorialVideo": "messageId"
+    },
+    "systemPath": "/sj/message/updateMsgRead"
+  },
+  {
+    "customPath": "/rwootz/lbjoxtxvnrbndog",
+    "resReplace": {
+      "outdoorFind": "readFlag",
+      "gadgetReview": "receiveUserName",
+      "fashionFind": "content",
+      "homeGood": "sendUserName",
+      "organizingHack": "receiveUserId",
+      "householdFind": "messageId",
+      "wellnessProduct": "sendUserImgUrl",
+      "gearShowcase": "receiveUserImg",
+      "fitnessGear": "createDate",
+      "techDiscovery": "title",
+      "beautyRecommendation": "sendUserId"
+    },
+    "reqReplace": {},
+    "systemPath": "/sj/message/selectNotifyMsg"
+  },
+  {
+    "customPath": "/naychhujgasyz/hfryufaxu",
+    "reqReplace": {
+      "informativeReview": "userSecondName",
+      "expertAdvice": "matchStatus",
+      "instructionalContent": "userSecondId",
+      "comprehensiveGuide": "userSecondImgUrl"
+    },
+    "systemPath": "/sj/matchrecord/addMatchRecord"
+  },
+  {
+    "customPath": "/rrpgozjxcewfrz/bjomisbfikph",
+    "resReplace": {
+      "highQualityContent": "userName",
+      "stunningVideography": "userSecondId",
+      "engagingNarrative": "userSecondImgUrl",
+      "industryStandard": "userId",
+      "creativeEditing": "userSecondName",
+      "visuallyAppealing": "userImgUrl"
+    },
+    "reqReplace": {
+      "professionalInsight": "matchStatus"
+    },
+    "systemPath": "/sj/matchrecord/selectMatchRecord"
+  },
+  {
+    "customPath": "/ugyolpz/hxdnes",
+    "resReplace": {
+      "prosAndCons": "imgList",
+      "detailedEvaluation": "imgList",
+      "unbiasedOpinion": "dictType",
+      "genuineRecommendation": "dictName",
+      "honestFeedback": "dictSort",
+      "constructiveReview": "dictRemkar"
+    },
+    "reqReplace": {
+      "compellingStory": "bundleId",
+      "authenticVoice": "version"
+    },
+    "systemPath": "/sj/dict/selectDictListForFive"
+  },
+  {
+    "customPath": "/wgeteegmbz/cglfv",
+    "resReplace": {
+      "alternativeOption": "matchUserId",
+      "costEffective": "userLocation",
+      "highPerformance": "userFans",
+      "budgetFriendly": "userName",
+      "userImgList": {
+        "sustainableBrand": "userImagesId",
+        "ethicalSourcing": "userId",
+        "ecoFriendlyMaterial": "imgUrl",
+        "organicProduct": "bundleId"
+      },
+      "smallBusiness": "userImgList",
+      "valueForMoney": "userImgUrl",
+      "labelEntityList": {
+        "investmentPiece": "userLabelId",
+        "emergingBrand": "sort",
+        "indieLabel": "bundleId",
+        "longLasting": "userId",
+        "trustedBrand": "labelLog",
+        "reliableProduct": "labelName"
+      },
+      "affordableFind": "userAge",
+      "luxuryFind": "labelEntityList",
+      "premiumQuality": "showLabelUrl",
+      "localArtisan": "attentionFlag"
+    },
+    "reqReplace": {
+      "productComparison": "startAge",
+      "headToHead": "endAge",
+      "sideBySide": "bundleId"
+    },
+    "systemPath": "/sj/matchuser/selectMatchUserList"
+  },
+  {
+    "customPath": "/hsraqukokuvztuqz/siiks",
+    "reqReplace": {
+      "naturalIngredient": "bundleId"
+    },
+    "systemPath": "/sj/user/selectUseIosBuy"
+  },
+  {
+    "customPath": "/sbbatlvz/rvnkuieowferwwa",
+    "resReplace": {
+      "smartGadget": "userBirthday",
+      "vintageDiscovery": "userWeight",
+      "practicalTip": "vipExpireTime",
+      "usefulHack": "equipmentNo",
+      "dailyEssential": "userName",
+      "creativeIdea": "userLocation",
+      "handmadeFind": "userHeight",
+      "doItYourself": "userStatus",
+      "routineEnhancer": "userImgUrl",
+      "timeSaver": "userBrief",
+      "projectShowcase": "bundleId",
+      "artisanProduct": "userType",
+      "craftDiscovery": "token",
+      "lifeChanger": "userId",
+      "productivityTool": "userEmail",
+      "innovativeSolution": "userGender"
+    },
+    "reqReplace": {
+      "greenBeauty": "bundleId",
+      "cleanBeauty": "identityToken",
+      "crueltyFree": "equipmentNo"
+    },
+    "systemPath": "/vse/user/appleSsoLogin"
+  }
+]

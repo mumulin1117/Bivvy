@@ -1,0 +1,458 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B1C5D4E2C00000100B1B001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A001 /* AppDelegate.swift */; };
+		2B1C5D4E2C00000100B1B002 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A002 /* SceneDelegate.swift */; };
+		2B1C5D4E2C00000100B1B003 /* BivvyRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A003 /* BivvyRootViewController.swift */; };
+		2B1C5D4E2C00000100B1B004 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A004 /* LaunchScreen.storyboard */; };
+		2B1C5D4E2C00000100B1B005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A005 /* Assets.xcassets */; };
+		2B1C5D4E2C00000100B1B006 /* BivvyAuthTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A007 /* BivvyAuthTheme.swift */; };
+		2B1C5D4E2C00000100B1B007 /* BivvyGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A008 /* BivvyGradientView.swift */; };
+		2B1C5D4E2C00000100B1B008 /* BivvyGradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A009 /* BivvyGradientButton.swift */; };
+		2B1C5D4E2C00000100B1B009 /* BivvyAuthTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A010 /* BivvyAuthTextFieldView.swift */; };
+		2B1C5D4E2C00000100B1B010 /* BivvyKeyboardAvoidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A011 /* BivvyKeyboardAvoidingViewController.swift */; };
+		2B1C5D4E2C00000100B1B011 /* BivvyAgreementRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A012 /* BivvyAgreementRowView.swift */; };
+		2B1C5D4E2C00000100B1B012 /* BivvyMockAuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A013 /* BivvyMockAuthStore.swift */; };
+		2B1C5D4E2C00000100B1B013 /* BivvyAuthEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A014 /* BivvyAuthEntryViewController.swift */; };
+		2B1C5D4E2C00000100B1B014 /* BivvyEULAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A015 /* BivvyEULAViewController.swift */; };
+		2B1C5D4E2C00000100B1B015 /* BivvyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A016 /* BivvyLoginViewController.swift */; };
+		2B1C5D4E2C00000100B1B016 /* BivvyRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A017 /* BivvyRegisterViewController.swift */; };
+		2B1C5D4E2C00000100B1B017 /* BivvyProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A018 /* BivvyProfileSetupViewController.swift */; };
+		2B1C5D4E2C00000100B1B018 /* BivvyMainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A019 /* BivvyMainModels.swift */; };
+		2B1C5D4E2C00000100B1B019 /* BivvyMainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A020 /* BivvyMainTabBarController.swift */; };
+		2B1C5D4E2C00000100B1B020 /* BivvyHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A021 /* BivvyHomeViewController.swift */; };
+		2B1C5D4E2C00000100B1B021 /* BivvyVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A022 /* BivvyVideoViewController.swift */; };
+		2B1C5D4E2C00000100B1B022 /* BivvyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A023 /* BivvyProfileViewController.swift */; };
+		2B1C5D4E2C00000100B1B023 /* BivvyCategoryChipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A024 /* BivvyCategoryChipCell.swift */; };
+		2B1C5D4E2C00000100B1B024 /* BivvyHomeFindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A025 /* BivvyHomeFindCell.swift */; };
+		2B1C5D4E2C00000100B1B025 /* BivvyVideoActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A026 /* BivvyVideoActionButton.swift */; };
+		2B1C5D4E2C00000100B1B026 /* BivvyProfileGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A027 /* BivvyProfileGridCell.swift */; };
+		2B1C5D4E2C00000100B1B027 /* BivvyLocalFindStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A028 /* BivvyLocalFindStore.swift */; };
+		2B1C5D4E2C00000100B1B028 /* BivvyHomeUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A029 /* BivvyHomeUserCell.swift */; };
+		2B1C5D4E2C00000100B1B029 /* BivvyWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A030 /* BivvyWebViewController.swift */; };
+		2B1C5D4E2C00000100B1B030 /* BivvyFindDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A031 /* BivvyFindDetailViewController.swift */; };
+		2B1C5D4E2C00000100B1B031 /* BivvyFindPublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A032 /* BivvyFindPublishViewController.swift */; };
+		2B1C5D4E2C00000100B1B032 /* BivvyH5Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */; };
+		2B1C5D4E2C00000100B1B033 /* BivvyComplianceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */; };
+		2B1C5D4E2C00000100B1B034 /* BivvyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A035 /* BivvyMessageViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2B1C5D4E2C00000100B1A000 /* Bivvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bivvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B1C5D4E2C00000100B1A001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A003 /* BivvyRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyRootViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A004 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A007 /* BivvyAuthTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyAuthTheme.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A008 /* BivvyGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyGradientView.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A009 /* BivvyGradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyGradientButton.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A010 /* BivvyAuthTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyAuthTextFieldView.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A011 /* BivvyKeyboardAvoidingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyKeyboardAvoidingViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A012 /* BivvyAgreementRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyAgreementRowView.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A013 /* BivvyMockAuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMockAuthStore.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A014 /* BivvyAuthEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyAuthEntryViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A015 /* BivvyEULAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyEULAViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A016 /* BivvyLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyLoginViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A017 /* BivvyRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyRegisterViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A018 /* BivvyProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyProfileSetupViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A019 /* BivvyMainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMainModels.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A020 /* BivvyMainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMainTabBarController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A021 /* BivvyHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyHomeViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A022 /* BivvyVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyVideoViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A023 /* BivvyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyProfileViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A024 /* BivvyCategoryChipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyCategoryChipCell.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A025 /* BivvyHomeFindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyHomeFindCell.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A026 /* BivvyVideoActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyVideoActionButton.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A027 /* BivvyProfileGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyProfileGridCell.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A028 /* BivvyLocalFindStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyLocalFindStore.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A029 /* BivvyHomeUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyHomeUserCell.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A030 /* BivvyWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyWebViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A031 /* BivvyFindDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyFindDetailViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A032 /* BivvyFindPublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyFindPublishViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyH5Route.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyComplianceStore.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A035 /* BivvyMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMessageViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2B1C5D4E2C00000100B1D001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B1C5D4E2C00000100B1E001 = {
+			isa = PBXGroup;
+			children = (
+				2B1C5D4E2C00000100B1F001 /* Bivvy */,
+				2B1C5D4E2C00000100B1E002 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2B1C5D4E2C00000100B1E002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2B1C5D4E2C00000100B1A000 /* Bivvy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2B1C5D4E2C00000100B1F001 /* Bivvy */ = {
+			isa = PBXGroup;
+			children = (
+				2B1C5D4E2C00000100B1A001 /* AppDelegate.swift */,
+				2B1C5D4E2C00000100B1A002 /* SceneDelegate.swift */,
+				2B1C5D4E2C00000100B1A003 /* BivvyRootViewController.swift */,
+				2B1C5D4E2C00000100B1A007 /* BivvyAuthTheme.swift */,
+				2B1C5D4E2C00000100B1A008 /* BivvyGradientView.swift */,
+				2B1C5D4E2C00000100B1A009 /* BivvyGradientButton.swift */,
+				2B1C5D4E2C00000100B1A010 /* BivvyAuthTextFieldView.swift */,
+				2B1C5D4E2C00000100B1A011 /* BivvyKeyboardAvoidingViewController.swift */,
+				2B1C5D4E2C00000100B1A012 /* BivvyAgreementRowView.swift */,
+				2B1C5D4E2C00000100B1A013 /* BivvyMockAuthStore.swift */,
+				2B1C5D4E2C00000100B1A014 /* BivvyAuthEntryViewController.swift */,
+				2B1C5D4E2C00000100B1A015 /* BivvyEULAViewController.swift */,
+				2B1C5D4E2C00000100B1A016 /* BivvyLoginViewController.swift */,
+				2B1C5D4E2C00000100B1A017 /* BivvyRegisterViewController.swift */,
+				2B1C5D4E2C00000100B1A018 /* BivvyProfileSetupViewController.swift */,
+				2B1C5D4E2C00000100B1A019 /* BivvyMainModels.swift */,
+				2B1C5D4E2C00000100B1A020 /* BivvyMainTabBarController.swift */,
+				2B1C5D4E2C00000100B1A021 /* BivvyHomeViewController.swift */,
+				2B1C5D4E2C00000100B1A022 /* BivvyVideoViewController.swift */,
+				2B1C5D4E2C00000100B1A023 /* BivvyProfileViewController.swift */,
+				2B1C5D4E2C00000100B1A035 /* BivvyMessageViewController.swift */,
+				2B1C5D4E2C00000100B1A024 /* BivvyCategoryChipCell.swift */,
+				2B1C5D4E2C00000100B1A025 /* BivvyHomeFindCell.swift */,
+				2B1C5D4E2C00000100B1A026 /* BivvyVideoActionButton.swift */,
+				2B1C5D4E2C00000100B1A027 /* BivvyProfileGridCell.swift */,
+				2B1C5D4E2C00000100B1A028 /* BivvyLocalFindStore.swift */,
+				2B1C5D4E2C00000100B1A029 /* BivvyHomeUserCell.swift */,
+				2B1C5D4E2C00000100B1A030 /* BivvyWebViewController.swift */,
+				2B1C5D4E2C00000100B1A031 /* BivvyFindDetailViewController.swift */,
+				2B1C5D4E2C00000100B1A032 /* BivvyFindPublishViewController.swift */,
+				2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */,
+				2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */,
+				2B1C5D4E2C00000100B1A006 /* Info.plist */,
+				2B1C5D4E2C00000100B1A004 /* LaunchScreen.storyboard */,
+				2B1C5D4E2C00000100B1A005 /* Assets.xcassets */,
+			);
+			path = Bivvy;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B1C5D4E2C00000100B20001 /* Bivvy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B1C5D4E2C00000100B25001 /* Build configuration list for PBXNativeTarget "Bivvy" */;
+			buildPhases = (
+				2B1C5D4E2C00000100B1D002 /* Sources */,
+				2B1C5D4E2C00000100B1D001 /* Frameworks */,
+				2B1C5D4E2C00000100B1D003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bivvy;
+			productName = Bivvy;
+			productReference = 2B1C5D4E2C00000100B1A000 /* Bivvy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2B1C5D4E2C00000100B21001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					2B1C5D4E2C00000100B20001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 2B1C5D4E2C00000100B25002 /* Build configuration list for PBXProject "Bivvy" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2B1C5D4E2C00000100B1E001;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 2B1C5D4E2C00000100B1E002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B1C5D4E2C00000100B20001 /* Bivvy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2B1C5D4E2C00000100B1D003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B1C5D4E2C00000100B1B004 /* LaunchScreen.storyboard in Resources */,
+				2B1C5D4E2C00000100B1B005 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B1C5D4E2C00000100B1D002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B1C5D4E2C00000100B1B001 /* AppDelegate.swift in Sources */,
+				2B1C5D4E2C00000100B1B002 /* SceneDelegate.swift in Sources */,
+				2B1C5D4E2C00000100B1B003 /* BivvyRootViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B006 /* BivvyAuthTheme.swift in Sources */,
+				2B1C5D4E2C00000100B1B007 /* BivvyGradientView.swift in Sources */,
+				2B1C5D4E2C00000100B1B008 /* BivvyGradientButton.swift in Sources */,
+				2B1C5D4E2C00000100B1B009 /* BivvyAuthTextFieldView.swift in Sources */,
+				2B1C5D4E2C00000100B1B010 /* BivvyKeyboardAvoidingViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B011 /* BivvyAgreementRowView.swift in Sources */,
+				2B1C5D4E2C00000100B1B012 /* BivvyMockAuthStore.swift in Sources */,
+				2B1C5D4E2C00000100B1B013 /* BivvyAuthEntryViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B014 /* BivvyEULAViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B015 /* BivvyLoginViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B016 /* BivvyRegisterViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B017 /* BivvyProfileSetupViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B018 /* BivvyMainModels.swift in Sources */,
+				2B1C5D4E2C00000100B1B019 /* BivvyMainTabBarController.swift in Sources */,
+				2B1C5D4E2C00000100B1B020 /* BivvyHomeViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B021 /* BivvyVideoViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B022 /* BivvyProfileViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B034 /* BivvyMessageViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B023 /* BivvyCategoryChipCell.swift in Sources */,
+				2B1C5D4E2C00000100B1B024 /* BivvyHomeFindCell.swift in Sources */,
+				2B1C5D4E2C00000100B1B025 /* BivvyVideoActionButton.swift in Sources */,
+				2B1C5D4E2C00000100B1B026 /* BivvyProfileGridCell.swift in Sources */,
+				2B1C5D4E2C00000100B1B027 /* BivvyLocalFindStore.swift in Sources */,
+				2B1C5D4E2C00000100B1B028 /* BivvyHomeUserCell.swift in Sources */,
+				2B1C5D4E2C00000100B1B029 /* BivvyWebViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B030 /* BivvyFindDetailViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B031 /* BivvyFindPublishViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B032 /* BivvyH5Route.swift in Sources */,
+				2B1C5D4E2C00000100B1B033 /* BivvyComplianceStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2B1C5D4E2C00000100B23001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Bivvy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bivvy.sharefinds;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		2B1C5D4E2C00000100B23002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Bivvy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bivvy.sharefinds;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		2B1C5D4E2C00000100B24001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2B1C5D4E2C00000100B24002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2B1C5D4E2C00000100B25001 /* Build configuration list for PBXNativeTarget "Bivvy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B1C5D4E2C00000100B23001 /* Debug */,
+				2B1C5D4E2C00000100B23002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B1C5D4E2C00000100B25002 /* Build configuration list for PBXProject "Bivvy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B1C5D4E2C00000100B24001 /* Debug */,
+				2B1C5D4E2C00000100B24002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2B1C5D4E2C00000100B21001 /* Project object */;
+}

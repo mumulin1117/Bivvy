@@ -1,0 +1,21 @@
+{
+  "images": [
+    {
+      "idiom": "iphone",
+      "scale": "1x"
+    },
+    {
+      "idiom": "iphone",
+      "scale": "2x"
+    },
+    {
+      "filename": "bivvy_home_header_art.png",
+      "idiom": "iphone",
+      "scale": "3x"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}
