@@ -16,10 +16,10 @@ final class BivvyVideoViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let coverImageView = UIImageView()
    
-    private let saveButton = UIButton(type: .system)
-    private let commentButton = UIButton(type: .system)
-    private let playButton = UIButton(type: .system)
-    private let moreButton = UIButton(type: .system)
+    private let saveButton = UIButton()
+    private let commentButton = UIButton()
+    private let playButton = UIButton()
+    private let moreButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,31 +95,31 @@ final class BivvyVideoViewController: UIViewController {
 
     private func configureCard() {
         shadowCard.translatesAutoresizingMaskIntoConstraints = false
-//        shadowCard.
+        shadowCard.isUserInteractionEnabled = true
         shadowCard.transform = CGAffineTransform(rotationAngle: -0.055)
 
         card.translatesAutoresizingMaskIntoConstraints = false
         card.backgroundColor = .black
-        card.layer.cornerRadius = 52
+        card.layer.cornerRadius = 36
         card.layer.masksToBounds = true
         card.transform = CGAffineTransform(rotationAngle: 0.055)
 
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.clipsToBounds = true
-        coverImageView.layer.cornerRadius = 28
+        coverImageView.layer.cornerRadius = 24
 
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = .systemFont(ofSize: 38, weight: .heavy)
+        nameLabel.font = .systemFont(ofSize: 30, weight: .heavy)
         nameLabel.textColor = .white
         nameLabel.adjustsFontSizeToFitWidth = true
 
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        descriptionLabel.font = .systemFont(ofSize: 15, weight: .bold)
         descriptionLabel.textColor = UIColor.white.withAlphaComponent(0.72)
         descriptionLabel.numberOfLines = 2
         descriptionLabel.backgroundColor = UIColor.white.withAlphaComponent(0.1)
-        descriptionLabel.layer.cornerRadius = 16
+        descriptionLabel.layer.cornerRadius = 14
         descriptionLabel.layer.masksToBounds = true
 
         configureIconButton(playButton, systemName: "vioeaply")
@@ -145,41 +145,42 @@ final class BivvyVideoViewController: UIViewController {
         [nameLabel, descriptionLabel, coverImageView, moreButton, commentButton, playButton, saveButton].forEach(card.addSubview)
 
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: 46),
-            nameLabel.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 40),
+            nameLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: 30),
+            nameLabel.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 28),
             nameLabel.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -16),
 
             moreButton.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            moreButton.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -26),
-            moreButton.widthAnchor.constraint(equalToConstant: 44),
-            moreButton.heightAnchor.constraint(equalToConstant: 44),
+            moreButton.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -18),
+            moreButton.widthAnchor.constraint(equalToConstant: 36),
+            moreButton.heightAnchor.constraint(equalToConstant: 36),
 
-            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 24),
-            descriptionLabel.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 40),
-            descriptionLabel.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -40),
-            descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 84),
+            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
+            descriptionLabel.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 28),
+            descriptionLabel.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -28),
+            descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 52),
 
-            coverImageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24),
+            coverImageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             coverImageView.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 8),
             coverImageView.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -8),
             coverImageView.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -8),
 
             playButton.centerXAnchor.constraint(equalTo: card.centerXAnchor),
-            playButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -50),
-            playButton.widthAnchor.constraint(equalToConstant: 88),
-            playButton.heightAnchor.constraint(equalToConstant: 88),
+            playButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -30),
+            playButton.widthAnchor.constraint(equalToConstant: 70),
+            playButton.heightAnchor.constraint(equalToConstant: 70),
 
      
-            saveButton.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -48),
+            saveButton.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -36),
             saveButton.centerYAnchor.constraint(equalTo: playButton.centerYAnchor),
-            saveButton.widthAnchor.constraint(equalToConstant: 88),
-            saveButton.heightAnchor.constraint(equalToConstant: 88),
+            saveButton.widthAnchor.constraint(equalToConstant: 70),
+            saveButton.heightAnchor.constraint(equalToConstant: 70),
 
-            commentButton.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 48),
+            commentButton.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 36),
             commentButton.centerYAnchor.constraint(equalTo: playButton.centerYAnchor),
-            commentButton.widthAnchor.constraint(equalToConstant: 88),
-            commentButton.heightAnchor.constraint(equalToConstant: 88)
+            commentButton.widthAnchor.constraint(equalToConstant: 70),
+            commentButton.heightAnchor.constraint(equalToConstant: 70)
         ])
+        [commentButton, playButton, saveButton, moreButton].forEach(card.bringSubviewToFront)
     }
 
     private func configureIconButton(_ button: UIButton, systemName: String) {
@@ -206,7 +207,7 @@ final class BivvyVideoViewController: UIViewController {
 
     private func updateLikeVisual(for item: BivvyVideoItem) {
         let isLiked = likedVideoIds.contains(item.id) || item.isLiked
-        saveButton.alpha = isLiked ? 1 : 0.82
+       
         saveButton.transform = isLiked ? CGAffineTransform(scaleX: 1.04, y: 1.04) : .identity
         saveButton.isSelected = true
     

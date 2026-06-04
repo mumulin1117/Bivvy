@@ -8,8 +8,8 @@ final class BivvyProfileViewController: UIViewController {
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 18
-        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 14
+        layout.minimumInteritemSpacing = 14
         gridCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,7 +49,7 @@ final class BivvyProfileViewController: UIViewController {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.text = "Profile"
-        title.font = BivvyAuthTheme.displayFont(size: 42)
+        title.font = BivvyAuthTheme.displayFont(size: 30)
         title.textColor = .black
         title.layer.shadowColor = UIColor.white.cgColor
         title.layer.shadowOpacity = 1
@@ -61,31 +61,31 @@ final class BivvyProfileViewController: UIViewController {
 
         let settingsButton = makeCircleIconButton(systemName: "gearshape.fill")
 
-        let avatar = UIImageView(image: UIImage(named: "bivvy_profile_avatar_main"))
+        let avatar = UIImageView(image: UIImage(named: "bivvy_tab_profile_idlesel"))
         avatar.translatesAutoresizingMaskIntoConstraints = false
         avatar.contentMode = .scaleAspectFill
         avatar.clipsToBounds = true
-        avatar.layer.cornerRadius = 74
+        avatar.layer.cornerRadius = 43
 
         let editButton = UIButton(type: .system)
         editButton.translatesAutoresizingMaskIntoConstraints = false
         editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
         editButton.tintColor = .white
         editButton.backgroundColor = .black
-        editButton.layer.cornerRadius = 24
+        editButton.layer.cornerRadius = 16
 
         let stats = makeStatsStack()
 
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = "Berenice"
-        nameLabel.font = BivvyAuthTheme.titleFont(size: 30)
+        nameLabel.text = "No Name"
+        nameLabel.font = BivvyAuthTheme.titleFont(size: 24)
         nameLabel.textColor = .black
 
         let bioLabel = UILabel()
         bioLabel.translatesAutoresizingMaskIntoConstraints = false
-        bioLabel.text = "Hi! I'm your go-to helper for daily needs-whether it's crafting copy,"
-        bioLabel.font = .systemFont(ofSize: 20, weight: .regular)
+        bioLabel.text = "No signiture"
+        bioLabel.font = .systemFont(ofSize: 15, weight: .regular)
         bioLabel.textColor = UIColor(red: 74 / 255, green: 74 / 255, blue: 74 / 255, alpha: 1)
         bioLabel.numberOfLines = 2
 
@@ -120,51 +120,51 @@ final class BivvyProfileViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
 
-            title.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 44),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+            title.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 18),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
 
             settingsButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            settingsButton.widthAnchor.constraint(equalToConstant: 78),
-            settingsButton.heightAnchor.constraint(equalToConstant: 78),
+            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            settingsButton.widthAnchor.constraint(equalToConstant: 48),
+            settingsButton.heightAnchor.constraint(equalToConstant: 48),
 
             messageButton.centerYAnchor.constraint(equalTo: settingsButton.centerYAnchor),
-            messageButton.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -18),
-            messageButton.widthAnchor.constraint(equalToConstant: 78),
-            messageButton.heightAnchor.constraint(equalToConstant: 78),
+            messageButton.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -12),
+            messageButton.widthAnchor.constraint(equalToConstant: 48),
+            messageButton.heightAnchor.constraint(equalToConstant: 48),
 
-            avatar.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 62),
-            avatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            avatar.widthAnchor.constraint(equalToConstant: 148),
-            avatar.heightAnchor.constraint(equalToConstant: 148),
+            avatar.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 30),
+            avatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+            avatar.widthAnchor.constraint(equalToConstant: 86),
+            avatar.heightAnchor.constraint(equalToConstant: 86),
 
             editButton.trailingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: -2),
             editButton.bottomAnchor.constraint(equalTo: avatar.bottomAnchor, constant: -2),
-            editButton.widthAnchor.constraint(equalToConstant: 48),
-            editButton.heightAnchor.constraint(equalToConstant: 48),
+            editButton.widthAnchor.constraint(equalToConstant: 32),
+            editButton.heightAnchor.constraint(equalToConstant: 32),
 
             stats.centerYAnchor.constraint(equalTo: avatar.centerYAnchor),
-            stats.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 48),
-            stats.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
-            stats.heightAnchor.constraint(equalToConstant: 72),
+            stats.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 22),
+            stats.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stats.heightAnchor.constraint(equalToConstant: 54),
 
-            nameLabel.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 22),
+            nameLabel.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 16),
             nameLabel.leadingAnchor.constraint(equalTo: avatar.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
 
-            bioLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 18),
+            bioLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             bioLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            bioLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            bioLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
 
-            segments.topAnchor.constraint(equalTo: bioLabel.bottomAnchor, constant: 44),
-            segments.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            segments.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            segments.heightAnchor.constraint(equalToConstant: 108),
+            segments.topAnchor.constraint(equalTo: bioLabel.bottomAnchor, constant: 24),
+            segments.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            segments.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            segments.heightAnchor.constraint(equalToConstant: 58),
 
-            gridCollectionView.topAnchor.constraint(equalTo: segments.bottomAnchor, constant: 32),
+            gridCollectionView.topAnchor.constraint(equalTo: segments.bottomAnchor, constant: 20),
             gridCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             gridCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            gridCollectionView.heightAnchor.constraint(equalToConstant: 780),
+            gridCollectionView.heightAnchor.constraint(equalToConstant: 610),
             gridCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -28)
         ])
     }
@@ -174,7 +174,7 @@ final class BivvyProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(red: 255 / 255, green: 222 / 255, blue: 250 / 255, alpha: 1)
         button.tintColor = .black
-        button.layer.cornerRadius = 39
+        button.layer.cornerRadius = 24
         button.setImage(UIImage(systemName: systemName), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         return button
@@ -185,8 +185,8 @@ final class BivvyProfileViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.distribution = .fillEqually
-        stack.spacing = 18
-        [("192", "Friends"), ("45.2w", "Followers"), ("379", "Following")].forEach {
+        stack.spacing = 8
+        [("0", "Friends"), ("0", "Followers"), ("0", "Following")].forEach {
             stack.addArrangedSubview(makeStat(value: $0.0, label: $0.1))
         }
         return stack
@@ -195,19 +195,19 @@ final class BivvyProfileViewController: UIViewController {
     private func makeStat(value: String, label: String) -> UIView {
         let valueLabel = UILabel()
         valueLabel.text = value
-        valueLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        valueLabel.font = .systemFont(ofSize: 20, weight: .bold)
         valueLabel.textColor = .black
         valueLabel.textAlignment = .center
 
         let labelView = UILabel()
         labelView.text = label
-        labelView.font = .systemFont(ofSize: 18, weight: .regular)
+        labelView.font = .systemFont(ofSize: 13, weight: .regular)
         labelView.textColor = UIColor(red: 126 / 255, green: 126 / 255, blue: 126 / 255, alpha: 1)
         labelView.textAlignment = .center
 
         let stack = UIStackView(arrangedSubviews: [valueLabel, labelView])
         stack.axis = .vertical
-        stack.spacing = 12
+        stack.spacing = 4
         stack.alignment = .center
         return stack
     }
@@ -216,7 +216,7 @@ final class BivvyProfileViewController: UIViewController {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.backgroundColor = UIColor(red: 253 / 255, green: 218 / 255, blue: 242 / 255, alpha: 1)
-        container.layer.cornerRadius = 34
+        container.layer.cornerRadius = 24
         container.layer.masksToBounds = true
 
         let stack = UIStackView()
@@ -229,8 +229,8 @@ final class BivvyProfileViewController: UIViewController {
             let button = UIButton(type: .system)
             button.tag = index
             button.setTitle(title, for: .normal)
-            button.titleLabel?.font = BivvyAuthTheme.buttonFont(size: 26)
-            button.layer.cornerRadius = 32
+            button.titleLabel?.font = BivvyAuthTheme.buttonFont(size: 18)
+            button.layer.cornerRadius = 22
             button.addTarget(self, action: #selector(selectSegment(_:)), for: .touchUpInside)
             segmentButtons.append(button)
             stack.addArrangedSubview(button)
@@ -280,7 +280,7 @@ extension BivvyProfileViewController: UICollectionViewDataSource, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = floor((collectionView.bounds.width - 20) / 2)
-        return CGSize(width: width, height: 242)
+        let width = floor((collectionView.bounds.width - 14) / 2)
+        return CGSize(width: width, height: width * 1.05 + 46)
     }
 }
