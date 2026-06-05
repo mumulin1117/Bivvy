@@ -27,6 +27,7 @@ class BivvyKeyboardAvoidingViewController: UIViewController {
     }
 
     private func setupKeyboardScrollView() {
+        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .clear

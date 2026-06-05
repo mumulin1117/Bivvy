@@ -26,17 +26,17 @@ enum BivvyH5Route {
         case .aiAssistant:
             return "\(Self.gateway)pages/CreateRole/index?token=\(token)&appID=\(Self.appId)"
         case .userProfile(let userId):
-            return "\(Self.gateway)pages/homepage/index?userId=\(userId)&token=\(token)&appID=\(Self.appId)"
+            return "\(Self.gateway)pages/HomePage/index?userId=\(userId)&token=\(token)&appID=\(Self.appId)"
         case .videoDetail(let dynamicId):
             return "\(Self.gateway)pages/DynamicDetails/index?dynamicId=\(dynamicId)&token=\(token)&appID=\(Self.appId)"
         case .report(let dynamicId):
-            return "\(Self.gateway)pages/report/index?dynamicId=\(dynamicId)&token=\(token)&appID=\(Self.appId)"
+            return "\(Self.gateway)pages/Report/index?token=\(token)&appID=\(Self.appId)"
         case .settings:
-            return "\(Self.gateway)pages/SetUp/index?token=\(token)&appID=\(Self.appId)"
+            return "\(Self.gateway)pages/Setting/index?token=\(token)&appID=\(Self.appId)"
         case .editProfile:
             return "\(Self.gateway)pages/EditData/index?token=\(token)&appID=\(Self.appId)"
         case .followList(let type):
-            return "\(Self.gateway)pages/attentionList/index?type=\(type)&token=\(token)&appID=\(Self.appId)"
+            return "\(Self.gateway)pages/attention/index?type=\(type)&token=\(token)&appID=\(Self.appId)"
         case .termsOfService:
             return "\(Self.gateway)pages/Agreement/index?type=1&token=\(token)&appID=\(Self.appId)"
         case .privacyPolicy:

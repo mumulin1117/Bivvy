@@ -113,13 +113,12 @@ final class BivvyHomeViewController: UIViewController {
         findCollectionView.register(BivvyHomeFindCell.self, forCellWithReuseIdentifier: BivvyHomeFindCell.reuseIdentifier)
 
        
-        let findTitle = makeSectionTitle("Good Finds")
-
+     
         view.addSubview(backgroundImageView)
        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [postButton, aiButton,userCollectionView, categoryCollectionView, findTitle, findCollectionView].forEach(contentView.addSubview)
+        [postButton, aiButton,userCollectionView, categoryCollectionView,  findCollectionView].forEach(contentView.addSubview)
 
         findCollectionHeightConstraint = findCollectionView.heightAnchor.constraint(equalToConstant: 610)
 
@@ -161,11 +160,7 @@ final class BivvyHomeViewController: UIViewController {
             categoryCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             categoryCollectionView.heightAnchor.constraint(equalToConstant: 90),
 
-            findTitle.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 24),
-            findTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 22),
-            findTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -22),
-
-            findCollectionView.topAnchor.constraint(equalTo: findTitle.bottomAnchor, constant: 14),
+            findCollectionView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 18),
             findCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             findCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             findCollectionHeightConstraint!,

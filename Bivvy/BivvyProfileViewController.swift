@@ -232,10 +232,8 @@ final class BivvyProfileViewController: UIViewController {
         stack.spacing = 4
         stack.alignment = .center
         stack.tag = tag
-        stack.isUserInteractionEnabled = tag != 0
-        if tag != 0 {
-            stack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openFollowList(_:))))
-        }
+        stack.isUserInteractionEnabled = true
+        stack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openFollowList(_:))))
         return stack
     }
 
@@ -304,8 +302,8 @@ final class BivvyProfileViewController: UIViewController {
 
     @objc private func openFollowList(_ gesture: UITapGestureRecognizer) {
         guard let tag = gesture.view?.tag else { return }
-        let type = tag == 1 ? "2" : "1"
-        openWebRoute(.followList(type: type))
+        
+        openWebRoute(.followList(type: "\(tag)"))
     }
 
     private func openWebRoute(_ route: BivvyH5Route) {

@@ -19,12 +19,14 @@ final class BivvyMainTabBarController: UITabBarController {
         let nav = UINavigationController(rootViewController: root)
         nav.setNavigationBarHidden(true, animated: false)
         let image = UIImage(named: iconName)?.withRenderingMode(.alwaysOriginal)
-        nav.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: image)
+        let selIcon = UIImage(named: iconName + "sel")?.withRenderingMode(.alwaysOriginal)
+        
+        nav.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: selIcon)
         return nav
     }
 
     private func configureAppearance() {
-        let inactiveColor = UIColor(red: 188 / 255, green: 188 / 255, blue: 188 / 255, alpha: 1)
+        let inactiveColor = UIColor.lightGray
         tabBar.tintColor = .black
         tabBar.unselectedItemTintColor = inactiveColor
         tabBar.itemPositioning = .fill
@@ -50,7 +52,7 @@ final class BivvyMainTabBarController: UITabBarController {
         [appearance.stackedLayoutAppearance, appearance.inlineLayoutAppearance, appearance.compactInlineLayoutAppearance].forEach {
             $0.normal.iconColor = inactiveColor
             $0.normal.titleTextAttributes = normalText
-            $0.selected.iconColor = UIColor.black
+            
             $0.selected.titleTextAttributes = selectedText
         }
 

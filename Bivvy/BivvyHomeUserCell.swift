@@ -30,10 +30,10 @@ final class BivvyHomeUserCell: UICollectionViewCell {
         avatarView.contentMode = .scaleAspectFill
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = 18
-
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = .systemFont(ofSize: 13, weight: .bold)
-        nameLabel.textColor = BivvyAuthTheme.ink
+        nameLabel.textColor = UIColor.white
         nameLabel.backgroundColor = UIColor(red: 0.72, green: 0.72, blue: 0.72, alpha: 1)
 
         [avatarView, nameLabel].forEach(contentView.addSubview)
@@ -47,7 +47,7 @@ final class BivvyHomeUserCell: UICollectionViewCell {
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 8),
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-
+            nameLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
     }
 }
