@@ -1,22 +1,22 @@
 import UIKit
 
-class BivvyKeyboardAvoidingViewController: UIViewController {
-    let scrollView = UIScrollView()
-    let contentView = UIView()
+class ContentFilteringKeyboardAvoidingViewController: UIViewController {
+    let contentFilteringScrollView = UIScrollView()
+    let communitySharingContentView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupKeyboardScrollView()
-        hideKeyboardWhenTappedAround()
+        setupContentFilteringScrollView()
+        hideKeyboardDuringPeerInteraction()
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillChangeFrame),
+            selector: #selector(contentFilteringKeyboardWillChangeFrame),
             name: UIResponder.keyboardWillChangeFrameNotification,
             object: nil
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillHide),
+            selector: #selector(contentFilteringKeyboardWillHide),
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
@@ -26,54 +26,56 @@ class BivvyKeyboardAvoidingViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    private func setupKeyboardScrollView() {
-        scrollView.contentInsetAdjustmentBehavior = .never
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .clear
-        contentView.backgroundColor = .clear
-        scrollView.alwaysBounceVertical = true
-        scrollView.keyboardDismissMode = .interactive
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+    private func setupContentFilteringScrollView() {
+        contentFilteringScrollView.contentInsetAdjustmentBehavior = .never
+        contentFilteringScrollView.translatesAutoresizingMaskIntoConstraints = false
+        communitySharingContentView.translatesAutoresizingMaskIntoConstraints = false
+        contentFilteringScrollView.backgroundColor = .clear
+        communitySharingContentView.backgroundColor = .clear
+        contentFilteringScrollView.alwaysBounceVertical = true
+        contentFilteringScrollView.keyboardDismissMode = .interactive
+        view.addSubview(contentFilteringScrollView)
+        contentFilteringScrollView.addSubview(communitySharingContentView)
 
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentFilteringScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentFilteringScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentFilteringScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentFilteringScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
-            contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.frameLayoutGuide.heightAnchor)
+            communitySharingContentView.topAnchor.constraint(equalTo: contentFilteringScrollView.contentLayoutGuide.topAnchor),
+            communitySharingContentView.leadingAnchor.constraint(equalTo: contentFilteringScrollView.contentLayoutGuide.leadingAnchor),
+            communitySharingContentView.trailingAnchor.constraint(equalTo: contentFilteringScrollView.contentLayoutGuide.trailingAnchor),
+            communitySharingContentView.bottomAnchor.constraint(equalTo: contentFilteringScrollView.contentLayoutGuide.bottomAnchor),
+            communitySharingContentView.widthAnchor.constraint(equalTo: contentFilteringScrollView.frameLayoutGuide.widthAnchor),
+            communitySharingContentView.heightAnchor.constraint(greaterThanOrEqualTo: contentFilteringScrollView.frameLayoutGuide.heightAnchor)
         ])
     }
 
-    private func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+    private func hideKeyboardDuringPeerInteraction() {
+        let peerInteractionTap = UITapGestureRecognizer(target: self, action: #selector(endCommunitySharingEditing))
+        peerInteractionTap.cancelsTouchesInView = false
+        view.addGestureRecognizer(peerInteractionTap)
     }
 
-    @objc private func endEditing() {
+    @objc private func endCommunitySharingEditing() {
         view.endEditing(true)
     }
 
-    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
+    @objc private func contentFilteringKeyboardWillChangeFrame(_ notification: Notification) {
         guard
-            let frameValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+            let contentFilteringFrameValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
         else { return }
-        let keyboardFrame = view.convert(frameValue.cgRectValue, from: nil)
-        let overlap = max(0, view.bounds.maxY - keyboardFrame.minY)
-        scrollView.contentInset.bottom = overlap + 20
-        scrollView.verticalScrollIndicatorInsets.bottom = overlap + 20
+        let contentFilteringKeyboardFrame = view.convert(contentFilteringFrameValue.cgRectValue, from: nil)
+        let contentFilteringOverlap = max(0, view.bounds.maxY - contentFilteringKeyboardFrame.minY)
+        contentFilteringScrollView.contentInset.bottom = contentFilteringOverlap + 20
+        contentFilteringScrollView.verticalScrollIndicatorInsets.bottom = contentFilteringOverlap + 20
     }
 
-    @objc private func keyboardWillHide() {
-        scrollView.contentInset.bottom = 0
-        scrollView.verticalScrollIndicatorInsets.bottom = 0
+    @objc private func contentFilteringKeyboardWillHide() {
+        contentFilteringScrollView.contentInset.bottom = 0
+        contentFilteringScrollView.verticalScrollIndicatorInsets.bottom = 0
     }
 }
+
+typealias BivvyKeyboardAvoidingViewController = ContentFilteringKeyboardAvoidingViewController

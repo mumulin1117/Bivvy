@@ -1,24 +1,17 @@
 import UIKit
 
-final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController {
+final class BivvyFindPublishViewController: ContentFilteringKeyboardAvoidingViewController {
     private let uploadButton = UIButton()
     private let productNameField = UITextField()
     private let priceField = UITextField()
     private let qualityField = UITextField()
     private let cityField = UITextField()
     private let exchangeField = UITextField()
-    private let releaseButton = BivvyGradientButton(title: "Release")
+    private let releaseButton = SharingMechanicGradientButton(title: BivvyStringVault.release)
     private let errorLabel = UILabel()
     private var categoryButtons: [UIButton] = []
-    private var selectedCategory = BivvyMockContent.categories.first?.title ?? "Trendy toys"
-    private var selectedImageName = "bivvy_find_card_daily"
-    private var selectedDetailImageNames = ["bivvy_find_card_daily"]
-    private let sampleUploads: [(title: String, category: String, imageName: String, detailImageNames: [String])] = [
-        ("Pink plush find", "Trendy toys", "bivvy_find_card_plush", ["bivvy_find_card_plush"]),
-        ("Travel organizer", "Apparel", "bivvy_find_local_10007_main", ["bivvy_find_local_10007_main", "bivvy_find_local_10007_detail_01"]),
-        ("Figure collection", "Figurines", "bivvy_find_card_figure", ["bivvy_find_card_figure"]),
-        ("Smart gadget", "Digital", "bivvy_find_local_10005_main", ["bivvy_find_local_10005_main", "bivvy_find_local_10005_detail_01"])
-    ]
+    private var selectedCategory = BivvyMockContent.categories.first?.productHighlightTitle ?? "Trendy toys"
+    private var uploadedFindImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +23,14 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
     private func buildLayout() {
         view.backgroundColor = .white
 
-        let background = BivvyGradientView()
+        let background = ProductCurationGradientView()
         background.translatesAutoresizingMaskIntoConstraints = false
-        background.colors = [
+        background.curatedListColors = [
             UIColor(red: 255 / 255, green: 204 / 255, blue: 214 / 255, alpha: 1),
             UIColor(red: 255 / 255, green: 246 / 255, blue: 251 / 255, alpha: 1),
             UIColor.white
         ]
-        view.insertSubview(background, belowSubview: scrollView)
+        view.insertSubview(background, belowSubview: contentFilteringScrollView)
 
         let backButton = UIButton(type: .system)
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -53,31 +46,31 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
         uploadButton.addTarget(self, action: #selector(selectProductImage), for: .touchUpInside)
 
         let fields = [
-            makeFieldBlock(title: "Product Name", field: productNameField, placeholder: "Enter product name..."),
-            makeFieldBlock(title: "Commodity prices", field: priceField, placeholder: "Original price: $399"),
-            makeFieldBlock(title: "Quality grade", field: qualityField, placeholder: "For example: 90% new"),
-            makeFieldBlock(title: "City", field: cityField, placeholder: "Enter your city..."),
-            makeFieldBlock(title: "Exchange of demands", field: exchangeField, placeholder: "Please enter your exchange request....")
+            makeFieldBlock(productHighlightTitle: BivvyStringVault.productName, field: productNameField, placeholder: BivvyStringVault.enterProductName),
+            makeFieldBlock(productHighlightTitle: BivvyStringVault.commodityPrices, field: priceField, placeholder: BivvyStringVault.originalPrice),
+            makeFieldBlock(productHighlightTitle: BivvyStringVault.qualityGrade, field: qualityField, placeholder: BivvyStringVault.exampleQuality),
+            makeFieldBlock(productHighlightTitle: BivvyStringVault.city, field: cityField, placeholder: BivvyStringVault.enterCity),
+            makeFieldBlock(productHighlightTitle: BivvyStringVault.exchangeDemands, field: exchangeField, placeholder: BivvyStringVault.exchangeReq)
         ]
 
         let categoryTitle = UILabel()
         categoryTitle.translatesAutoresizingMaskIntoConstraints = false
-        categoryTitle.text = "Product Categories"
-        categoryTitle.font = BivvyAuthTheme.titleFont(size: 30)
+        categoryTitle.text = BivvyStringVault.productCategories
+        categoryTitle.font = CommunitySharingAuthTheme.productShowcaseTitleFont(size: 30)
         categoryTitle.textColor = .black
 
         let categoryWrap = makeCategoryWrap()
 
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.font = .systemFont(ofSize: 13, weight: .semibold)
-        errorLabel.textColor = BivvyAuthTheme.hotPink
+        errorLabel.textColor = CommunitySharingAuthTheme.favoriteFindPink
         errorLabel.numberOfLines = 0
 
         releaseButton.addTarget(self, action: #selector(publishFind), for: .touchUpInside)
 
-        [backButton, uploadButton].forEach(contentView.addSubview)
-        fields.forEach(contentView.addSubview)
-        [categoryTitle, categoryWrap, releaseButton, errorLabel].forEach(contentView.addSubview)
+        [backButton, uploadButton].forEach(communitySharingContentView.addSubview)
+        fields.forEach(communitySharingContentView.addSubview)
+        [categoryTitle, categoryWrap, releaseButton, errorLabel].forEach(communitySharingContentView.addSubview)
 
         NSLayoutConstraint.activate([
             background.topAnchor.constraint(equalTo: view.topAnchor),
@@ -85,19 +78,19 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
             background.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            backButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 19),
-            backButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 22),
+            backButton.topAnchor.constraint(equalTo: communitySharingContentView.safeAreaLayoutGuide.topAnchor, constant: 19),
+            backButton.leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 22),
             backButton.widthAnchor.constraint(equalToConstant: 36),
             backButton.heightAnchor.constraint(equalToConstant: 36),
 
             uploadButton.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 21),
-            uploadButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            uploadButton.leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 12),
             uploadButton.widthAnchor.constraint(equalToConstant: 100),
             uploadButton.heightAnchor.constraint(equalToConstant: 100),
 
             fields[0].topAnchor.constraint(equalTo: uploadButton.bottomAnchor, constant: 52),
-            fields[0].leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            fields[0].trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
+            fields[0].leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 12),
+            fields[0].trailingAnchor.constraint(equalTo: communitySharingContentView.trailingAnchor, constant: -12)
         ])
 
         for index in 1..<fields.count {
@@ -118,14 +111,14 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
             categoryWrap.trailingAnchor.constraint(equalTo: fields[0].trailingAnchor),
 
             releaseButton.topAnchor.constraint(equalTo: categoryWrap.bottomAnchor, constant: 28),
-            releaseButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            releaseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            releaseButton.leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 12),
+            releaseButton.trailingAnchor.constraint(equalTo: communitySharingContentView.trailingAnchor, constant: -12),
             releaseButton.heightAnchor.constraint(equalToConstant: 64),
 
             errorLabel.topAnchor.constraint(equalTo: releaseButton.bottomAnchor, constant: 12),
             errorLabel.leadingAnchor.constraint(equalTo: releaseButton.leadingAnchor, constant: 10),
             errorLabel.trailingAnchor.constraint(equalTo: releaseButton.trailingAnchor, constant: -10),
-            errorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -34)
+            errorLabel.bottomAnchor.constraint(equalTo: communitySharingContentView.bottomAnchor, constant: -34)
         ])
     }
 
@@ -142,15 +135,15 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
         cityField.textContentType = .addressCity
     }
 
-    private func makeFieldBlock(title: String, field: UITextField, placeholder: String) -> UIView {
+    private func makeFieldBlock(productHighlightTitle: String, field: UITextField, placeholder: String) -> UIView {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 18
 
         let label = UILabel()
-        label.text = title
-        label.font = BivvyAuthTheme.titleFont(size: 30)
+        label.text = productHighlightTitle
+        label.font = CommunitySharingAuthTheme.productShowcaseTitleFont(size: 30)
         label.textColor = .black
         label.adjustsFontSizeToFitWidth = true
 
@@ -187,7 +180,7 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
         }
 
         for (index, item) in BivvyMockContent.categories.enumerated() {
-            let button = makeCategoryButton(title: item.title)
+            let button = makeCategoryButton(productHighlightTitle: item.productHighlightTitle)
             button.tag = index
             button.addTarget(self, action: #selector(selectCategory(_:)), for: .touchUpInside)
             categoryButtons.append(button)
@@ -197,9 +190,9 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
         return rows
     }
 
-    private func makeCategoryButton(title: String) -> UIButton {
+    private func makeCategoryButton(productHighlightTitle: String) -> UIButton {
         var configuration = UIButton.Configuration.filled()
-        configuration.title = title
+        configuration.title = productHighlightTitle
         configuration.baseForegroundColor = UIColor(red: 126 / 255, green: 126 / 255, blue: 126 / 255, alpha: 1)
         configuration.baseBackgroundColor = UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1)
         configuration.cornerStyle = .capsule
@@ -212,16 +205,16 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
 
     private func updateCategoryButtons() {
         for button in categoryButtons {
-            let title = BivvyMockContent.categories[button.tag].title
+            let title = BivvyMockContent.categories[button.tag].productHighlightTitle
             var configuration = button.configuration
             configuration?.baseForegroundColor = title == selectedCategory ? .white : UIColor(red: 126 / 255, green: 126 / 255, blue: 126 / 255, alpha: 1)
-            configuration?.baseBackgroundColor = title == selectedCategory ? BivvyAuthTheme.hotPink : UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1)
+            configuration?.baseBackgroundColor = title == selectedCategory ? CommunitySharingAuthTheme.favoriteFindPink : UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1)
             button.configuration = configuration
         }
     }
 
     @objc private func selectCategory(_ sender: UIButton) {
-        selectedCategory = BivvyMockContent.categories[sender.tag].title
+        selectedCategory = BivvyMockContent.categories[sender.tag].productHighlightTitle
         updateCategoryButtons()
         updateReleaseButtonState()
     }
@@ -237,32 +230,15 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
 
     @objc private func selectProductImage() {
         view.endEditing(true)
-        let sheet = UIAlertController(title: "Choose product photo", message: "Use a local sample image to preview the publishing flow.", preferredStyle: .actionSheet)
-        for upload in sampleUploads {
-            sheet.addAction(UIAlertAction(title: upload.title, style: .default) { [weak self] _ in
-                self?.applySelectedUpload(upload)
-            })
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            errorLabel.text = BivvyStringVault.photoUnavailable
+            return
         }
-        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        if let popover = sheet.popoverPresentationController {
-            popover.sourceView = uploadButton
-            popover.sourceRect = uploadButton.bounds
-        }
-        present(sheet, animated: true)
-    }
-
-    private func applySelectedUpload(_ upload: (title: String, category: String, imageName: String, detailImageNames: [String])) {
-        selectedImageName = upload.imageName
-        selectedDetailImageNames = upload.detailImageNames
-        selectedCategory = upload.category
-        uploadButton.setImage(UIImage(named: upload.imageName), for: .normal)
-        uploadButton.backgroundColor = UIColor.white.withAlphaComponent(0.58)
-        if productNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty != false {
-            productNameField.text = upload.title
-        }
-        errorLabel.text = nil
-        updateCategoryButtons()
-        updateReleaseButtonState()
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
     }
 
     private func updateReleaseButtonState() {
@@ -270,6 +246,7 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
     }
 
     private var isFormReady: Bool {
+        uploadedFindImage != nil &&
         !trimmed(productNameField).isEmpty &&
         !trimmed(priceField).isEmpty &&
         !trimmed(qualityField).isEmpty &&
@@ -287,34 +264,45 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
         let quality = trimmed(qualityField)
         let city = trimmed(cityField)
         let exchange = trimmed(exchangeField)
+        guard let uploadedFindImage else {
+            errorLabel.text = BivvyStringVault.uploadPhoto
+            updateReleaseButtonState()
+            return
+        }
         guard !title.isEmpty, !price.isEmpty, !quality.isEmpty, !city.isEmpty, !exchange.isEmpty else {
-            errorLabel.text = "Please complete all product fields."
+            errorLabel.text = BivvyStringVault.completeFields
             updateReleaseButtonState()
             return
         }
 
         view.endEditing(true)
-        releaseButton.isLoading = true
+        releaseButton.isSharingMechanicLoading = true
         errorLabel.text = nil
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            BivvyLocalFindStore.shared.addFind(
-                title: title,
-                price: price,
-                qualityGrade: quality,
-                city: city,
-                exchangeDemand: exchange,
-                category: self.selectedCategory,
-                imageName: self.selectedImageName,
-                detailImageNames: self.selectedDetailImageNames
+            guard let savedImagePath = BivvyLocalFindStore.communityMarket.saveProductShowcaseImage(uploadedFindImage) else {
+                self.releaseButton.isSharingMechanicLoading = false
+                self.errorLabel.text = BivvyStringVault.uploadFailed
+                self.updateReleaseButtonState()
+                return
+            }
+            BivvyLocalFindStore.communityMarket.addProductShowcase(
+                productHighlightTitle: title,
+                communityMarketPrice: price,
+                excellentConditionGrade: quality,
+                communityMarketCity: city,
+                itemExchangeDemand: exchange,
+                productCategoryName: self.selectedCategory,
+                productShowcaseImageName: savedImagePath,
+                productWalkthroughImageNames: [savedImagePath]
             )
-            self.releaseButton.isLoading = false
+            self.releaseButton.isSharingMechanicLoading = false
             self.showPublishSuccess()
         }
     }
 
     private func showPublishSuccess() {
-        let alert = UIAlertController(title: "Released", message: "Your find has been added to the local showcase.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "View on Home", style: .default) { [weak self] _ in
+        let alert = UIAlertController(title: BivvyStringVault.released, message: BivvyStringVault.releaseMsg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: BivvyStringVault.viewHome, style: .default) { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         })
         present(alert, animated: true)
@@ -336,5 +324,27 @@ extension BivvyFindPublishViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+}
+
+extension BivvyFindPublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        let selectedImage = (info[.editedImage] as? UIImage) ?? (info[.originalImage] as? UIImage)
+        picker.dismiss(animated: true) { [weak self] in
+            guard let self, let selectedImage else { return }
+            self.uploadedFindImage = selectedImage
+            self.uploadButton.setImage(selectedImage, for: .normal)
+            self.uploadButton.imageView?.contentMode = .scaleAspectFill
+            self.uploadButton.backgroundColor = UIColor.white.withAlphaComponent(0.58)
+            self.errorLabel.text = nil
+            self.updateReleaseButtonState()
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }

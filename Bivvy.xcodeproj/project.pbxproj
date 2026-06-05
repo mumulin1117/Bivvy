@@ -19,10 +19,10 @@
 		2B1C5D4E2C00000100B1B010 /* BivvyKeyboardAvoidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A011 /* BivvyKeyboardAvoidingViewController.swift */; };
 		2B1C5D4E2C00000100B1B011 /* BivvyAgreementRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A012 /* BivvyAgreementRowView.swift */; };
 		2B1C5D4E2C00000100B1B012 /* BivvyMockAuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A013 /* BivvyMockAuthStore.swift */; };
-		2B1C5D4E2C00000100B1B013 /* BivvyAuthEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A014 /* BivvyAuthEntryViewController.swift */; };
-		2B1C5D4E2C00000100B1B014 /* BivvyEULAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A015 /* BivvyEULAViewController.swift */; };
-		2B1C5D4E2C00000100B1B015 /* BivvyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A016 /* BivvyLoginViewController.swift */; };
-		2B1C5D4E2C00000100B1B016 /* BivvyRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A017 /* BivvyRegisterViewController.swift */; };
+		2B1C5D4E2C00000100B1B013 /* CommunityHubAuthEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A014 /* CommunityHubAuthEntryViewController.swift */; };
+		2B1C5D4E2C00000100B1B014 /* TrustedReviewEULAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A015 /* TrustedReviewEULAViewController.swift */; };
+		2B1C5D4E2C00000100B1B015 /* ProductReviewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A016 /* ProductReviewLoginViewController.swift */; };
+		2B1C5D4E2C00000100B1B016 /* CommunitySharingRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A017 /* CommunitySharingRegisterViewController.swift */; };
 		2B1C5D4E2C00000100B1B017 /* BivvyProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A018 /* BivvyProfileSetupViewController.swift */; };
 		2B1C5D4E2C00000100B1B018 /* BivvyMainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A019 /* BivvyMainModels.swift */; };
 		2B1C5D4E2C00000100B1B019 /* BivvyMainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A020 /* BivvyMainTabBarController.swift */; };
@@ -35,14 +35,15 @@
 		2B1C5D4E2C00000100B1B026 /* BivvyProfileGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A027 /* BivvyProfileGridCell.swift */; };
 		2B1C5D4E2C00000100B1B027 /* BivvyLocalFindStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A028 /* BivvyLocalFindStore.swift */; };
 		2B1C5D4E2C00000100B1B028 /* BivvyHomeUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A029 /* BivvyHomeUserCell.swift */; };
-		2B1C5D4E2C00000100B1B029 /* BivvyWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A030 /* BivvyWebViewController.swift */; };
+		2B1C5D4E2C00000100B1B029 /* ProductShowcaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A030 /* ProductShowcaseViewController.swift */; };
 		2B1C5D4E2C00000100B1B030 /* BivvyFindDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A031 /* BivvyFindDetailViewController.swift */; };
 		2B1C5D4E2C00000100B1B031 /* BivvyFindPublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A032 /* BivvyFindPublishViewController.swift */; };
-		2B1C5D4E2C00000100B1B032 /* BivvyH5Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */; };
+		2B1C5D4E2C00000100B1B032 /* ProductCurationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A033 /* ProductCurationRoute.swift */; };
 		2B1C5D4E2C00000100B1B033 /* BivvyComplianceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */; };
 		2B1C5D4E2C00000100B1B034 /* BivvyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2C00000100B1A035 /* BivvyMessageViewController.swift */; };
 		2B1C5D4E2D00000100B1B036 /* BivvyRemoteImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */; };
-		2B1C5D4E2D00000100B1B037 /* BivvyNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A037 /* BivvyNetworkService.swift */; };
+		2B1C5D4E2D00000100B1B037 /* RecommendationEngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A037 /* RecommendationEngineService.swift */; };
+		2B1C5D4E2D00000100B1B038 /* BivvyStringVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A038 /* BivvyStringVault.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,10 +61,10 @@
 		2B1C5D4E2C00000100B1A011 /* BivvyKeyboardAvoidingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyKeyboardAvoidingViewController.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A012 /* BivvyAgreementRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyAgreementRowView.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A013 /* BivvyMockAuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMockAuthStore.swift; sourceTree = "<group>"; };
-		2B1C5D4E2C00000100B1A014 /* BivvyAuthEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyAuthEntryViewController.swift; sourceTree = "<group>"; };
-		2B1C5D4E2C00000100B1A015 /* BivvyEULAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyEULAViewController.swift; sourceTree = "<group>"; };
-		2B1C5D4E2C00000100B1A016 /* BivvyLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyLoginViewController.swift; sourceTree = "<group>"; };
-		2B1C5D4E2C00000100B1A017 /* BivvyRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyRegisterViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A014 /* CommunityHubAuthEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityHubAuthEntryViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A015 /* TrustedReviewEULAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustedReviewEULAViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A016 /* ProductReviewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductReviewLoginViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A017 /* CommunitySharingRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitySharingRegisterViewController.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A018 /* BivvyProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyProfileSetupViewController.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A019 /* BivvyMainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMainModels.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A020 /* BivvyMainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMainTabBarController.swift; sourceTree = "<group>"; };
@@ -76,14 +77,15 @@
 		2B1C5D4E2C00000100B1A027 /* BivvyProfileGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyProfileGridCell.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A028 /* BivvyLocalFindStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyLocalFindStore.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A029 /* BivvyHomeUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyHomeUserCell.swift; sourceTree = "<group>"; };
-		2B1C5D4E2C00000100B1A030 /* BivvyWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyWebViewController.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A030 /* ProductShowcaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductShowcaseViewController.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A031 /* BivvyFindDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyFindDetailViewController.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A032 /* BivvyFindPublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyFindPublishViewController.swift; sourceTree = "<group>"; };
-		2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyH5Route.swift; sourceTree = "<group>"; };
+		2B1C5D4E2C00000100B1A033 /* ProductCurationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCurationRoute.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyComplianceStore.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A035 /* BivvyMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyMessageViewController.swift; sourceTree = "<group>"; };
 		2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyRemoteImageLoader.swift; sourceTree = "<group>"; };
-		2B1C5D4E2D00000100B1A037 /* BivvyNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyNetworkService.swift; sourceTree = "<group>"; };
+		2B1C5D4E2D00000100B1A037 /* RecommendationEngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngineService.swift; sourceTree = "<group>"; };
+		2B1C5D4E2D00000100B1A038 /* BivvyStringVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyStringVault.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,14 +128,15 @@
 				2B1C5D4E2C00000100B1A011 /* BivvyKeyboardAvoidingViewController.swift */,
 				2B1C5D4E2C00000100B1A012 /* BivvyAgreementRowView.swift */,
 				2B1C5D4E2C00000100B1A013 /* BivvyMockAuthStore.swift */,
-				2B1C5D4E2C00000100B1A014 /* BivvyAuthEntryViewController.swift */,
-				2B1C5D4E2C00000100B1A015 /* BivvyEULAViewController.swift */,
-				2B1C5D4E2C00000100B1A016 /* BivvyLoginViewController.swift */,
-				2B1C5D4E2C00000100B1A017 /* BivvyRegisterViewController.swift */,
+				2B1C5D4E2C00000100B1A014 /* CommunityHubAuthEntryViewController.swift */,
+				2B1C5D4E2C00000100B1A015 /* TrustedReviewEULAViewController.swift */,
+				2B1C5D4E2C00000100B1A016 /* ProductReviewLoginViewController.swift */,
+				2B1C5D4E2C00000100B1A017 /* CommunitySharingRegisterViewController.swift */,
 				2B1C5D4E2C00000100B1A018 /* BivvyProfileSetupViewController.swift */,
 				2B1C5D4E2C00000100B1A019 /* BivvyMainModels.swift */,
 				2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */,
-				2B1C5D4E2D00000100B1A037 /* BivvyNetworkService.swift */,
+				2B1C5D4E2D00000100B1A037 /* RecommendationEngineService.swift */,
+				2B1C5D4E2D00000100B1A038 /* BivvyStringVault.swift */,
 				2B1C5D4E2C00000100B1A020 /* BivvyMainTabBarController.swift */,
 				2B1C5D4E2C00000100B1A021 /* BivvyHomeViewController.swift */,
 				2B1C5D4E2C00000100B1A022 /* BivvyVideoViewController.swift */,
@@ -145,10 +148,10 @@
 				2B1C5D4E2C00000100B1A027 /* BivvyProfileGridCell.swift */,
 				2B1C5D4E2C00000100B1A028 /* BivvyLocalFindStore.swift */,
 				2B1C5D4E2C00000100B1A029 /* BivvyHomeUserCell.swift */,
-				2B1C5D4E2C00000100B1A030 /* BivvyWebViewController.swift */,
+				2B1C5D4E2C00000100B1A030 /* ProductShowcaseViewController.swift */,
 				2B1C5D4E2C00000100B1A031 /* BivvyFindDetailViewController.swift */,
 				2B1C5D4E2C00000100B1A032 /* BivvyFindPublishViewController.swift */,
-				2B1C5D4E2C00000100B1A033 /* BivvyH5Route.swift */,
+				2B1C5D4E2C00000100B1A033 /* ProductCurationRoute.swift */,
 				2B1C5D4E2C00000100B1A034 /* BivvyComplianceStore.swift */,
 				2B1C5D4E2C00000100B1A006 /* Info.plist */,
 				2B1C5D4E2C00000100B1A004 /* LaunchScreen.storyboard */,
@@ -238,14 +241,15 @@
 				2B1C5D4E2C00000100B1B010 /* BivvyKeyboardAvoidingViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B011 /* BivvyAgreementRowView.swift in Sources */,
 				2B1C5D4E2C00000100B1B012 /* BivvyMockAuthStore.swift in Sources */,
-				2B1C5D4E2C00000100B1B013 /* BivvyAuthEntryViewController.swift in Sources */,
-				2B1C5D4E2C00000100B1B014 /* BivvyEULAViewController.swift in Sources */,
-				2B1C5D4E2C00000100B1B015 /* BivvyLoginViewController.swift in Sources */,
-				2B1C5D4E2C00000100B1B016 /* BivvyRegisterViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B013 /* CommunityHubAuthEntryViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B014 /* TrustedReviewEULAViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B015 /* ProductReviewLoginViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B016 /* CommunitySharingRegisterViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B017 /* BivvyProfileSetupViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B018 /* BivvyMainModels.swift in Sources */,
-				2B1C5D4E2D00000100B1B037 /* BivvyNetworkService.swift in Sources */,
+				2B1C5D4E2D00000100B1B037 /* RecommendationEngineService.swift in Sources */,
 				2B1C5D4E2D00000100B1B036 /* BivvyRemoteImageLoader.swift in Sources */,
+				2B1C5D4E2D00000100B1B038 /* BivvyStringVault.swift in Sources */,
 				2B1C5D4E2C00000100B1B019 /* BivvyMainTabBarController.swift in Sources */,
 				2B1C5D4E2C00000100B1B020 /* BivvyHomeViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B021 /* BivvyVideoViewController.swift in Sources */,
@@ -257,10 +261,10 @@
 				2B1C5D4E2C00000100B1B026 /* BivvyProfileGridCell.swift in Sources */,
 				2B1C5D4E2C00000100B1B027 /* BivvyLocalFindStore.swift in Sources */,
 				2B1C5D4E2C00000100B1B028 /* BivvyHomeUserCell.swift in Sources */,
-				2B1C5D4E2C00000100B1B029 /* BivvyWebViewController.swift in Sources */,
+				2B1C5D4E2C00000100B1B029 /* ProductShowcaseViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B030 /* BivvyFindDetailViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B031 /* BivvyFindPublishViewController.swift in Sources */,
-				2B1C5D4E2C00000100B1B032 /* BivvyH5Route.swift in Sources */,
+				2B1C5D4E2C00000100B1B032 /* ProductCurationRoute.swift in Sources */,
 				2B1C5D4E2C00000100B1B033 /* BivvyComplianceStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

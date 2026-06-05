@@ -1,23 +1,23 @@
 import UIKit
 
-final class BivvyProfileViewController: UIViewController {
-    private let gridCollectionView: UICollectionView
-    private let avatarView = UIImageView(image: UIImage(named: "bivvy_tab_profile_idlesel"))
-    private let nameLabel = UILabel()
-    private let bioLabel = UILabel()
-    private let gridEmptyLabel = UILabel()
-    private var statValueLabels: [UILabel] = []
-    private var gridItems: [BivvyProfileItem] = []
-    private var selectedSegmentIndex = 0
-    private var segmentButtons: [UIButton] = []
-    private var gridCollectionHeightConstraint: NSLayoutConstraint?
+final class CommunityHubProfileViewController: UIViewController {
+    private let contentCreatorGridView: UICollectionView
+    private let contentCreatorAvatarView = UIImageView(image: UIImage(named: "bivvy_tab_profile_idlesel"))
+    private let contentCreatorNameLabel = UILabel()
+    private let authenticVoiceBioLabel = UILabel()
+    private let emptyCollectionLabel = UILabel()
+    private var engagementMetricLabels: [UILabel] = []
+    private var contentCreatorItems: [ContentCreatorProfileItem] = []
+    private var selectedContentCurationIndex = 0
+    private var contentCurationButtons: [UIButton] = []
+    private var contentCreatorGridHeightConstraint: NSLayoutConstraint?
 
     init() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 14
-        layout.minimumInteritemSpacing = 14
-        gridCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let contentCreatorGridLayout = UICollectionViewFlowLayout()
+        contentCreatorGridLayout.scrollDirection = .vertical
+        contentCreatorGridLayout.minimumLineSpacing = 14
+        contentCreatorGridLayout.minimumInteritemSpacing = 14
+        contentCreatorGridView = UICollectionView(frame: .zero, collectionViewLayout: contentCreatorGridLayout)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -27,347 +27,349 @@ final class BivvyProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        buildLayout()
-        loadProfileData()
+        buildCommunityHubProfileLayout()
+        loadCommunityHubProfileData()
     }
 
-    private func buildLayout() {
+    private func buildCommunityHubProfileLayout() {
         view.backgroundColor = .white
 
-        let background = BivvyGradientView()
-        background.translatesAutoresizingMaskIntoConstraints = false
-        background.colors = [
+        let communityHubBackground = ProductCurationGradientView()
+        communityHubBackground.translatesAutoresizingMaskIntoConstraints = false
+        communityHubBackground.curatedListColors = [
             UIColor(red: 255 / 255, green: 205 / 255, blue: 215 / 255, alpha: 1),
             UIColor(red: 255 / 255, green: 246 / 255, blue: 251 / 255, alpha: 1),
             UIColor.white
         ]
-        background.startPoint = CGPoint(x: 0, y: 0)
-        background.endPoint = CGPoint(x: 0.82, y: 0.5)
+        communityHubBackground.productCurationStartPoint = CGPoint(x: 0, y: 0)
+        communityHubBackground.productCurationEndPoint = CGPoint(x: 0.82, y: 0.5)
 
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.alwaysBounceVertical = true
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.backgroundColor = .clear
+        let communityHubScrollView = UIScrollView()
+        communityHubScrollView.translatesAutoresizingMaskIntoConstraints = false
+        communityHubScrollView.alwaysBounceVertical = true
+        communityHubScrollView.showsVerticalScrollIndicator = false
+        communityHubScrollView.backgroundColor = .clear
 
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .clear
+        let communityHubContentView = UIView()
+        communityHubContentView.translatesAutoresizingMaskIntoConstraints = false
+        communityHubContentView.backgroundColor = .clear
 
-        let title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.text = "Profile"
-        title.font = BivvyAuthTheme.displayFont(size: 30)
-        title.textColor = .black
-        title.layer.shadowColor = UIColor.white.cgColor
-        title.layer.shadowOpacity = 1
-        title.layer.shadowRadius = 0
-        title.layer.shadowOffset = CGSize(width: 2, height: 2)
+        let communityHubTitleLabel = UILabel()
+        communityHubTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        communityHubTitleLabel.text = "Profile"
+        communityHubTitleLabel.font = CommunitySharingAuthTheme.dailyInspirationDisplayFont(size: 30)
+        communityHubTitleLabel.textColor = .black
+        communityHubTitleLabel.layer.shadowColor = UIColor.white.cgColor
+        communityHubTitleLabel.layer.shadowOpacity = 1
+        communityHubTitleLabel.layer.shadowRadius = 0
+        communityHubTitleLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
 
-        let messageButton = makeCircleIconButton(systemName: "ellipsis.message.fill")
-        messageButton.addTarget(self, action: #selector(openMessages), for: .touchUpInside)
+        let conversationStarterButton = makeCommunityHubIconButton(systemName: "ellipsis.message.fill")
+        conversationStarterButton.addTarget(self, action: #selector(openConversationStarterMessages), for: .touchUpInside)
 
-        let settingsButton = makeCircleIconButton(systemName: "gearshape.fill")
-        settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
+        let smartFilterButton = makeCommunityHubIconButton(systemName: "gearshape.fill")
+        smartFilterButton.addTarget(self, action: #selector(openSmartFilterSettings), for: .touchUpInside)
 
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.contentMode = .scaleAspectFill
-        avatarView.clipsToBounds = true
-        avatarView.layer.cornerRadius = 43
+        contentCreatorAvatarView.translatesAutoresizingMaskIntoConstraints = false
+        contentCreatorAvatarView.contentMode = .scaleAspectFill
+        contentCreatorAvatarView.clipsToBounds = true
+        contentCreatorAvatarView.layer.cornerRadius = 43
 
-        let editButton = UIButton(type: .system)
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-        editButton.tintColor = .white
-        editButton.backgroundColor = .black
-        editButton.layer.cornerRadius = 16
-        editButton.addTarget(self, action: #selector(openEditProfile), for: .touchUpInside)
+        let authenticVoiceEditButton = UIButton(type: .system)
+        authenticVoiceEditButton.translatesAutoresizingMaskIntoConstraints = false
+        authenticVoiceEditButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+        authenticVoiceEditButton.tintColor = .white
+        authenticVoiceEditButton.backgroundColor = .black
+        authenticVoiceEditButton.layer.cornerRadius = 16
+        authenticVoiceEditButton.addTarget(self, action: #selector(openAuthenticVoiceEdit), for: .touchUpInside)
 
-        let stats = makeStatsStack()
+        let engagementMetricStack = makeEngagementMetricStack()
 
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = "No data available."
-        nameLabel.font = BivvyAuthTheme.titleFont(size: 24)
-        nameLabel.textColor = .black
+        contentCreatorNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentCreatorNameLabel.text = BivvyStringVault.noData
+        contentCreatorNameLabel.font = CommunitySharingAuthTheme.productShowcaseTitleFont(size: 24)
+        contentCreatorNameLabel.textColor = .black
 
-        bioLabel.translatesAutoresizingMaskIntoConstraints = false
-        bioLabel.text = "No data available."
-        bioLabel.font = .systemFont(ofSize: 15, weight: .regular)
-        bioLabel.textColor = UIColor(red: 74 / 255, green: 74 / 255, blue: 74 / 255, alpha: 1)
-        bioLabel.numberOfLines = 2
+        authenticVoiceBioLabel.translatesAutoresizingMaskIntoConstraints = false
+        authenticVoiceBioLabel.text = BivvyStringVault.noData
+        authenticVoiceBioLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        authenticVoiceBioLabel.textColor = UIColor(red: 74 / 255, green: 74 / 255, blue: 74 / 255, alpha: 1)
+        authenticVoiceBioLabel.numberOfLines = 2
 
-        let segments = makeSegmentControl()
+        let contentCurationControl = makeContentCurationControl()
 
-        gridCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        gridCollectionView.backgroundColor = .clear
-        gridCollectionView.isScrollEnabled = false
-        gridCollectionView.dataSource = self
-        gridCollectionView.delegate = self
-        gridCollectionView.register(BivvyProfileGridCell.self, forCellWithReuseIdentifier: BivvyProfileGridCell.reuseIdentifier)
+        contentCreatorGridView.translatesAutoresizingMaskIntoConstraints = false
+        contentCreatorGridView.backgroundColor = .clear
+        contentCreatorGridView.isScrollEnabled = false
+        contentCreatorGridView.dataSource = self
+        contentCreatorGridView.delegate = self
+        contentCreatorGridView.register(BivvyProfileGridCell.self, forCellWithReuseIdentifier: BivvyProfileGridCell.reuseIdentifier)
 
-        gridEmptyLabel.translatesAutoresizingMaskIntoConstraints = false
-        gridEmptyLabel.text = "No data available."
-        gridEmptyLabel.font = .systemFont(ofSize: 15, weight: .semibold)
-        gridEmptyLabel.textColor = UIColor.black.withAlphaComponent(0.46)
-        gridEmptyLabel.textAlignment = .center
+        emptyCollectionLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyCollectionLabel.text = BivvyStringVault.noData
+        emptyCollectionLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+        emptyCollectionLabel.textColor = UIColor.black.withAlphaComponent(0.46)
+        emptyCollectionLabel.textAlignment = .center
 
-        view.addSubview(background)
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        [title, messageButton, settingsButton, avatarView, editButton, stats, nameLabel, bioLabel, segments, gridCollectionView, gridEmptyLabel].forEach(contentView.addSubview)
+        view.addSubview(communityHubBackground)
+        view.addSubview(communityHubScrollView)
+        communityHubScrollView.addSubview(communityHubContentView)
+        [communityHubTitleLabel, conversationStarterButton, smartFilterButton, contentCreatorAvatarView, authenticVoiceEditButton, engagementMetricStack, contentCreatorNameLabel, authenticVoiceBioLabel, contentCurationControl, contentCreatorGridView, emptyCollectionLabel].forEach(communityHubContentView.addSubview)
 
-        gridCollectionHeightConstraint = gridCollectionView.heightAnchor.constraint(equalToConstant: 96)
+        contentCreatorGridHeightConstraint = contentCreatorGridView.heightAnchor.constraint(equalToConstant: 96)
 
         NSLayoutConstraint.activate([
-            background.topAnchor.constraint(equalTo: view.topAnchor),
-            background.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            background.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            communityHubBackground.topAnchor.constraint(equalTo: view.topAnchor),
+            communityHubBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            communityHubBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            communityHubBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            communityHubScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            communityHubScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            communityHubScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            communityHubScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            communityHubContentView.topAnchor.constraint(equalTo: communityHubScrollView.contentLayoutGuide.topAnchor),
+            communityHubContentView.leadingAnchor.constraint(equalTo: communityHubScrollView.contentLayoutGuide.leadingAnchor),
+            communityHubContentView.trailingAnchor.constraint(equalTo: communityHubScrollView.contentLayoutGuide.trailingAnchor),
+            communityHubContentView.bottomAnchor.constraint(equalTo: communityHubScrollView.contentLayoutGuide.bottomAnchor),
+            communityHubContentView.widthAnchor.constraint(equalTo: communityHubScrollView.frameLayoutGuide.widthAnchor),
 
-            title.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 18),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            communityHubTitleLabel.topAnchor.constraint(equalTo: communityHubContentView.safeAreaLayoutGuide.topAnchor, constant: 18),
+            communityHubTitleLabel.leadingAnchor.constraint(equalTo: communityHubContentView.leadingAnchor, constant: 24),
 
-            settingsButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            settingsButton.widthAnchor.constraint(equalToConstant: 48),
-            settingsButton.heightAnchor.constraint(equalToConstant: 48),
+            smartFilterButton.centerYAnchor.constraint(equalTo: communityHubTitleLabel.centerYAnchor),
+            smartFilterButton.trailingAnchor.constraint(equalTo: communityHubContentView.trailingAnchor, constant: -20),
+            smartFilterButton.widthAnchor.constraint(equalToConstant: 48),
+            smartFilterButton.heightAnchor.constraint(equalToConstant: 48),
 
-            messageButton.centerYAnchor.constraint(equalTo: settingsButton.centerYAnchor),
-            messageButton.trailingAnchor.constraint(equalTo: settingsButton.leadingAnchor, constant: -12),
-            messageButton.widthAnchor.constraint(equalToConstant: 48),
-            messageButton.heightAnchor.constraint(equalToConstant: 48),
+            conversationStarterButton.centerYAnchor.constraint(equalTo: smartFilterButton.centerYAnchor),
+            conversationStarterButton.trailingAnchor.constraint(equalTo: smartFilterButton.leadingAnchor, constant: -12),
+            conversationStarterButton.widthAnchor.constraint(equalToConstant: 48),
+            conversationStarterButton.heightAnchor.constraint(equalToConstant: 48),
 
-            avatarView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 30),
-            avatarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
-            avatarView.widthAnchor.constraint(equalToConstant: 86),
-            avatarView.heightAnchor.constraint(equalToConstant: 86),
+            contentCreatorAvatarView.topAnchor.constraint(equalTo: communityHubTitleLabel.bottomAnchor, constant: 30),
+            contentCreatorAvatarView.leadingAnchor.constraint(equalTo: communityHubContentView.leadingAnchor, constant: 28),
+            contentCreatorAvatarView.widthAnchor.constraint(equalToConstant: 86),
+            contentCreatorAvatarView.heightAnchor.constraint(equalToConstant: 86),
 
-            editButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: -2),
-            editButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: -2),
-            editButton.widthAnchor.constraint(equalToConstant: 32),
-            editButton.heightAnchor.constraint(equalToConstant: 32),
+            authenticVoiceEditButton.trailingAnchor.constraint(equalTo: contentCreatorAvatarView.trailingAnchor, constant: -2),
+            authenticVoiceEditButton.bottomAnchor.constraint(equalTo: contentCreatorAvatarView.bottomAnchor, constant: -2),
+            authenticVoiceEditButton.widthAnchor.constraint(equalToConstant: 32),
+            authenticVoiceEditButton.heightAnchor.constraint(equalToConstant: 32),
 
-            stats.centerYAnchor.constraint(equalTo: avatarView.centerYAnchor),
-            stats.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 22),
-            stats.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            stats.heightAnchor.constraint(equalToConstant: 54),
+            engagementMetricStack.centerYAnchor.constraint(equalTo: contentCreatorAvatarView.centerYAnchor),
+            engagementMetricStack.leadingAnchor.constraint(equalTo: contentCreatorAvatarView.trailingAnchor, constant: 22),
+            engagementMetricStack.trailingAnchor.constraint(equalTo: communityHubContentView.trailingAnchor, constant: -20),
+            engagementMetricStack.heightAnchor.constraint(equalToConstant: 54),
 
-            nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            contentCreatorNameLabel.topAnchor.constraint(equalTo: contentCreatorAvatarView.bottomAnchor, constant: 16),
+            contentCreatorNameLabel.leadingAnchor.constraint(equalTo: contentCreatorAvatarView.leadingAnchor),
+            contentCreatorNameLabel.trailingAnchor.constraint(equalTo: communityHubContentView.trailingAnchor, constant: -24),
 
-            bioLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            bioLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            bioLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            authenticVoiceBioLabel.topAnchor.constraint(equalTo: contentCreatorNameLabel.bottomAnchor, constant: 8),
+            authenticVoiceBioLabel.leadingAnchor.constraint(equalTo: contentCreatorNameLabel.leadingAnchor),
+            authenticVoiceBioLabel.trailingAnchor.constraint(equalTo: communityHubContentView.trailingAnchor, constant: -24),
 
-            segments.topAnchor.constraint(equalTo: bioLabel.bottomAnchor, constant: 24),
-            segments.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            segments.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            segments.heightAnchor.constraint(equalToConstant: 58),
+            contentCurationControl.topAnchor.constraint(equalTo: authenticVoiceBioLabel.bottomAnchor, constant: 24),
+            contentCurationControl.leadingAnchor.constraint(equalTo: communityHubContentView.leadingAnchor, constant: 24),
+            contentCurationControl.trailingAnchor.constraint(equalTo: communityHubContentView.trailingAnchor, constant: -24),
+            contentCurationControl.heightAnchor.constraint(equalToConstant: 58),
 
-            gridCollectionView.topAnchor.constraint(equalTo: segments.bottomAnchor, constant: 20),
-            gridCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            gridCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            gridCollectionHeightConstraint!,
-            gridCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -28),
+            contentCreatorGridView.topAnchor.constraint(equalTo: contentCurationControl.bottomAnchor, constant: 20),
+            contentCreatorGridView.leadingAnchor.constraint(equalTo: communityHubContentView.leadingAnchor, constant: 24),
+            contentCreatorGridView.trailingAnchor.constraint(equalTo: communityHubContentView.trailingAnchor, constant: -24),
+            contentCreatorGridHeightConstraint!,
+            contentCreatorGridView.bottomAnchor.constraint(equalTo: communityHubContentView.bottomAnchor, constant: -28),
 
-            gridEmptyLabel.topAnchor.constraint(equalTo: segments.bottomAnchor, constant: 36),
-            gridEmptyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            gridEmptyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
+            emptyCollectionLabel.topAnchor.constraint(equalTo: contentCurationControl.bottomAnchor, constant: 36),
+            emptyCollectionLabel.leadingAnchor.constraint(equalTo: communityHubContentView.leadingAnchor, constant: 24),
+            emptyCollectionLabel.trailingAnchor.constraint(equalTo: communityHubContentView.trailingAnchor, constant: -24)
         ])
-        updateGridHeight()
+        updateContentCreatorGridHeight()
     }
 
-    private func makeCircleIconButton(systemName: String) -> UIButton {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(red: 255 / 255, green: 222 / 255, blue: 250 / 255, alpha: 1)
-        button.tintColor = .black
-        button.layer.cornerRadius = 24
-        button.setImage(UIImage(systemName: systemName), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        return button
+    private func makeCommunityHubIconButton(systemName: String) -> UIButton {
+        let communityHubButton = UIButton(type: .system)
+        communityHubButton.translatesAutoresizingMaskIntoConstraints = false
+        communityHubButton.backgroundColor = UIColor(red: 255 / 255, green: 222 / 255, blue: 250 / 255, alpha: 1)
+        communityHubButton.tintColor = .black
+        communityHubButton.layer.cornerRadius = 24
+        communityHubButton.setImage(UIImage(systemName: systemName), for: .normal)
+        communityHubButton.imageView?.contentMode = .scaleAspectFit
+        return communityHubButton
     }
 
-    private func makeStatsStack() -> UIStackView {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = 8
-        statValueLabels.removeAll()
-        [("0", "Friends"), ("0", "Followers"), ("0", "Following")].enumerated().forEach { index, item in
-            stack.addArrangedSubview(makeStat(value: item.0 , label: item.1, tag: index + 1))
+    private func makeEngagementMetricStack() -> UIStackView {
+        let engagementMetricStack = UIStackView()
+        engagementMetricStack.translatesAutoresizingMaskIntoConstraints = false
+        engagementMetricStack.axis = .horizontal
+        engagementMetricStack.distribution = .fillEqually
+        engagementMetricStack.spacing = 8
+        engagementMetricLabels.removeAll()
+        [("0", "Friends"), ("0", "Followers"), ("0", "Following")].enumerated().forEach { metricIndex, metricItem in
+            engagementMetricStack.addArrangedSubview(makeEngagementMetricView(value: metricItem.0, label: metricItem.1, tag: metricIndex + 1))
         }
-        return stack
+        return engagementMetricStack
     }
 
-    private func makeStat(value: String, label: String, tag: Int) -> UIView {
-        let valueLabel = UILabel()
-        valueLabel.text = value
-        valueLabel.font = .systemFont(ofSize: 20, weight: .bold)
-        valueLabel.textColor = .black
-        valueLabel.textAlignment = .center
-        statValueLabels.append(valueLabel)
+    private func makeEngagementMetricView(value: String, label: String, tag: Int) -> UIView {
+        let engagementMetricValueLabel = UILabel()
+        engagementMetricValueLabel.text = value
+        engagementMetricValueLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        engagementMetricValueLabel.textColor = .black
+        engagementMetricValueLabel.textAlignment = .center
+        engagementMetricLabels.append(engagementMetricValueLabel)
 
-        let labelView = UILabel()
-        labelView.text = label
-        labelView.font = .systemFont(ofSize: 13, weight: .regular)
-        labelView.textColor = UIColor(red: 126 / 255, green: 126 / 255, blue: 126 / 255, alpha: 1)
-        labelView.textAlignment = .center
+        let engagementMetricNameLabel = UILabel()
+        engagementMetricNameLabel.text = label
+        engagementMetricNameLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        engagementMetricNameLabel.textColor = UIColor(red: 126 / 255, green: 126 / 255, blue: 126 / 255, alpha: 1)
+        engagementMetricNameLabel.textAlignment = .center
 
-        let stack = UIStackView(arrangedSubviews: [valueLabel, labelView])
-        stack.axis = .vertical
-        stack.spacing = 4
-        stack.alignment = .center
-        stack.tag = tag
-        stack.isUserInteractionEnabled = true
-        stack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openFollowList(_:))))
-        return stack
+        let peerInteractionStack = UIStackView(arrangedSubviews: [engagementMetricValueLabel, engagementMetricNameLabel])
+        peerInteractionStack.axis = .vertical
+        peerInteractionStack.spacing = 4
+        peerInteractionStack.alignment = .center
+        peerInteractionStack.tag = tag
+        peerInteractionStack.isUserInteractionEnabled = true
+        peerInteractionStack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openInterestGroupList(_:))))
+        return peerInteractionStack
     }
 
-    private func makeSegmentControl() -> UIView {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = UIColor(red: 253 / 255, green: 218 / 255, blue: 242 / 255, alpha: 1)
-        container.layer.cornerRadius = 24
-        container.layer.masksToBounds = true
+    private func makeContentCurationControl() -> UIView {
+        let contentCurationContainer = UIView()
+        contentCurationContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentCurationContainer.backgroundColor = UIColor(red: 253 / 255, green: 218 / 255, blue: 242 / 255, alpha: 1)
+        contentCurationContainer.layer.cornerRadius = 24
+        contentCurationContainer.layer.masksToBounds = true
 
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = 0
+        let contentCurationStack = UIStackView()
+        contentCurationStack.translatesAutoresizingMaskIntoConstraints = false
+        contentCurationStack.axis = .horizontal
+        contentCurationStack.distribution = .fillEqually
+        contentCurationStack.spacing = 0
 
-        ["Post", "Video"].enumerated().forEach { index, title in
-            let button = UIButton(type: .system)
-            button.tag = index
-            button.setTitle(title, for: .normal)
-            button.titleLabel?.font = BivvyAuthTheme.buttonFont(size: 18)
-            button.layer.cornerRadius = 22
-            button.addTarget(self, action: #selector(selectSegment(_:)), for: .touchUpInside)
-            segmentButtons.append(button)
-            stack.addArrangedSubview(button)
+        ["Post", "Video"].enumerated().forEach { contentCurationIndex, contentCurationTitle in
+            let contentCurationButton = UIButton(type: .system)
+            contentCurationButton.tag = contentCurationIndex
+            contentCurationButton.setTitle(contentCurationTitle, for: .normal)
+            contentCurationButton.titleLabel?.font = CommunitySharingAuthTheme.sharingMechanicButtonFont(size: 18)
+            contentCurationButton.layer.cornerRadius = 22
+            contentCurationButton.addTarget(self, action: #selector(selectContentCuration(_:)), for: .touchUpInside)
+            contentCurationButtons.append(contentCurationButton)
+            contentCurationStack.addArrangedSubview(contentCurationButton)
         }
 
-        container.addSubview(stack)
+        contentCurationContainer.addSubview(contentCurationStack)
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: container.topAnchor, constant: 4),
-            stack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 4),
-            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -4),
-            stack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -4)
+            contentCurationStack.topAnchor.constraint(equalTo: contentCurationContainer.topAnchor, constant: 4),
+            contentCurationStack.leadingAnchor.constraint(equalTo: contentCurationContainer.leadingAnchor, constant: 4),
+            contentCurationStack.trailingAnchor.constraint(equalTo: contentCurationContainer.trailingAnchor, constant: -4),
+            contentCurationStack.bottomAnchor.constraint(equalTo: contentCurationContainer.bottomAnchor, constant: -4)
         ])
-        updateSegments()
-        return container
+        updateContentCurationButtons()
+        return contentCurationContainer
     }
 
-    private func updateSegments() {
-        for button in segmentButtons {
-            let selected = button.tag == selectedSegmentIndex
-            button.backgroundColor = selected ? UIColor(red: 241 / 255, green: 82 / 255, blue: 227 / 255, alpha: 1) : .clear
-            button.setTitleColor(selected ? .white : UIColor(red: 178 / 255, green: 151 / 255, blue: 172 / 255, alpha: 1), for: .normal)
+    private func updateContentCurationButtons() {
+        for contentCurationButton in contentCurationButtons {
+            let isContentCurationSelected = contentCurationButton.tag == selectedContentCurationIndex
+            contentCurationButton.backgroundColor = isContentCurationSelected ? UIColor(red: 241 / 255, green: 82 / 255, blue: 227 / 255, alpha: 1) : .clear
+            contentCurationButton.setTitleColor(isContentCurationSelected ? .white : UIColor(red: 178 / 255, green: 151 / 255, blue: 172 / 255, alpha: 1), for: .normal)
         }
     }
 
-    @objc private func selectSegment(_ sender: UIButton) {
-        selectedSegmentIndex = sender.tag
-        updateSegments()
-        gridCollectionView.reloadData()
+    @objc private func selectContentCuration(_ sender: UIButton) {
+        selectedContentCurationIndex = sender.tag
+        updateContentCurationButtons()
+        contentCreatorGridView.reloadData()
     }
 
-    @objc private func openMessages() {
-        let message = BivvyMessageViewController()
-        message.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(message, animated: true)
+    @objc private func openConversationStarterMessages() {
+        let conversationStarterPage = BivvyMessageViewController()
+        conversationStarterPage.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(conversationStarterPage, animated: true)
     }
 
-    @objc private func openSettings() {
-        openWebRoute(.settings)
+    @objc private func openSmartFilterSettings() {
+        openCommunityHubWebRoute(.smartFilter)
     }
 
-    @objc private func openEditProfile() {
-        openWebRoute(.editProfile)
+    @objc private func openAuthenticVoiceEdit() {
+        openCommunityHubWebRoute(.authenticVoice)
     }
 
-    @objc private func openFollowList(_ gesture: UITapGestureRecognizer) {
-        guard let tag = gesture.view?.tag else { return }
+    @objc private func openInterestGroupList(_ gesture: UITapGestureRecognizer) {
+        guard let interestGroupType = gesture.view?.tag else { return }
         
-        openWebRoute(.followList(type: "\(tag)"))
+        openCommunityHubWebRoute(.interestGroup(type: "\(interestGroupType)"))
     }
 
-    private func openWebRoute(_ route: BivvyH5Route) {
-        guard let url = route.url() else { return }
-        let web = BivvyWebViewController(url: url)
-        web.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(web, animated: true)
+    private func openCommunityHubWebRoute(_ route: BivvyH5Route) {
+        guard let communityHubURL = route.productCurationURL() else { return }
+        let communityHubWebPage = BivvyWebViewController(url: communityHubURL)
+        communityHubWebPage.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(communityHubWebPage, animated: true)
     }
 
-    private func loadProfileData() {
-        BivvyNetworkService.shared.fetchProfile { [weak self] result in
+    private func loadCommunityHubProfileData() {
+        BivvyNetworkService.shared.fetchCommunityHubProfile { [weak self] result in
             guard let self else { return }
             if case .success(let profile) = result {
-                self.nameLabel.text = profile.name.isEmpty ? "No data available." : profile.name
-                self.bioLabel.text = profile.about.isEmpty ? "No data available." : profile.about
-                BivvyRemoteImageLoader.shared.load(profile.avatarURL, into: self.avatarView, placeholder: UIImage(named: "bivvy_tab_profile_idlesel"))
-                let values = [profile.friendsCount, profile.followersCount, profile.followingCount]
-                for (index, value) in values.enumerated() where self.statValueLabels.indices.contains(index) {
-                    self.statValueLabels[index].text = value
+                self.contentCreatorNameLabel.text = profile.contentCreatorName.isEmpty ? BivvyStringVault.noData : profile.contentCreatorName
+                self.authenticVoiceBioLabel.text = profile.authenticVoiceAbout.isEmpty ? BivvyStringVault.noData : profile.authenticVoiceAbout
+                BivvyRemoteImageLoader.shared.load(profile.contentCreatorAvatarURL, into: self.contentCreatorAvatarView, placeholder: UIImage(named: "bivvy_tab_profile_idlesel"))
+                let engagementMetrics = [profile.peerInteractionFriendsCount, profile.communityInteractionFollowersCount, profile.interestMatchingFollowingCount]
+                for (metricIndex, metricValue) in engagementMetrics.enumerated() where self.engagementMetricLabels.indices.contains(metricIndex) {
+                    self.engagementMetricLabels[metricIndex].text = metricValue
                 }
             }
         }
 
-        BivvyNetworkService.shared.fetchMyContent { [weak self] result in
+        BivvyNetworkService.shared.fetchContentCreatorCollection { [weak self] result in
             guard let self else { return }
             if case .success(let items) = result {
-                self.gridItems = items
-                self.gridCollectionView.reloadData()
-                self.updateGridHeight()
+                self.contentCreatorItems = items
+                self.contentCreatorGridView.reloadData()
+                self.updateContentCreatorGridHeight()
             }
         }
     }
 
-    private func updateGridHeight() {
-        let availableWidth = max(0, view.bounds.width - 48)
-        let itemWidth = floor((availableWidth - 14) / 2)
-        let rows = max(1, Int(ceil(Double(gridItems.count) / 2.0)))
-        gridEmptyLabel.isHidden = !gridItems.isEmpty
-        gridCollectionView.isHidden = gridItems.isEmpty
-        gridCollectionHeightConstraint?.constant = gridItems.isEmpty ? 96 : CGFloat(rows) * (itemWidth * 1.05 + 46) + CGFloat(max(0, rows - 1)) * 14
+    private func updateContentCreatorGridHeight() {
+        let communityHubAvailableWidth = max(0, view.bounds.width - 48)
+        let contentCreatorItemWidth = floor((communityHubAvailableWidth - 14) / 2)
+        let contentCreatorRows = max(1, Int(ceil(Double(contentCreatorItems.count) / 2.0)))
+        emptyCollectionLabel.isHidden = !contentCreatorItems.isEmpty
+        contentCreatorGridView.isHidden = contentCreatorItems.isEmpty
+        contentCreatorGridHeightConstraint?.constant = contentCreatorItems.isEmpty ? 96 : CGFloat(contentCreatorRows) * (contentCreatorItemWidth * 1.05 + 46) + CGFloat(max(0, contentCreatorRows - 1)) * 14
     }
 }
 
-extension BivvyProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CommunityHubProfileViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        gridItems.count
+        contentCreatorItems.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BivvyProfileGridCell.reuseIdentifier, for: indexPath) as! BivvyProfileGridCell
-        cell.configure(with: gridItems[indexPath.item])
-        return cell
+        let contentCreatorCell = collectionView.dequeueReusableCell(withReuseIdentifier: BivvyProfileGridCell.reuseIdentifier, for: indexPath) as! BivvyProfileGridCell
+        contentCreatorCell.configure(with: contentCreatorItems[indexPath.item])
+        return contentCreatorCell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = floor((collectionView.bounds.width - 14) / 2)
-        return CGSize(width: width, height: width * 1.05 + 46)
+        let contentCreatorWidth = floor((collectionView.bounds.width - 14) / 2)
+        return CGSize(width: contentCreatorWidth, height: contentCreatorWidth * 1.05 + 46)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let dynamicId = gridItems[indexPath.item].dynamicId,
-              let url = BivvyH5Route.videoDetail(dynamicId: dynamicId).url() else { return }
-        let web = BivvyWebViewController(url: url)
-        web.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(web, animated: true)
+        guard let handpickedDynamicId = contentCreatorItems[indexPath.item].handpickedDynamicId,
+              let videoSnippetURL = BivvyH5Route.videoSnippet(handpickedDynamicId: handpickedDynamicId).productCurationURL() else { return }
+        let videoSnippetWebPage = BivvyWebViewController(url: videoSnippetURL)
+        videoSnippetWebPage.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(videoSnippetWebPage, animated: true)
     }
 }
+
+typealias BivvyProfileViewController = CommunityHubProfileViewController

@@ -1,15 +1,15 @@
 import UIKit
 
-final class BivvyGradientButton: UIButton {
-    private let gradientView = BivvyGradientView()
-    private let spinner = UIActivityIndicatorView(style: .medium)
+final class SharingMechanicGradientButton: UIButton {
+    private let productHighlightGradientView = ProductCurationGradientView()
+    private let recommendationEngineSpinner = UIActivityIndicatorView(style: .medium)
 
-    var isLoading = false {
+    var isSharingMechanicLoading = false {
         didSet {
-            isUserInteractionEnabled = !isLoading && isEnabled
-            spinner.isHidden = !isLoading
-            isLoading ? spinner.startAnimating() : spinner.stopAnimating()
-            titleLabel?.alpha = isLoading ? 0 : 1
+            isUserInteractionEnabled = !isSharingMechanicLoading && isEnabled
+            recommendationEngineSpinner.isHidden = !isSharingMechanicLoading
+            isSharingMechanicLoading ? recommendationEngineSpinner.startAnimating() : recommendationEngineSpinner.stopAnimating()
+            titleLabel?.alpha = isSharingMechanicLoading ? 0 : 1
         }
     }
 
@@ -19,32 +19,32 @@ final class BivvyGradientButton: UIButton {
         }
     }
 
-    init(title: String, style: Style = .gradient) {
+    init(title productHighlightTitle: String, style: ProductHighlightStyle = .productHighlightGradient) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        setTitle(title, for: .normal)
-        titleLabel?.font = BivvyAuthTheme.buttonFont(size: 18)
+        setTitle(productHighlightTitle, for: .normal)
+        titleLabel?.font = CommunitySharingAuthTheme.sharingMechanicButtonFont(size: 18)
         layer.cornerRadius = 26
         layer.masksToBounds = true
-        gradientView.isUserInteractionEnabled = false
-        spinner.isUserInteractionEnabled = false
+        productHighlightGradientView.isUserInteractionEnabled = false
+        recommendationEngineSpinner.isUserInteractionEnabled = false
 
-        if style == .gradient {
-            insertSubview(gradientView, at: 0)
+        if style == .productHighlightGradient {
+            insertSubview(productHighlightGradientView, at: 0)
         } else {
             backgroundColor = .black
         }
 
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.color = .white
-        spinner.hidesWhenStopped = true
-        spinner.isHidden = true
-        addSubview(spinner)
+        recommendationEngineSpinner.translatesAutoresizingMaskIntoConstraints = false
+        recommendationEngineSpinner.color = .white
+        recommendationEngineSpinner.hidesWhenStopped = true
+        recommendationEngineSpinner.isHidden = true
+        addSubview(recommendationEngineSpinner)
 
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 52),
-            spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: centerYAnchor)
+            recommendationEngineSpinner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            recommendationEngineSpinner.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 
@@ -54,11 +54,13 @@ final class BivvyGradientButton: UIButton {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientView.frame = bounds
+        productHighlightGradientView.frame = bounds
     }
 
-    enum Style {
-        case gradient
-        case black
+    enum ProductHighlightStyle {
+        case productHighlightGradient
+        case trustedReviewBlack
     }
 }
+
+typealias BivvyGradientButton = SharingMechanicGradientButton

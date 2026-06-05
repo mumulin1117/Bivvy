@@ -4,9 +4,9 @@ final class BivvyHomeViewController: UIViewController {
     private let categoryCollectionView: UICollectionView
     private let userCollectionView: UICollectionView
     private let findCollectionView: UICollectionView
-    private var allFinds: [BivvyFindItem] = []
-    private var visibleFinds: [BivvyFindItem] = []
-    private var recommendationUsers: [BivvyRecommendationUser] = []
+    private var allFinds: [ProductShowcaseFindItem] = []
+    private var visibleFinds: [ProductShowcaseFindItem] = []
+    private var recommendationUsers: [UserRecommendationProfile] = []
     private var selectedCategoryIndex = 0
     private var findCollectionHeightConstraint: NSLayoutConstraint?
 
@@ -49,7 +49,7 @@ final class BivvyHomeViewController: UIViewController {
     }
 
     private func reloadFinds() {
-        allFinds = BivvyLocalFindStore.shared.items
+        allFinds = BivvyLocalFindStore.communityMarket.productShowcaseItems
         applySelectedCategory()
     }
 
@@ -58,8 +58,8 @@ final class BivvyHomeViewController: UIViewController {
             visibleFinds = allFinds
             return
         }
-        let selectedTitle = BivvyMockContent.categories[selectedCategoryIndex].title
-        let filtered = allFinds.filter { ($0.category ?? $0.subtitle) == selectedTitle }
+        let selectedTitle = BivvyMockContent.categories[selectedCategoryIndex].productHighlightTitle
+        let filtered = allFinds.filter { ($0.productCategoryName ?? $0.productCategorySubtitle) == selectedTitle }
         visibleFinds = filtered.isEmpty ? allFinds : filtered
     }
 
@@ -191,7 +191,7 @@ final class BivvyHomeViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
-        label.font = BivvyAuthTheme.titleFont(size: 28)
+        label.font = CommunitySharingAuthTheme.productShowcaseTitleFont(size: 28)
         label.textColor = .black
         return label
     }
@@ -209,7 +209,7 @@ final class BivvyHomeViewController: UIViewController {
     }
 
     private func loadRecommendationUsers() {
-        BivvyNetworkService.shared.fetchRecommendationUsers { [weak self] result in
+        BivvyNetworkService.shared.fetchUserRecommendationProfiles { [weak self] result in
             guard let self else { return }
             if case .success(let users) = result, !users.isEmpty {
                 self.recommendationUsers = users
@@ -245,15 +245,15 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BivvyHomeFindCell.reuseIdentifier, for: indexPath) as! BivvyHomeFindCell
         let item = visibleFinds[indexPath.item]
         cell.configure(with: item)
-        cell.onReport = { [weak self] in
-            self?.openFindReport(itemId: item.id)
+        cell.trustedReviewReportAction = { [weak self] in
+            self?.openFindReport(itemId: item.productShowcaseId)
         }
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView === categoryCollectionView {
-            let title = BivvyMockContent.categories[indexPath.item].title
+            let title = BivvyMockContent.categories[indexPath.item].productHighlightTitle
             let width = max(104, min(142, title.size(withAttributes: [.font: UIFont.systemFont(ofSize: 15, weight: .semibold)]).width + 34))
             return CGSize(width: width, height: 48)
         }
@@ -275,9 +275,10 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
             return
         }
         if collectionView === findCollectionView {
-            pushSecondary(BivvyFindDetailViewController(item: visibleFinds[indexPath.item]))
+            let productShowcaseItem = visibleFinds[indexPath.item]
+            pushSecondary(BivvyFindDetailViewController(productShowcaseItem: productShowcaseItem, userRecommendation: userRecommendation(for: productShowcaseItem)))
         } else if collectionView === userCollectionView {
-            openUserWeb(userId: recommendationUsers[indexPath.item].id)
+            openUserWeb(userDiscoveryId: recommendationUsers[indexPath.item].productShowcaseId)
         }
     }
 
@@ -286,18 +287,24 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
     }
 
     @objc private func openAssistant() {
-        guard let url = BivvyH5Route.aiAssistant.url() else { return }
+        guard let url = BivvyH5Route.recommendationEngine.productCurationURL() else { return }
         pushSecondary(BivvyWebViewController(url: url))
     }
 
-    private func openUserWeb(userId: String) {
-        guard let url = BivvyH5Route.userProfile(userId: userId).url() else { return }
+    private func openUserWeb(userDiscoveryId: String) {
+        guard let url = BivvyH5Route.userDiscovery(userDiscoveryId: userDiscoveryId).productCurationURL() else { return }
         pushSecondary(BivvyWebViewController(url: url))
     }
 
     private func openFindReport(itemId: String) {
-        guard let url = BivvyH5Route.report(dynamicId: itemId).url() else { return }
+        guard let url = BivvyH5Route.trustedReview(handpickedDynamicId: itemId).productCurationURL() else { return }
         pushSecondary(BivvyWebViewController(url: url))
+    }
+
+    private func userRecommendation(for productShowcaseItem: ProductShowcaseFindItem) -> UserRecommendationProfile? {
+        guard !recommendationUsers.isEmpty else { return nil }
+        let sourceIndex = allFinds.firstIndex { $0.productShowcaseId == productShowcaseItem.productShowcaseId } ?? 0
+        return recommendationUsers[sourceIndex % recommendationUsers.count]
     }
 
     private func pushSecondary(_ viewController: UIViewController) {

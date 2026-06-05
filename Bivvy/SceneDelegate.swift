@@ -11,14 +11,20 @@ final class BivvySceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = BivvyMockAuthStore.shared.isLoggedIn ? BivvyMainTabBarController() : makeAuthController()
+        window.rootViewController = CommunitySharingAuthStore.communityHub.personalizedFeedIsLoggedIn ? CommunityHubMainTabBarController() : makeAuthController()
         self.window = window
         window.makeKeyAndVisible()
     }
 
     func showMainInterface() {
         UIView.transition(with: window ?? UIWindow(), duration: 0.28, options: .transitionCrossDissolve) {
-            self.window?.rootViewController = BivvyMainTabBarController()
+            self.window?.rootViewController = CommunityHubMainTabBarController()
+        }
+    }
+
+    func showAuthInterface() {
+        UIView.transition(with: window ?? UIWindow(), duration: 0.28, options: .transitionCrossDissolve) {
+            self.window?.rootViewController = self.makeAuthController()
         }
     }
 

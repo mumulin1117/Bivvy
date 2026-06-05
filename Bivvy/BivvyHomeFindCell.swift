@@ -1,118 +1,120 @@
 import UIKit
 
-final class BivvyHomeFindCell: UICollectionViewCell {
-    static let reuseIdentifier = "BivvyHomeFindCell"
+final class ProductShowcaseFindCell: UICollectionViewCell {
+    static let reuseIdentifier = "ProductShowcaseFindCell"
 
-    private let imageView = UIImageView()
-    private let fadeView = BivvyGradientView()
-    private let titleLabel = UILabel()
-    private let subtitleLabel = UILabel()
-    private let reportButton = UIButton(type: .system)
-    var onReport: (() -> Void)?
+    private let productShowcaseImageView = UIImageView()
+    private let productHighlightFadeView = ProductCurationGradientView()
+    private let productHighlightTitleLabel = UILabel()
+    private let productCategoryTagLabel = UILabel()
+    private let trustedReviewReportButton = UIButton(type: .system)
+    var trustedReviewReportAction: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        buildLayout()
+        buildProductShowcaseLayout()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with item: BivvyFindItem) {
-        imageView.image = UIImage(named: item.imageName)
-        titleLabel.text = item.title
-        subtitleLabel.text = "  \(item.category ?? item.subtitle)  "
+    func configure(with item: ProductShowcaseFindItem) {
+        productShowcaseImageView.image = UIImage.bivvyFindImage(namedOrPath: item.productShowcaseImageName)
+        productHighlightTitleLabel.text = item.productHighlightTitle
+        productCategoryTagLabel.text = "  \(item.productCategoryName ?? item.productCategorySubtitle)  "
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = nil
-        onReport = nil
+        productShowcaseImageView.image = nil
+        trustedReviewReportAction = nil
     }
 
-    private func buildLayout() {
+    private func buildProductShowcaseLayout() {
         contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 18
         contentView.layer.masksToBounds = true
 
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
+        productShowcaseImageView.translatesAutoresizingMaskIntoConstraints = false
+        productShowcaseImageView.contentMode = .scaleAspectFill
+        productShowcaseImageView.clipsToBounds = true
 
-        fadeView.translatesAutoresizingMaskIntoConstraints = false
-        fadeView.isUserInteractionEnabled = false
-        fadeView.colors = [
+        productHighlightFadeView.translatesAutoresizingMaskIntoConstraints = false
+        productHighlightFadeView.isUserInteractionEnabled = false
+        productHighlightFadeView.curatedListColors = [
             UIColor.white.withAlphaComponent(0.02),
             UIColor.white.withAlphaComponent(0.72)
         ]
-        fadeView.startPoint = CGPoint(x: 0.5, y: 0.2)
-        fadeView.endPoint = CGPoint(x: 0.5, y: 1.0)
+        productHighlightFadeView.productCurationStartPoint = CGPoint(x: 0.5, y: 0.2)
+        productHighlightFadeView.productCurationEndPoint = CGPoint(x: 0.5, y: 1.0)
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = makeCardTitleFont()
-        titleLabel.textColor = .black
-        titleLabel.numberOfLines = 2
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.82
+        productHighlightTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        productHighlightTitleLabel.font = makeProductHighlightTitleFont()
+        productHighlightTitleLabel.textColor = .black
+        productHighlightTitleLabel.numberOfLines = 2
+        productHighlightTitleLabel.adjustsFontSizeToFitWidth = true
+        productHighlightTitleLabel.minimumScaleFactor = 0.82
 
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.font = .systemFont(ofSize: 11, weight: .heavy)
-        subtitleLabel.textColor = .white
-        subtitleLabel.textAlignment = .center
-        subtitleLabel.adjustsFontSizeToFitWidth = true
-        subtitleLabel.minimumScaleFactor = 0.75
-        subtitleLabel.backgroundColor = BivvyAuthTheme.hotPink.withAlphaComponent(0.9)
-        subtitleLabel.layer.cornerRadius = 14
-        subtitleLabel.layer.masksToBounds = true
+        productCategoryTagLabel.translatesAutoresizingMaskIntoConstraints = false
+        productCategoryTagLabel.font = .systemFont(ofSize: 10, weight: .semibold)
+        productCategoryTagLabel.textColor = .white
+        productCategoryTagLabel.textAlignment = .center
+        productCategoryTagLabel.adjustsFontSizeToFitWidth = true
+        productCategoryTagLabel.minimumScaleFactor = 0.75
+        productCategoryTagLabel.backgroundColor = CommunitySharingAuthTheme.favoriteFindPink.withAlphaComponent(0.9)
+        productCategoryTagLabel.layer.cornerRadius = 14
+        productCategoryTagLabel.layer.masksToBounds = true
 
-        reportButton.translatesAutoresizingMaskIntoConstraints = false
-        reportButton.setImage(UIImage(systemName: "flag.fill"), for: .normal)
-        reportButton.tintColor = BivvyAuthTheme.hotPink
-        reportButton.backgroundColor = UIColor.white.withAlphaComponent(0.88)
-        reportButton.layer.cornerRadius = 16
-        reportButton.imageView?.contentMode = .scaleAspectFit
-        reportButton.addTarget(self, action: #selector(reportTapped), for: .touchUpInside)
+        trustedReviewReportButton.translatesAutoresizingMaskIntoConstraints = false
+        trustedReviewReportButton.setImage(UIImage(systemName: "flag.fill"), for: .normal)
+        trustedReviewReportButton.tintColor = CommunitySharingAuthTheme.favoriteFindPink
+        trustedReviewReportButton.backgroundColor = UIColor.white.withAlphaComponent(0.88)
+        trustedReviewReportButton.layer.cornerRadius = 16
+        trustedReviewReportButton.imageView?.contentMode = .scaleAspectFit
+        trustedReviewReportButton.addTarget(self, action: #selector(openTrustedReviewReport), for: .touchUpInside)
 
-        [imageView, fadeView, subtitleLabel, titleLabel, reportButton].forEach(contentView.addSubview)
+        [productShowcaseImageView, productHighlightFadeView, productCategoryTagLabel, productHighlightTitleLabel, trustedReviewReportButton].forEach(contentView.addSubview)
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            productShowcaseImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            productShowcaseImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            productShowcaseImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            productShowcaseImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            fadeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            fadeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            fadeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            fadeView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.46),
+            productHighlightFadeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            productHighlightFadeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            productHighlightFadeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            productHighlightFadeView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.46),
 
-            subtitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            subtitleLabel.heightAnchor.constraint(equalToConstant: 28),
-            subtitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 86),
-            subtitleLabel.trailingAnchor.constraint(lessThanOrEqualTo: reportButton.leadingAnchor, constant: -8),
+            productCategoryTagLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            productCategoryTagLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            productCategoryTagLabel.heightAnchor.constraint(equalToConstant: 28),
+            productCategoryTagLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 86),
+            productCategoryTagLabel.trailingAnchor.constraint(lessThanOrEqualTo: trustedReviewReportButton.leadingAnchor, constant: -8),
 
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -28),
+            productHighlightTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            productHighlightTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            productHighlightTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
 
-            reportButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            reportButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            reportButton.widthAnchor.constraint(equalToConstant: 32),
-            reportButton.heightAnchor.constraint(equalToConstant: 32)
+            trustedReviewReportButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            trustedReviewReportButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            trustedReviewReportButton.widthAnchor.constraint(equalToConstant: 32),
+            trustedReviewReportButton.heightAnchor.constraint(equalToConstant: 32)
         ])
     }
 
-    private func makeCardTitleFont() -> UIFont {
-        let baseFont = UIFont.systemFont(ofSize: 20, weight: .bold)
-        guard let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold, .traitItalic]) else {
-            return baseFont
+    private func makeProductHighlightTitleFont() -> UIFont {
+        let productHighlightBaseFont = UIFont.systemFont(ofSize: 15, weight: .bold)
+        guard let productHighlightDescriptor = productHighlightBaseFont.fontDescriptor.withSymbolicTraits([.traitBold, .traitItalic]) else {
+            return productHighlightBaseFont
         }
-        return UIFont(descriptor: descriptor, size: 20)
+        return UIFont(descriptor: productHighlightDescriptor, size: 20)
     }
 
-    @objc private func reportTapped() {
-        onReport?()
+    @objc private func openTrustedReviewReport() {
+        trustedReviewReportAction?()
     }
 }
+
+typealias BivvyHomeFindCell = ProductShowcaseFindCell

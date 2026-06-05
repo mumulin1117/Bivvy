@@ -1,14 +1,14 @@
 import UIKit
 
-final class BivvyVideoActionButton: UIControl {
-    private let iconView = UIImageView()
-    private let countLabel = UILabel()
+final class VideoEngagementActionButton: UIControl {
+    private let videoEngagementIconView = UIImageView()
+    private let engagementMetricCountLabel = UILabel()
 
     init(systemName: String, count: String) {
         super.init(frame: .zero)
-        iconView.image = UIImage(systemName: systemName)
-        countLabel.text = count
-        buildLayout()
+        videoEngagementIconView.image = UIImage(systemName: systemName)
+        engagementMetricCountLabel.text = count
+        buildVideoEngagementLayout()
     }
 
     required init?(coder: NSCoder) {
@@ -16,34 +16,36 @@ final class BivvyVideoActionButton: UIControl {
     }
 
     func setCount(_ count: String) {
-        countLabel.text = count
+        engagementMetricCountLabel.text = count
     }
 
-    private func buildLayout() {
+    private func buildVideoEngagementLayout() {
         translatesAutoresizingMaskIntoConstraints = false
-        iconView.translatesAutoresizingMaskIntoConstraints = false
-        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        videoEngagementIconView.translatesAutoresizingMaskIntoConstraints = false
+        engagementMetricCountLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        iconView.tintColor = .white
-        iconView.contentMode = .scaleAspectFit
-        countLabel.font = .systemFont(ofSize: 11, weight: .semibold)
-        countLabel.textColor = .white
-        countLabel.textAlignment = .center
+        videoEngagementIconView.tintColor = .white
+        videoEngagementIconView.contentMode = .scaleAspectFit
+        engagementMetricCountLabel.font = .systemFont(ofSize: 11, weight: .semibold)
+        engagementMetricCountLabel.textColor = .white
+        engagementMetricCountLabel.textAlignment = .center
 
-        addSubview(iconView)
-        addSubview(countLabel)
+        addSubview(videoEngagementIconView)
+        addSubview(engagementMetricCountLabel)
 
         NSLayoutConstraint.activate([
             widthAnchor.constraint(equalToConstant: 52),
-            iconView.topAnchor.constraint(equalTo: topAnchor),
-            iconView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 30),
-            iconView.heightAnchor.constraint(equalToConstant: 30),
+            videoEngagementIconView.topAnchor.constraint(equalTo: topAnchor),
+            videoEngagementIconView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            videoEngagementIconView.widthAnchor.constraint(equalToConstant: 30),
+            videoEngagementIconView.heightAnchor.constraint(equalToConstant: 30),
 
-            countLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 5),
-            countLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            countLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            countLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            engagementMetricCountLabel.topAnchor.constraint(equalTo: videoEngagementIconView.bottomAnchor, constant: 5),
+            engagementMetricCountLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            engagementMetricCountLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            engagementMetricCountLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
+
+typealias BivvyVideoActionButton = VideoEngagementActionButton

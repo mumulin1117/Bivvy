@@ -41,11 +41,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>Bivvy may use the camera when you choose to capture product photos for sharing finds.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
+	<string>Bivvy may use the microphone when recording product videos or related media content.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>Bivvy needs access to your photo library so you can upload local product photos for your shared finds.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

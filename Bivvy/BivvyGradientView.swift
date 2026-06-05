@@ -1,34 +1,39 @@
 import UIKit
 
-final class BivvyGradientView: UIView {
+final class ProductCurationGradientView: UIView {
     override class var layerClass: AnyClass { CAGradientLayer.self }
 
-    var colors: [UIColor] = [BivvyAuthTheme.violet, BivvyAuthTheme.pink] {
-        didSet { updateGradient() }
+    var curatedListColors: [UIColor] = [
+        CommunitySharingAuthTheme.recommendationFeedViolet,
+        CommunitySharingAuthTheme.productHighlightPink
+    ] {
+        didSet { refreshProductHighlightGradient() }
     }
 
-    var startPoint = CGPoint(x: 0.2, y: 0) {
-        didSet { updateGradient() }
+    var productCurationStartPoint = CGPoint(x: 0.2, y: 0) {
+        didSet { refreshProductHighlightGradient() }
     }
 
-    var endPoint = CGPoint(x: 0.84, y: 0.5) {
-        didSet { updateGradient() }
+    var productCurationEndPoint = CGPoint(x: 0.84, y: 0.5) {
+        didSet { refreshProductHighlightGradient() }
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        updateGradient()
+        refreshProductHighlightGradient()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        updateGradient()
+        refreshProductHighlightGradient()
     }
 
-    private func updateGradient() {
-        guard let gradientLayer = layer as? CAGradientLayer else { return }
-        gradientLayer.colors = colors.map(\.cgColor)
-        gradientLayer.startPoint = startPoint
-        gradientLayer.endPoint = endPoint
+    private func refreshProductHighlightGradient() {
+        guard let productHighlightLayer = layer as? CAGradientLayer else { return }
+        productHighlightLayer.colors = curatedListColors.map(\.cgColor)
+        productHighlightLayer.startPoint = productCurationStartPoint
+        productHighlightLayer.endPoint = productCurationEndPoint
     }
 }
+
+typealias BivvyGradientView = ProductCurationGradientView

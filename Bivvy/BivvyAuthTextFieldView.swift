@@ -1,19 +1,20 @@
+
 import UIKit
 
-final class BivvyAuthTextFieldView: UIView {
-    let textField = UITextField()
-    private let titleLabel = UILabel()
-    private let iconView = UIImageView()
-    private let passwordToggle = UIButton(type: .system)
-    private let iconContainer = UIView()
-    private let isPassword: Bool
+final class ProductTaggingAuthTextFieldView: UIView {
+    let productTaggingTextField = UITextField()
+    private let productTaggingTitleLabel = UILabel()
+    private let productHighlightIconView = UIImageView()
+    private let contentFilteringPasswordToggle = UIButton(type: .system)
+    private let productHighlightIconContainer = UIView()
+    private let contentFilteringIsPassword: Bool
 
     var text: String {
-        textField.text ?? ""
+        productTaggingTextField.text ?? ""
     }
 
-    init(title: String, placeholder: String, iconName: String? = nil, isPassword: Bool = false) {
-        self.isPassword = isPassword
+    init(productTaggingTitle: String, conversationStarterPlaceholder: String, productHighlightIconName: String? = nil, contentFilteringIsPassword: Bool = false) {
+        self.contentFilteringIsPassword = contentFilteringIsPassword
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -22,65 +23,65 @@ final class BivvyAuthTextFieldView: UIView {
         layer.cornerRadius = 28
         backgroundColor = .clear
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = title
-        titleLabel.font = BivvyAuthTheme.titleFont(size: 16)
-        titleLabel.backgroundColor = .white
-        titleLabel.textColor = .black
-        titleLabel.setContentHuggingPriority(.required, for: .horizontal)
-        addSubview(titleLabel)
+        productTaggingTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        productTaggingTitleLabel.text = productTaggingTitle
+        productTaggingTitleLabel.font = CommunitySharingAuthTheme.productShowcaseTitleFont(size: 16)
+        productTaggingTitleLabel.backgroundColor = .white
+        productTaggingTitleLabel.textColor = .black
+        productTaggingTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        addSubview(productTaggingTitleLabel)
 
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = placeholder
-        textField.font = .systemFont(ofSize: 16)
-        textField.textColor = .black
-        textField.tintColor = BivvyAuthTheme.hotPink
-        textField.isSecureTextEntry = isPassword
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.keyboardType = title.lowercased().contains("email") ? .emailAddress : .default
-        addSubview(textField)
+        productTaggingTextField.translatesAutoresizingMaskIntoConstraints = false
+        productTaggingTextField.placeholder = conversationStarterPlaceholder
+        productTaggingTextField.font = .systemFont(ofSize: 16)
+        productTaggingTextField.textColor = .black
+        productTaggingTextField.tintColor = CommunitySharingAuthTheme.favoriteFindPink
+        productTaggingTextField.isSecureTextEntry = contentFilteringIsPassword
+        productTaggingTextField.autocapitalizationType = .none
+        productTaggingTextField.autocorrectionType = .no
+        productTaggingTextField.keyboardType = productTaggingTitle.lowercased().contains("email") ? .emailAddress : .default
+        addSubview(productTaggingTextField)
 
-        iconContainer.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(iconContainer)
+        productHighlightIconContainer.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(productHighlightIconContainer)
 
-        iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.contentMode = .scaleAspectFit
-        iconView.tintColor = BivvyAuthTheme.hotPink
-        iconView.image = iconName.flatMap { UIImage(named: $0) }
-        iconContainer.addSubview(iconView)
+        productHighlightIconView.translatesAutoresizingMaskIntoConstraints = false
+        productHighlightIconView.contentMode = .scaleAspectFit
+        productHighlightIconView.tintColor = CommunitySharingAuthTheme.favoriteFindPink
+        productHighlightIconView.image = productHighlightIconName.flatMap { UIImage(named: $0) }
+        productHighlightIconContainer.addSubview(productHighlightIconView)
 
-        passwordToggle.translatesAutoresizingMaskIntoConstraints = false
-        passwordToggle.tintColor = BivvyAuthTheme.hotPink
-        passwordToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        passwordToggle.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        passwordToggle.isHidden = !isPassword
-        iconContainer.addSubview(passwordToggle)
+        contentFilteringPasswordToggle.translatesAutoresizingMaskIntoConstraints = false
+        contentFilteringPasswordToggle.tintColor = CommunitySharingAuthTheme.favoriteFindPink
+        contentFilteringPasswordToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        contentFilteringPasswordToggle.addTarget(self, action: #selector(toggleContentFilteringPasswordVisibility), for: .touchUpInside)
+        contentFilteringPasswordToggle.isHidden = !contentFilteringIsPassword
+        productHighlightIconContainer.addSubview(contentFilteringPasswordToggle)
 
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 56),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 72),
-            titleLabel.centerYAnchor.constraint(equalTo: topAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 24),
+            productTaggingTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 72),
+            productTaggingTitleLabel.centerYAnchor.constraint(equalTo: topAnchor),
+            productTaggingTitleLabel.heightAnchor.constraint(equalToConstant: 24),
 
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48),
-            textField.trailingAnchor.constraint(equalTo: iconContainer.leadingAnchor, constant: -8),
-            textField.centerYAnchor.constraint(equalTo: centerYAnchor),
+            productTaggingTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 48),
+            productTaggingTextField.trailingAnchor.constraint(equalTo: productHighlightIconContainer.leadingAnchor, constant: -8),
+            productTaggingTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            iconContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            iconContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
-            iconContainer.widthAnchor.constraint(equalToConstant: isPassword ? 62 : 26),
-            iconContainer.heightAnchor.constraint(equalToConstant: 32),
+            productHighlightIconContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            productHighlightIconContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
+            productHighlightIconContainer.widthAnchor.constraint(equalToConstant: contentFilteringIsPassword ? 62 : 26),
+            productHighlightIconContainer.heightAnchor.constraint(equalToConstant: 32),
 
-            iconView.leadingAnchor.constraint(equalTo: iconContainer.leadingAnchor),
-            iconView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 24),
-            iconView.heightAnchor.constraint(equalToConstant: 24),
+            productHighlightIconView.leadingAnchor.constraint(equalTo: productHighlightIconContainer.leadingAnchor),
+            productHighlightIconView.centerYAnchor.constraint(equalTo: productHighlightIconContainer.centerYAnchor),
+            productHighlightIconView.widthAnchor.constraint(equalToConstant: 24),
+            productHighlightIconView.heightAnchor.constraint(equalToConstant: 24),
 
-            passwordToggle.trailingAnchor.constraint(equalTo: iconContainer.trailingAnchor),
-            passwordToggle.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
-            passwordToggle.widthAnchor.constraint(equalToConstant: 30),
-            passwordToggle.heightAnchor.constraint(equalToConstant: 30)
+            contentFilteringPasswordToggle.trailingAnchor.constraint(equalTo: productHighlightIconContainer.trailingAnchor),
+            contentFilteringPasswordToggle.centerYAnchor.constraint(equalTo: productHighlightIconContainer.centerYAnchor),
+            contentFilteringPasswordToggle.widthAnchor.constraint(equalToConstant: 30),
+            contentFilteringPasswordToggle.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 
@@ -88,9 +89,11 @@ final class BivvyAuthTextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func togglePasswordVisibility() {
-        textField.isSecureTextEntry.toggle()
-        let iconName = textField.isSecureTextEntry ? "eye.slash" : "eye"
-        passwordToggle.setImage(UIImage(systemName: iconName), for: .normal)
+    @objc private func toggleContentFilteringPasswordVisibility() {
+        productTaggingTextField.isSecureTextEntry.toggle()
+        let contentFilteringIconName = productTaggingTextField.isSecureTextEntry ? "eye.slash" : "eye"
+        contentFilteringPasswordToggle.setImage(UIImage(systemName: contentFilteringIconName), for: .normal)
     }
 }
+
+typealias BivvyAuthTextFieldView = ProductTaggingAuthTextFieldView

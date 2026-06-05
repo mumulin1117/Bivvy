@@ -1,21 +1,21 @@
 import UIKit
 
-final class BivvyProfileSetupViewController: BivvyKeyboardAvoidingViewController {
-    private let email: String
-    private let password: String
-    private let nameField = BivvyAuthTextFieldView(title: "Name", placeholder: "Howard Ramos")
-    private let aboutField = BivvyAuthTextFieldView(title: "About me", placeholder: "Please enter")
-    private let birthdayButton = UIButton(type: .system)
-    private let datePicker = UIDatePicker()
-    private let maleButton = UIButton(type: .system)
-    private let femaleButton = UIButton(type: .system)
-    private let enterButton = BivvyGradientButton(title: "Enter")
-    private let errorLabel = UILabel()
-    private var selectedGender = "Male"
+final class ProductCurationProfileSetupViewController: ContentFilteringKeyboardAvoidingViewController {
+    private let peerInteractionEmail: String
+    private let contentFilteringPassword: String
+    private let contentCreatorNameField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.name, conversationStarterPlaceholder: "Howard Ramos")
+    private let authenticReviewAboutField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.aboutMe, conversationStarterPlaceholder: BivvyStringVault.pleaseEnter)
+    private let dailyRoutineBirthdayButton = UIButton(type: .system)
+    private let dailyRoutineDatePicker = UIDatePicker()
+    private let interestMatchingMaleButton = UIButton(type: .system)
+    private let interestMatchingFemaleButton = UIButton(type: .system)
+    private let communitySharingEnterButton = SharingMechanicGradientButton(title: BivvyStringVault.enter)
+    private let contentFilteringErrorLabel = UILabel()
+    private var selectedInterestMatchingGender = "Male"
 
     init(email: String, password: String) {
-        self.email = email
-        self.password = password
+        self.peerInteractionEmail = email
+        self.contentFilteringPassword = password
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -25,200 +25,213 @@ final class BivvyProfileSetupViewController: BivvyKeyboardAvoidingViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        buildLayout()
-        updateGenderButtons()
+        buildProductCurationProfileLayout()
+        updateInterestMatchingButtons()
     }
 
-    private func buildLayout() {
+    private func buildProductCurationProfileLayout() {
         view.backgroundColor = .white
 
-        let background = BivvyGradientView()
-        background.translatesAutoresizingMaskIntoConstraints = false
-        background.isUserInteractionEnabled = false
-        background.colors = [
+        let dailyInspirationBackground = ProductCurationGradientView()
+        dailyInspirationBackground.translatesAutoresizingMaskIntoConstraints = false
+        dailyInspirationBackground.isUserInteractionEnabled = false
+        dailyInspirationBackground.curatedListColors = [
             UIColor(red: 255 / 255, green: 235 / 255, blue: 244 / 255, alpha: 1),
             .white,
             .white
         ]
-        background.startPoint = CGPoint(x: 0.5, y: 0)
-        background.endPoint = CGPoint(x: 0.5, y: 1)
-        view.insertSubview(background, belowSubview: scrollView)
+        dailyInspirationBackground.productCurationStartPoint = CGPoint(x: 0.5, y: 0)
+        dailyInspirationBackground.productCurationEndPoint = CGPoint(x: 0.5, y: 1)
+        view.insertSubview(dailyInspirationBackground, belowSubview: contentFilteringScrollView)
 
-        let back = UIButton(type: .custom)
-        back.translatesAutoresizingMaskIntoConstraints = false
-        back.setImage(UIImage(named: "bivvy_auth_back_icon"), for: .normal)
-        back.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        let productCurationBackButton = UIButton(type: .custom)
+        productCurationBackButton.translatesAutoresizingMaskIntoConstraints = false
+        productCurationBackButton.setImage(UIImage(named: "bivvy_auth_back_icon"), for: .normal)
+        productCurationBackButton.addTarget(self, action: #selector(closeProductCurationProfile), for: .touchUpInside)
 
-        let title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.text = "COMPLETE THE DATA"
-        title.font = BivvyAuthTheme.displayFont(size: 27)
-        title.adjustsFontSizeToFitWidth = true
-        title.textAlignment = .center
+        let productCurationTitle = UILabel()
+        productCurationTitle.translatesAutoresizingMaskIntoConstraints = false
+        productCurationTitle.text = BivvyStringVault.completeData
+        productCurationTitle.font = CommunitySharingAuthTheme.dailyInspirationDisplayFont(size: 27)
+        productCurationTitle.adjustsFontSizeToFitWidth = true
+        productCurationTitle.textAlignment = .center
 
-        let genderLabel = makeSectionLabel("Gender")
-        maleButton.translatesAutoresizingMaskIntoConstraints = false
-        femaleButton.translatesAutoresizingMaskIntoConstraints = false
-        [maleButton, femaleButton].forEach {
+        let interestMatchingGenderLabel = makeProductCurationSectionLabel(BivvyStringVault.gender)
+        interestMatchingMaleButton.translatesAutoresizingMaskIntoConstraints = false
+        interestMatchingFemaleButton.translatesAutoresizingMaskIntoConstraints = false
+        [interestMatchingMaleButton, interestMatchingFemaleButton].forEach {
             $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
             $0.layer.cornerRadius = 24
             $0.layer.borderWidth = 1.5
             $0.heightAnchor.constraint(equalToConstant: 48).isActive = true
         }
-        maleButton.setTitle("♂  Male  ♀", for: .normal)
-        femaleButton.setTitle("♂  ♀  Female", for: .normal)
-        maleButton.addTarget(self, action: #selector(selectMale), for: .touchUpInside)
-        femaleButton.addTarget(self, action: #selector(selectFemale), for: .touchUpInside)
+        interestMatchingMaleButton.setTitle(BivvyStringVault.maleGlyph, for: .normal)
+        interestMatchingFemaleButton.setTitle(BivvyStringVault.femaleGlyph, for: .normal)
+        interestMatchingMaleButton.addTarget(self, action: #selector(selectInterestMatchingMale), for: .touchUpInside)
+        interestMatchingFemaleButton.addTarget(self, action: #selector(selectInterestMatchingFemale), for: .touchUpInside)
 
-        let genderRow = UIStackView(arrangedSubviews: [maleButton, femaleButton])
-        genderRow.translatesAutoresizingMaskIntoConstraints = false
-        genderRow.axis = .horizontal
-        genderRow.spacing = 28
-        genderRow.distribution = .fillEqually
+        let interestMatchingGenderRow = UIStackView(arrangedSubviews: [interestMatchingMaleButton, interestMatchingFemaleButton])
+        interestMatchingGenderRow.translatesAutoresizingMaskIntoConstraints = false
+        interestMatchingGenderRow.axis = .horizontal
+        interestMatchingGenderRow.spacing = 28
+        interestMatchingGenderRow.distribution = .fillEqually
 
-        let birthdayLabel = makeSectionLabel("Birthday")
-        birthdayButton.translatesAutoresizingMaskIntoConstraints = false
-        birthdayButton.setTitle("2023-03-23  ▾", for: .normal)
-        birthdayButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-        birthdayButton.setTitleColor(BivvyAuthTheme.ink, for: .normal)
-        birthdayButton.layer.borderColor = UIColor.black.cgColor
-        birthdayButton.layer.borderWidth = 1.5
-        birthdayButton.layer.cornerRadius = 28
-        birthdayButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        let dailyRoutineBirthdayLabel = makeProductCurationSectionLabel(BivvyStringVault.birthday)
+        dailyRoutineBirthdayButton.translatesAutoresizingMaskIntoConstraints = false
+        dailyRoutineBirthdayButton.setTitle(BivvyStringVault.defaultDate, for: .normal)
+        dailyRoutineBirthdayButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        dailyRoutineBirthdayButton.setTitleColor(CommunitySharingAuthTheme.trustedReviewInk, for: .normal)
+        dailyRoutineBirthdayButton.layer.borderColor = UIColor.black.cgColor
+        dailyRoutineBirthdayButton.layer.borderWidth = 1.5
+        dailyRoutineBirthdayButton.layer.cornerRadius = 28
+        dailyRoutineBirthdayButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
 
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .compact
-        datePicker.maximumDate = Date()
-        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
-        birthdayButton.addSubview(datePicker)
+        dailyRoutineDatePicker.translatesAutoresizingMaskIntoConstraints = false
+        dailyRoutineDatePicker.datePickerMode = .date
+        dailyRoutineDatePicker.preferredDatePickerStyle = .compact
+        dailyRoutineDatePicker.maximumDate = Date()
+        dailyRoutineDatePicker.addTarget(self, action: #selector(dailyRoutineDateChanged), for: .valueChanged)
+        dailyRoutineBirthdayButton.addSubview(dailyRoutineDatePicker)
 
-        errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorLabel.font = .systemFont(ofSize: 13, weight: .semibold)
-        errorLabel.textColor = BivvyAuthTheme.hotPink
-        errorLabel.numberOfLines = 0
+        contentFilteringErrorLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentFilteringErrorLabel.font = .systemFont(ofSize: 13, weight: .semibold)
+        contentFilteringErrorLabel.textColor = CommunitySharingAuthTheme.favoriteFindPink
+        contentFilteringErrorLabel.numberOfLines = 0
 
-        enterButton.addTarget(self, action: #selector(enter), for: .touchUpInside)
+        communitySharingEnterButton.addTarget(self, action: #selector(enterCommunitySharingProfile), for: .touchUpInside)
 
-        [back, title, nameField, genderLabel, genderRow, birthdayLabel, birthdayButton, aboutField, enterButton, errorLabel].forEach(contentView.addSubview)
+        [
+            productCurationBackButton,
+            productCurationTitle,
+            contentCreatorNameField,
+            interestMatchingGenderLabel,
+            interestMatchingGenderRow,
+            dailyRoutineBirthdayLabel,
+            dailyRoutineBirthdayButton,
+            authenticReviewAboutField,
+            communitySharingEnterButton,
+            contentFilteringErrorLabel
+        ].forEach(communitySharingContentView.addSubview)
 
         NSLayoutConstraint.activate([
-            background.topAnchor.constraint(equalTo: view.topAnchor),
-            background.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            background.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dailyInspirationBackground.topAnchor.constraint(equalTo: view.topAnchor),
+            dailyInspirationBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dailyInspirationBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dailyInspirationBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            back.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 18),
-            back.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            back.widthAnchor.constraint(equalToConstant: 44),
-            back.heightAnchor.constraint(equalToConstant: 44),
+            productCurationBackButton.topAnchor.constraint(equalTo: communitySharingContentView.safeAreaLayoutGuide.topAnchor, constant: 18),
+            productCurationBackButton.leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 12),
+            productCurationBackButton.widthAnchor.constraint(equalToConstant: 44),
+            productCurationBackButton.heightAnchor.constraint(equalToConstant: 44),
 
-            title.topAnchor.constraint(equalTo: back.bottomAnchor, constant: 72),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
-            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
+            productCurationTitle.topAnchor.constraint(equalTo: productCurationBackButton.bottomAnchor, constant: 72),
+            productCurationTitle.leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 28),
+            productCurationTitle.trailingAnchor.constraint(equalTo: communitySharingContentView.trailingAnchor, constant: -28),
 
-            nameField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 70),
-            nameField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            nameField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            contentCreatorNameField.topAnchor.constraint(equalTo: productCurationTitle.bottomAnchor, constant: 70),
+            contentCreatorNameField.leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 20),
+            contentCreatorNameField.trailingAnchor.constraint(equalTo: communitySharingContentView.trailingAnchor, constant: -20),
 
-            genderLabel.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 32),
-            genderLabel.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
+            interestMatchingGenderLabel.topAnchor.constraint(equalTo: contentCreatorNameField.bottomAnchor, constant: 32),
+            interestMatchingGenderLabel.leadingAnchor.constraint(equalTo: contentCreatorNameField.leadingAnchor),
 
-            genderRow.topAnchor.constraint(equalTo: genderLabel.bottomAnchor, constant: 16),
-            genderRow.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
-            genderRow.trailingAnchor.constraint(equalTo: nameField.trailingAnchor),
+            interestMatchingGenderRow.topAnchor.constraint(equalTo: interestMatchingGenderLabel.bottomAnchor, constant: 16),
+            interestMatchingGenderRow.leadingAnchor.constraint(equalTo: contentCreatorNameField.leadingAnchor),
+            interestMatchingGenderRow.trailingAnchor.constraint(equalTo: contentCreatorNameField.trailingAnchor),
 
-            birthdayLabel.topAnchor.constraint(equalTo: genderRow.bottomAnchor, constant: 32),
-            birthdayLabel.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
+            dailyRoutineBirthdayLabel.topAnchor.constraint(equalTo: interestMatchingGenderRow.bottomAnchor, constant: 32),
+            dailyRoutineBirthdayLabel.leadingAnchor.constraint(equalTo: contentCreatorNameField.leadingAnchor),
 
-            birthdayButton.topAnchor.constraint(equalTo: birthdayLabel.bottomAnchor, constant: 16),
-            birthdayButton.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
-            birthdayButton.trailingAnchor.constraint(equalTo: nameField.trailingAnchor),
+            dailyRoutineBirthdayButton.topAnchor.constraint(equalTo: dailyRoutineBirthdayLabel.bottomAnchor, constant: 16),
+            dailyRoutineBirthdayButton.leadingAnchor.constraint(equalTo: contentCreatorNameField.leadingAnchor),
+            dailyRoutineBirthdayButton.trailingAnchor.constraint(equalTo: contentCreatorNameField.trailingAnchor),
 
-            datePicker.trailingAnchor.constraint(equalTo: birthdayButton.trailingAnchor, constant: -18),
-            datePicker.centerYAnchor.constraint(equalTo: birthdayButton.centerYAnchor),
+            dailyRoutineDatePicker.trailingAnchor.constraint(equalTo: dailyRoutineBirthdayButton.trailingAnchor, constant: -18),
+            dailyRoutineDatePicker.centerYAnchor.constraint(equalTo: dailyRoutineBirthdayButton.centerYAnchor),
 
-            aboutField.topAnchor.constraint(equalTo: birthdayButton.bottomAnchor, constant: 44),
-            aboutField.leadingAnchor.constraint(equalTo: nameField.leadingAnchor),
-            aboutField.trailingAnchor.constraint(equalTo: nameField.trailingAnchor),
+            authenticReviewAboutField.topAnchor.constraint(equalTo: dailyRoutineBirthdayButton.bottomAnchor, constant: 44),
+            authenticReviewAboutField.leadingAnchor.constraint(equalTo: contentCreatorNameField.leadingAnchor),
+            authenticReviewAboutField.trailingAnchor.constraint(equalTo: contentCreatorNameField.trailingAnchor),
 
-            enterButton.topAnchor.constraint(equalTo: aboutField.bottomAnchor, constant: 56),
-            enterButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            enterButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            communitySharingEnterButton.topAnchor.constraint(equalTo: authenticReviewAboutField.bottomAnchor, constant: 56),
+            communitySharingEnterButton.leadingAnchor.constraint(equalTo: communitySharingContentView.leadingAnchor, constant: 12),
+            communitySharingEnterButton.trailingAnchor.constraint(equalTo: communitySharingContentView.trailingAnchor, constant: -12),
 
-            errorLabel.topAnchor.constraint(equalTo: enterButton.bottomAnchor, constant: 14),
-            errorLabel.leadingAnchor.constraint(equalTo: enterButton.leadingAnchor, constant: 12),
-            errorLabel.trailingAnchor.constraint(equalTo: enterButton.trailingAnchor, constant: -12),
-            errorLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -32)
+            contentFilteringErrorLabel.topAnchor.constraint(equalTo: communitySharingEnterButton.bottomAnchor, constant: 14),
+            contentFilteringErrorLabel.leadingAnchor.constraint(equalTo: communitySharingEnterButton.leadingAnchor, constant: 12),
+            contentFilteringErrorLabel.trailingAnchor.constraint(equalTo: communitySharingEnterButton.trailingAnchor, constant: -12),
+            contentFilteringErrorLabel.bottomAnchor.constraint(lessThanOrEqualTo: communitySharingContentView.bottomAnchor, constant: -32)
         ])
     }
 
-    private func makeSectionLabel(_ text: String) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = text
-        label.font = BivvyAuthTheme.titleFont(size: 20)
-        label.textColor = .black
-        return label
+    private func makeProductCurationSectionLabel(_ productCurationText: String) -> UILabel {
+        let productCurationLabel = UILabel()
+        productCurationLabel.translatesAutoresizingMaskIntoConstraints = false
+        productCurationLabel.text = productCurationText
+        productCurationLabel.font = CommunitySharingAuthTheme.productShowcaseTitleFont(size: 20)
+        productCurationLabel.textColor = .black
+        return productCurationLabel
     }
 
-    @objc private func goBack() {
+    @objc private func closeProductCurationProfile() {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc private func selectMale() {
-        selectedGender = "Male"
-        updateGenderButtons()
+    @objc private func selectInterestMatchingMale() {
+        selectedInterestMatchingGender = "Male"
+        updateInterestMatchingButtons()
     }
 
-    @objc private func selectFemale() {
-        selectedGender = "Female"
-        updateGenderButtons()
+    @objc private func selectInterestMatchingFemale() {
+        selectedInterestMatchingGender = "Female"
+        updateInterestMatchingButtons()
     }
 
-    private func updateGenderButtons() {
-        let maleSelected = selectedGender == "Male"
-        styleGenderButton(maleButton, selected: maleSelected)
-        styleGenderButton(femaleButton, selected: !maleSelected)
+    private func updateInterestMatchingButtons() {
+        let interestMatchingMaleSelected = selectedInterestMatchingGender == "Male"
+        styleInterestMatchingButton(interestMatchingMaleButton, selected: interestMatchingMaleSelected)
+        styleInterestMatchingButton(interestMatchingFemaleButton, selected: !interestMatchingMaleSelected)
     }
 
-    private func styleGenderButton(_ button: UIButton, selected: Bool) {
-        button.setTitleColor(selected ? .white : .systemGray, for: .normal)
-        button.layer.borderColor = UIColor.black.cgColor
-        button.backgroundColor = selected ? BivvyAuthTheme.pink : .clear
+    private func styleInterestMatchingButton(_ interestMatchingButton: UIButton, selected: Bool) {
+        interestMatchingButton.setTitleColor(selected ? .white : .systemGray, for: .normal)
+        interestMatchingButton.layer.borderColor = UIColor.black.cgColor
+        interestMatchingButton.backgroundColor = selected ? CommunitySharingAuthTheme.productHighlightPink : .clear
     }
 
-    @objc private func dateChanged() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        birthdayButton.setTitle("\(formatter.string(from: datePicker.date))  ▾", for: .normal)
+    @objc private func dailyRoutineDateChanged() {
+        let dailyRoutineFormatter = DateFormatter()
+        dailyRoutineFormatter.dateFormat = BivvyStringVault.dateFormat
+        dailyRoutineBirthdayButton.setTitle("\(dailyRoutineFormatter.string(from: dailyRoutineDatePicker.date))\(BivvyStringVault.dateArrow)", for: .normal)
     }
 
-    @objc private func enter() {
-        guard !nameField.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            errorLabel.text = "Name is required."
+    @objc private func enterCommunitySharingProfile() {
+        guard !contentCreatorNameField.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            contentFilteringErrorLabel.text = BivvyStringVault.nameReq
             return
         }
 
-        enterButton.isLoading = true
-        errorLabel.text = nil
-        let draft = BivvyProfileDraft(
-            email: email,
-            password: password,
-            name: nameField.text,
-            gender: selectedGender,
-            birthday: datePicker.date,
-            about: aboutField.text
+        communitySharingEnterButton.isSharingMechanicLoading = true
+        contentFilteringErrorLabel.text = nil
+        let communitySharingDraft = BivvyProfileDraft(
+            peerInteraction: peerInteractionEmail,
+            contentFiltering: contentFilteringPassword,
+            handpickedItem: contentCreatorNameField.text,
+            interestMatching: selectedInterestMatchingGender,
+            dailyRoutine: dailyRoutineDatePicker.date,
+            authenticReview: authenticReviewAboutField.text
         )
-        BivvyMockAuthStore.shared.register(draft: draft) { [weak self] result in
+        CommunitySharingAuthStore.communityHub.communitySharingRegister(communitySharingDraft: communitySharingDraft) { [weak self] productReviewResult in
             guard let self else { return }
-            self.enterButton.isLoading = false
-            switch result {
+            self.communitySharingEnterButton.isSharingMechanicLoading = false
+            switch productReviewResult {
             case .success:
                 (self.view.window?.windowScene?.delegate as? BivvySceneDelegate)?.showMainInterface()
-            case .failure(let error):
-                self.errorLabel.text = error.localizedDescription
+            case .failure(let contentFilteringError):
+                self.contentFilteringErrorLabel.text = contentFilteringError.localizedDescription
             }
         }
     }
 }
+
+typealias BivvyProfileSetupViewController = ProductCurationProfileSetupViewController

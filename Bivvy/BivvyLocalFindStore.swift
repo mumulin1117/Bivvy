@@ -1,56 +1,93 @@
-import Foundation
+import UIKit
 
-final class BivvyLocalFindStore {
-    static let shared = BivvyLocalFindStore()
+final class ProductShowcaseLocalFindStore {
+    static let communityMarket = ProductShowcaseLocalFindStore()
 
-    private let storageKey = "bivvy_local_find_items"
-    private let defaults = UserDefaults.standard
+    private let productShowcaseStorageKey = "bivvy_local_find_items"
+    private let savedItemStorageKey = "bivvy_saved_product_showcase_ids"
+    private let communityMarketDefaults = UserDefaults.standard
 
     private init() {}
 
-    var items: [BivvyFindItem] {
-        loadUserItems() + BivvyMockContent.finds
+    var productShowcaseItems: [ProductShowcaseFindItem] {
+        loadUserProductShowcases() + BivvyMockContent.finds
     }
 
-    func addFind(
-        title: String,
-        price: String,
-        qualityGrade: String,
-        city: String,
-        exchangeDemand: String,
-        category: String,
-        imageName: String = "bivvy_find_card_daily",
-        detailImageNames: [String]? = nil
+    func addProductShowcase(
+        productHighlightTitle: String,
+        communityMarketPrice: String,
+        excellentConditionGrade: String,
+        communityMarketCity: String,
+        itemExchangeDemand: String,
+        productCategoryName: String,
+        productShowcaseImageName: String = "bivvy_find_card_daily",
+        productWalkthroughImageNames: [String]? = nil
     ) {
-        var userItems = loadUserItems()
-        let item = BivvyFindItem(
-            id: UUID().uuidString,
-            title: title,
-            subtitle: category,
-            imageName: imageName,
-            likes: "0",
-            saves: "0",
-            detail: exchangeDemand,
-            authorName: "You",
-            createdAt: "Just now",
-            price: price,
-            qualityGrade: qualityGrade,
-            city: city,
-            exchangeDemand: exchangeDemand,
-            category: category,
-            detailImageNames: detailImageNames ?? [imageName]
+        var userProductShowcases = loadUserProductShowcases()
+        let productShowcaseItem = ProductShowcaseFindItem(
+            productShowcaseId: UUID().uuidString,
+            productHighlightTitle: productHighlightTitle,
+            productCategorySubtitle: productCategoryName,
+            productShowcaseImageName: productShowcaseImageName,
+            engagementMetricLikes: "0",
+            savedItemCount: "0",
+            detailedReviewText: itemExchangeDemand,
+            contentCreatorName: "You",
+            dailyFindCreatedAt: "Just now",
+            communityMarketPrice: communityMarketPrice,
+            excellentConditionGrade: excellentConditionGrade,
+            communityMarketCity: communityMarketCity,
+            itemExchangeDemand: itemExchangeDemand,
+            productCategoryName: productCategoryName,
+            productWalkthroughImageNames: productWalkthroughImageNames ?? [productShowcaseImageName]
         )
-        userItems.insert(item, at: 0)
-        saveUserItems(userItems)
+        userProductShowcases.insert(productShowcaseItem, at: 0)
+        saveUserProductShowcases(userProductShowcases)
     }
 
-    private func loadUserItems() -> [BivvyFindItem] {
-        guard let data = defaults.data(forKey: storageKey) else { return [] }
-        return (try? JSONDecoder().decode([BivvyFindItem].self, from: data)) ?? []
+    func saveProductShowcaseImage(_ image: UIImage) -> String? {
+        let productShowcaseDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("bivvy_uploaded_finds", isDirectory: true)
+        do {
+            try FileManager.default.createDirectory(at: productShowcaseDirectory, withIntermediateDirectories: true)
+            let productShowcaseFileURL = productShowcaseDirectory.appendingPathComponent("\(UUID().uuidString).jpg")
+            guard let productShowcaseImageData = image.jpegData(compressionQuality: 0.84) else { return nil }
+            try productShowcaseImageData.write(to: productShowcaseFileURL, options: .atomic)
+            return productShowcaseFileURL.path
+        } catch {
+            return nil
+        }
     }
 
-    private func saveUserItems(_ items: [BivvyFindItem]) {
-        let data = try? JSONEncoder().encode(items)
-        defaults.set(data, forKey: storageKey)
+    func isSavedItem(productShowcaseId: String) -> Bool {
+        savedItemIds.contains(productShowcaseId)
+    }
+
+    @discardableResult
+    func toggleSavedItem(productShowcaseId: String) -> Bool {
+        var favoriteFindIds = savedItemIds
+        if favoriteFindIds.contains(productShowcaseId) {
+            favoriteFindIds.remove(productShowcaseId)
+        } else {
+            favoriteFindIds.insert(productShowcaseId)
+        }
+        communityMarketDefaults.set(Array(favoriteFindIds), forKey: savedItemStorageKey)
+        return favoriteFindIds.contains(productShowcaseId)
+    }
+
+    private func loadUserProductShowcases() -> [ProductShowcaseFindItem] {
+        guard let productShowcaseData = communityMarketDefaults.data(forKey: productShowcaseStorageKey) else { return [] }
+        return (try? JSONDecoder().decode([ProductShowcaseFindItem].self, from: productShowcaseData)) ?? []
+    }
+
+    private func saveUserProductShowcases(_ productShowcaseItems: [ProductShowcaseFindItem]) {
+        let productShowcaseData = try? JSONEncoder().encode(productShowcaseItems)
+        communityMarketDefaults.set(productShowcaseData, forKey: productShowcaseStorageKey)
+    }
+
+    private var savedItemIds: Set<String> {
+        Set(communityMarketDefaults.stringArray(forKey: savedItemStorageKey) ?? [])
     }
 }
+
+typealias BivvyLocalFindStore = ProductShowcaseLocalFindStore

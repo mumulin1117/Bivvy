@@ -1,53 +1,55 @@
 import UIKit
 
-final class BivvyProfileGridCell: UICollectionViewCell {
-    static let reuseIdentifier = "BivvyProfileGridCell"
+final class ContentCreatorCollectionCell: UICollectionViewCell {
+    static let reuseIdentifier = "ContentCreatorCollectionCell"
 
-    private let imageView = UIImageView()
-    private let titleLabel = UILabel()
+    private let productShowcaseImageView = UIImageView()
+    private let productHighlightTitleLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        buildLayout()
+        buildContentCreatorLayout()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with item: BivvyProfileItem) {
-        BivvyRemoteImageLoader.shared.load(item.imageURL, into: imageView, placeholder: UIImage(named: item.imageName))
-        titleLabel.text = item.title
+    func configure(with contentCreatorItem: ContentCreatorProfileItem) {
+        BivvyRemoteImageLoader.shared.load(contentCreatorItem.productShowcaseImageURL, into: productShowcaseImageView, placeholder: UIImage(named: contentCreatorItem.productShowcaseImageName))
+        productHighlightTitleLabel.text = contentCreatorItem.productHighlightTitle
     }
 
-    private func buildLayout() {
+    private func buildContentCreatorLayout() {
         contentView.backgroundColor = .clear
 
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 18
+        productShowcaseImageView.translatesAutoresizingMaskIntoConstraints = false
+        productShowcaseImageView.contentMode = .scaleAspectFill
+        productShowcaseImageView.clipsToBounds = true
+        productShowcaseImageView.layer.cornerRadius = 18
 
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = .systemFont(ofSize: 15, weight: .regular)
-        titleLabel.textColor = .black
-        titleLabel.backgroundColor = .clear
-        titleLabel.textAlignment = .left
-        titleLabel.numberOfLines = 2
+        productHighlightTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        productHighlightTitleLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        productHighlightTitleLabel.textColor = .black
+        productHighlightTitleLabel.backgroundColor = .clear
+        productHighlightTitleLabel.textAlignment = .left
+        productHighlightTitleLabel.numberOfLines = 2
 
-        contentView.addSubview(imageView)
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(productShowcaseImageView)
+        contentView.addSubview(productHighlightTitleLabel)
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.05),
+            productShowcaseImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            productShowcaseImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            productShowcaseImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            productShowcaseImageView.heightAnchor.constraint(equalTo: productShowcaseImageView.widthAnchor, multiplier: 1.05),
 
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor)
+            productHighlightTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            productHighlightTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            productHighlightTitleLabel.topAnchor.constraint(equalTo: productShowcaseImageView.bottomAnchor, constant: 8),
+            productHighlightTitleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor)
         ])
     }
 }
+
+typealias BivvyProfileGridCell = ContentCreatorCollectionCell

@@ -1,357 +1,357 @@
 import UIKit
 
-final class BivvyVideoViewController: UIViewController {
-    private let categories = ["For you", "Fun", "Friend"]
-    private var selectedCategoryIndex = 0
-    private var currentIndex = 0
-    private var allVideos: [BivvyVideoItem] = []
-    private var visibleVideos: [BivvyVideoItem] = []
-    private var likedVideoIds: Set<String> = []
+final class VideoDiscoveryFeedViewController: UIViewController {
+    private let interestGroupTabs = ["For you", "Fun", "Friend"]
+    private var selectedInterestGroupIndex = 0
+    private var currentVideoSnippetIndex = 0
+    private var videoDiscoverySnippets: [VideoDiscoverySnippetItem] = []
+    private var visibleVideoSnippets: [VideoDiscoverySnippetItem] = []
+    private var savedVideoEngagementIds: Set<String> = []
 
-    private let topTabs = UIStackView()
-    private var tabButtons: [UIButton] = []
-    private let shadowCard = UIImageView(image: UIImage.init(named: "shadowCard"))
-    private let card = UIView()
-    private let nameLabel = UILabel()
-    private let descriptionLabel = UILabel()
-    private let coverImageView = UIImageView()
-    private let emptyLabel = UILabel()
+    private let interestGroupTabStack = UIStackView()
+    private var interestGroupButtons: [UIButton] = []
+    private let videoSnippetShadowCard = UIImageView(image: UIImage.init(named: "shadowCard"))
+    private let videoSnippetCard = UIView()
+    private let contentCreatorNameLabel = UILabel()
+    private let authenticReviewLabel = UILabel()
+    private let videoSnippetCoverView = UIImageView()
+    private let emptyVideoFeedLabel = UILabel()
    
-    private let saveButton = UIButton()
-    private let commentButton = UIButton()
-    private let playButton = UIButton()
-    private let moreButton = UIButton()
+    private let savedItemButton = UIButton()
+    private let discussionStarterButton = UIButton()
+    private let videoStreamingPlayButton = UIButton()
+    private let contentFilteringMoreButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        visibleVideos = videosForSelectedCategory()
-        buildLayout()
-        renderCurrentVideo()
-        loadVideos()
+        visibleVideoSnippets = videoSnippetsForSelectedInterestGroup()
+        buildVideoDiscoveryLayout()
+        renderCurrentVideoSnippet()
+        loadVideoDiscoverySnippets()
     }
 
-    private func buildLayout() {
+    private func buildVideoDiscoveryLayout() {
         view.backgroundColor = .white
-        shadowCard.contentMode = .scaleToFill
-        let background = BivvyGradientView()
-        background.translatesAutoresizingMaskIntoConstraints = false
-        background.colors = [
+        videoSnippetShadowCard.contentMode = .scaleToFill
+        let videoDiscoveryBackground = ProductCurationGradientView()
+        videoDiscoveryBackground.translatesAutoresizingMaskIntoConstraints = false
+        videoDiscoveryBackground.curatedListColors = [
             UIColor(red: 255 / 255, green: 205 / 255, blue: 215 / 255, alpha: 1),
             UIColor(red: 255 / 255, green: 246 / 255, blue: 251 / 255, alpha: 1),
             UIColor.white
         ]
-        background.startPoint = CGPoint(x: 0, y: 0)
-        background.endPoint = CGPoint(x: 0.92, y: 0.58)
+        videoDiscoveryBackground.productCurationStartPoint = CGPoint(x: 0, y: 0)
+        videoDiscoveryBackground.productCurationEndPoint = CGPoint(x: 0.92, y: 0.58)
 
-        configureTopTabs()
-        configureCard()
+        configureInterestGroupTabs()
+        configureVideoSnippetCard()
 
-        view.addSubview(background)
-        view.addSubview(topTabs)
-        view.addSubview(shadowCard)
-        view.addSubview(emptyLabel)
-        shadowCard.addSubview(card)
+        view.addSubview(videoDiscoveryBackground)
+        view.addSubview(interestGroupTabStack)
+        view.addSubview(videoSnippetShadowCard)
+        view.addSubview(emptyVideoFeedLabel)
+        videoSnippetShadowCard.addSubview(videoSnippetCard)
 
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-        emptyLabel.text = "No data available."
-        emptyLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        emptyLabel.textColor = UIColor.black.withAlphaComponent(0.48)
-        emptyLabel.textAlignment = .center
-        emptyLabel.isHidden = true
+        emptyVideoFeedLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyVideoFeedLabel.text = BivvyStringVault.noData
+        emptyVideoFeedLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        emptyVideoFeedLabel.textColor = UIColor.black.withAlphaComponent(0.48)
+        emptyVideoFeedLabel.textAlignment = .center
+        emptyVideoFeedLabel.isHidden = true
 
         NSLayoutConstraint.activate([
-            background.topAnchor.constraint(equalTo: view.topAnchor),
-            background.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            background.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            videoDiscoveryBackground.topAnchor.constraint(equalTo: view.topAnchor),
+            videoDiscoveryBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            videoDiscoveryBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            videoDiscoveryBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            topTabs.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            topTabs.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            topTabs.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            topTabs.heightAnchor.constraint(equalToConstant: 40),
+            interestGroupTabStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            interestGroupTabStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            interestGroupTabStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            interestGroupTabStack.heightAnchor.constraint(equalToConstant: 40),
 
-            shadowCard.topAnchor.constraint(equalTo: topTabs.bottomAnchor, constant: 12),
-            shadowCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            shadowCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            shadowCard.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            videoSnippetShadowCard.topAnchor.constraint(equalTo: interestGroupTabStack.bottomAnchor, constant: 12),
+            videoSnippetShadowCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            videoSnippetShadowCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            videoSnippetShadowCard.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
 
-            card.topAnchor.constraint(equalTo: shadowCard.topAnchor, constant: 20),
-            card.leadingAnchor.constraint(equalTo: shadowCard.leadingAnchor),
-            card.trailingAnchor.constraint(equalTo: shadowCard.trailingAnchor),
-            card.bottomAnchor.constraint(equalTo: shadowCard.bottomAnchor),
+            videoSnippetCard.topAnchor.constraint(equalTo: videoSnippetShadowCard.topAnchor, constant: 20),
+            videoSnippetCard.leadingAnchor.constraint(equalTo: videoSnippetShadowCard.leadingAnchor),
+            videoSnippetCard.trailingAnchor.constraint(equalTo: videoSnippetShadowCard.trailingAnchor),
+            videoSnippetCard.bottomAnchor.constraint(equalTo: videoSnippetShadowCard.bottomAnchor),
 
-            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+            emptyVideoFeedLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyVideoFeedLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyVideoFeedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            emptyVideoFeedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
 
-    private func configureTopTabs() {
-        topTabs.translatesAutoresizingMaskIntoConstraints = false
-        topTabs.axis = .horizontal
-        topTabs.distribution = .fillEqually
-        topTabs.spacing = 20
+    private func configureInterestGroupTabs() {
+        interestGroupTabStack.translatesAutoresizingMaskIntoConstraints = false
+        interestGroupTabStack.axis = .horizontal
+        interestGroupTabStack.distribution = .fillEqually
+        interestGroupTabStack.spacing = 20
 
-        for (index, title) in categories.enumerated() {
-            var configuration = UIButton.Configuration.filled()
-            configuration.title = title
-            configuration.cornerStyle = .capsule
-            configuration.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 10, bottom: 14, trailing: 10)
-            let button = UIButton(configuration: configuration)
-            button.tag = index
-            button.titleLabel?.font = BivvyAuthTheme.buttonFont(size: 14)
-            button.addTarget(self, action: #selector(selectCategory(_:)), for: .touchUpInside)
-            tabButtons.append(button)
-            topTabs.addArrangedSubview(button)
+        for (interestGroupIndex, sharedInterestTitle) in interestGroupTabs.enumerated() {
+            var sharedInterestConfiguration = UIButton.Configuration.filled()
+            sharedInterestConfiguration.title = sharedInterestTitle
+            sharedInterestConfiguration.cornerStyle = .capsule
+            sharedInterestConfiguration.contentInsets = NSDirectionalEdgeInsets(top: 14, leading: 10, bottom: 14, trailing: 10)
+            let sharedInterestButton = UIButton(configuration: sharedInterestConfiguration)
+            sharedInterestButton.tag = interestGroupIndex
+            sharedInterestButton.titleLabel?.font = CommunitySharingAuthTheme.sharingMechanicButtonFont(size: 14)
+            sharedInterestButton.addTarget(self, action: #selector(selectInterestGroup(_:)), for: .touchUpInside)
+            interestGroupButtons.append(sharedInterestButton)
+            interestGroupTabStack.addArrangedSubview(sharedInterestButton)
         }
-        updateTabButtons()
+        updateInterestGroupButtons()
     }
 
-    private func configureCard() {
-        shadowCard.translatesAutoresizingMaskIntoConstraints = false
-        shadowCard.isUserInteractionEnabled = true
-        shadowCard.transform = CGAffineTransform(rotationAngle: -0.055)
+    private func configureVideoSnippetCard() {
+        videoSnippetShadowCard.translatesAutoresizingMaskIntoConstraints = false
+        videoSnippetShadowCard.isUserInteractionEnabled = true
+        videoSnippetShadowCard.transform = CGAffineTransform(rotationAngle: -0.055)
 
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.backgroundColor = .black
-        card.layer.cornerRadius = 36
-        card.layer.masksToBounds = true
-        card.transform = CGAffineTransform(rotationAngle: 0.055)
+        videoSnippetCard.translatesAutoresizingMaskIntoConstraints = false
+        videoSnippetCard.backgroundColor = .black
+        videoSnippetCard.layer.cornerRadius = 36
+        videoSnippetCard.layer.masksToBounds = true
+        videoSnippetCard.transform = CGAffineTransform(rotationAngle: 0.055)
 
-        coverImageView.translatesAutoresizingMaskIntoConstraints = false
-        coverImageView.image = UIImage(named: "bivvy_video_cover_featured")
-        coverImageView.contentMode = .scaleAspectFill
-        coverImageView.clipsToBounds = true
-        coverImageView.layer.cornerRadius = 24
+        videoSnippetCoverView.translatesAutoresizingMaskIntoConstraints = false
+        videoSnippetCoverView.image = UIImage(named: "bivvy_video_cover_featured")
+        videoSnippetCoverView.contentMode = .scaleAspectFill
+        videoSnippetCoverView.clipsToBounds = true
+        videoSnippetCoverView.layer.cornerRadius = 24
 
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = .systemFont(ofSize: 30, weight: .heavy)
-        nameLabel.textColor = .white
-        nameLabel.adjustsFontSizeToFitWidth = true
+        contentCreatorNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentCreatorNameLabel.font = .systemFont(ofSize: 30, weight: .heavy)
+        contentCreatorNameLabel.textColor = .white
+        contentCreatorNameLabel.adjustsFontSizeToFitWidth = true
 
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = .systemFont(ofSize: 15, weight: .bold)
-        descriptionLabel.textColor = UIColor.white.withAlphaComponent(0.72)
-        descriptionLabel.numberOfLines = 2
-        descriptionLabel.backgroundColor = UIColor.white.withAlphaComponent(0.1)
-        descriptionLabel.layer.cornerRadius = 14
-        descriptionLabel.layer.masksToBounds = true
+        authenticReviewLabel.translatesAutoresizingMaskIntoConstraints = false
+        authenticReviewLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        authenticReviewLabel.textColor = UIColor.white.withAlphaComponent(0.72)
+        authenticReviewLabel.numberOfLines = 2
+        authenticReviewLabel.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+        authenticReviewLabel.layer.cornerRadius = 14
+        authenticReviewLabel.layer.masksToBounds = true
 
-        configureIconButton(playButton, systemName: "vioeaply")
+        configureVideoActionIcon(videoStreamingPlayButton, assetName: "vioeaply")
       
-        configureIconButton(saveButton, systemName: "videoUnheaer")
-        configureIconButton(commentButton, systemName: "videoUncomment",)
-        configureIconButton(moreButton, systemName: "videoUnMore")
+        configureVideoActionIcon(savedItemButton, assetName: "videoUnheaer")
+        configureVideoActionIcon(discussionStarterButton, assetName: "videoUncomment")
+        configureVideoActionIcon(contentFilteringMoreButton, assetName: "videoUnMore")
 
-        [ saveButton, commentButton, playButton].forEach {
+        [savedItemButton, discussionStarterButton, videoStreamingPlayButton].forEach {
             $0.addTarget(self, action: #selector(openCurrentVideoDetail), for: .touchUpInside)
         }
-        moreButton.addTarget(self, action: #selector(showMoreActions), for: .touchUpInside)
+        contentFilteringMoreButton.addTarget(self, action: #selector(showContentFilteringActions), for: .touchUpInside)
 
-        let tap = UITapGestureRecognizer(target: self, action: #selector(openCurrentVideoDetail))
-        tap.cancelsTouchesInView = false
-        tap.delegate = self
-        card.addGestureRecognizer(tap)
+        let videoDetailTap = UITapGestureRecognizer(target: self, action: #selector(openCurrentVideoDetail))
+        videoDetailTap.cancelsTouchesInView = false
+        videoDetailTap.delegate = self
+        videoSnippetCard.addGestureRecognizer(videoDetailTap)
 
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(_:)))
-        pan.delegate = self
-        card.addGestureRecognizer(pan)
+        let videoCardPan = UIPanGestureRecognizer(target: self, action: #selector(handleVideoSnippetPan(_:)))
+        videoCardPan.delegate = self
+        videoSnippetCard.addGestureRecognizer(videoCardPan)
 
-        [nameLabel, descriptionLabel, coverImageView, moreButton, commentButton, playButton, saveButton].forEach(card.addSubview)
+        [contentCreatorNameLabel, authenticReviewLabel, videoSnippetCoverView, contentFilteringMoreButton, discussionStarterButton, videoStreamingPlayButton, savedItemButton].forEach(videoSnippetCard.addSubview)
 
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: 30),
-            nameLabel.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 28),
-            nameLabel.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -16),
+            contentCreatorNameLabel.topAnchor.constraint(equalTo: videoSnippetCard.topAnchor, constant: 30),
+            contentCreatorNameLabel.leadingAnchor.constraint(equalTo: videoSnippetCard.leadingAnchor, constant: 28),
+            contentCreatorNameLabel.trailingAnchor.constraint(equalTo: contentFilteringMoreButton.leadingAnchor, constant: -16),
 
-            moreButton.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            moreButton.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -18),
-            moreButton.widthAnchor.constraint(equalToConstant: 36),
-            moreButton.heightAnchor.constraint(equalToConstant: 36),
+            contentFilteringMoreButton.centerYAnchor.constraint(equalTo: contentCreatorNameLabel.centerYAnchor),
+            contentFilteringMoreButton.trailingAnchor.constraint(equalTo: videoSnippetCard.trailingAnchor, constant: -18),
+            contentFilteringMoreButton.widthAnchor.constraint(equalToConstant: 36),
+            contentFilteringMoreButton.heightAnchor.constraint(equalToConstant: 36),
 
-            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
-            descriptionLabel.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 28),
-            descriptionLabel.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -28),
-            descriptionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 52),
+            authenticReviewLabel.topAnchor.constraint(equalTo: contentCreatorNameLabel.bottomAnchor, constant: 16),
+            authenticReviewLabel.leadingAnchor.constraint(equalTo: videoSnippetCard.leadingAnchor, constant: 28),
+            authenticReviewLabel.trailingAnchor.constraint(equalTo: videoSnippetCard.trailingAnchor, constant: -28),
+            authenticReviewLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 52),
 
-            coverImageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
-            coverImageView.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 8),
-            coverImageView.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -8),
-            coverImageView.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -8),
+            videoSnippetCoverView.topAnchor.constraint(equalTo: authenticReviewLabel.bottomAnchor, constant: 16),
+            videoSnippetCoverView.leadingAnchor.constraint(equalTo: videoSnippetCard.leadingAnchor, constant: 8),
+            videoSnippetCoverView.trailingAnchor.constraint(equalTo: videoSnippetCard.trailingAnchor, constant: -8),
+            videoSnippetCoverView.bottomAnchor.constraint(equalTo: videoSnippetCard.bottomAnchor, constant: -8),
 
-            playButton.centerXAnchor.constraint(equalTo: card.centerXAnchor),
-            playButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -30),
-            playButton.widthAnchor.constraint(equalToConstant: 70),
-            playButton.heightAnchor.constraint(equalToConstant: 70),
+            videoStreamingPlayButton.centerXAnchor.constraint(equalTo: videoSnippetCard.centerXAnchor),
+            videoStreamingPlayButton.bottomAnchor.constraint(equalTo: videoSnippetCard.bottomAnchor, constant: -30),
+            videoStreamingPlayButton.widthAnchor.constraint(equalToConstant: 70),
+            videoStreamingPlayButton.heightAnchor.constraint(equalToConstant: 70),
 
      
-            saveButton.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -36),
-            saveButton.centerYAnchor.constraint(equalTo: playButton.centerYAnchor),
-            saveButton.widthAnchor.constraint(equalToConstant: 70),
-            saveButton.heightAnchor.constraint(equalToConstant: 70),
+            savedItemButton.trailingAnchor.constraint(equalTo: videoSnippetCard.trailingAnchor, constant: -36),
+            savedItemButton.centerYAnchor.constraint(equalTo: videoStreamingPlayButton.centerYAnchor),
+            savedItemButton.widthAnchor.constraint(equalToConstant: 70),
+            savedItemButton.heightAnchor.constraint(equalToConstant: 70),
 
-            commentButton.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 36),
-            commentButton.centerYAnchor.constraint(equalTo: playButton.centerYAnchor),
-            commentButton.widthAnchor.constraint(equalToConstant: 70),
-            commentButton.heightAnchor.constraint(equalToConstant: 70)
+            discussionStarterButton.leadingAnchor.constraint(equalTo: videoSnippetCard.leadingAnchor, constant: 36),
+            discussionStarterButton.centerYAnchor.constraint(equalTo: videoStreamingPlayButton.centerYAnchor),
+            discussionStarterButton.widthAnchor.constraint(equalToConstant: 70),
+            discussionStarterButton.heightAnchor.constraint(equalToConstant: 70)
         ])
-        [commentButton, playButton, saveButton, moreButton].forEach(card.bringSubviewToFront)
+        [discussionStarterButton, videoStreamingPlayButton, savedItemButton, contentFilteringMoreButton].forEach(videoSnippetCard.bringSubviewToFront)
     }
 
-    private func configureIconButton(_ button: UIButton, systemName: String) {
+    private func configureVideoActionIcon(_ button: UIButton, assetName: String) {
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: systemName), for: .normal)
+        button.setImage(UIImage(named: assetName), for: .normal)
        
     }
 
-    private func videosForSelectedCategory() -> [BivvyVideoItem] {
-        let category = categories[selectedCategoryIndex]
-        let filtered = allVideos.filter { $0.category == category }
-        return filtered
+    private func videoSnippetsForSelectedInterestGroup() -> [VideoDiscoverySnippetItem] {
+        let sharedInterestCategory = interestGroupTabs[selectedInterestGroupIndex]
+        let personalizedFeed = videoDiscoverySnippets.filter { $0.productCategoryName == sharedInterestCategory }
+        return personalizedFeed
     }
 
-    private func renderCurrentVideo() {
-        guard !visibleVideos.isEmpty else {
-            card.isHidden = true
-            shadowCard.isHidden = true
-            emptyLabel.isHidden = false
-            coverImageView.image = UIImage(named: "bivvy_video_cover_featured")
-            nameLabel.text = nil
-            descriptionLabel.text = nil
+    private func renderCurrentVideoSnippet() {
+        guard !visibleVideoSnippets.isEmpty else {
+            videoSnippetCard.isHidden = true
+            videoSnippetShadowCard.isHidden = true
+            emptyVideoFeedLabel.isHidden = false
+            videoSnippetCoverView.image = UIImage(named: "bivvy_video_cover_featured")
+            contentCreatorNameLabel.text = nil
+            authenticReviewLabel.text = nil
             return
         }
-        card.isHidden = false
-        shadowCard.isHidden = false
-        emptyLabel.isHidden = true
-        currentIndex = min(currentIndex, visibleVideos.count - 1)
-        let item = visibleVideos[currentIndex]
-        nameLabel.text = item.userName
-        descriptionLabel.text = "  \(item.description)"
-        BivvyRemoteImageLoader.shared.load(item.coverURL, into: coverImageView, placeholder: UIImage(named: item.coverImageName))
-        updateLikeVisual(for: item)
+        videoSnippetCard.isHidden = false
+        videoSnippetShadowCard.isHidden = false
+        emptyVideoFeedLabel.isHidden = true
+        currentVideoSnippetIndex = min(currentVideoSnippetIndex, visibleVideoSnippets.count - 1)
+        let videoSnippet = visibleVideoSnippets[currentVideoSnippetIndex]
+        contentCreatorNameLabel.text = videoSnippet.contentCreatorName
+        authenticReviewLabel.text = "  \(videoSnippet.authenticReviewDescription)"
+        BivvyRemoteImageLoader.shared.load(videoSnippet.videoStreamingCoverURL, into: videoSnippetCoverView, placeholder: UIImage(named: videoSnippet.videoSnippetCoverImageName))
+        updateVideoEngagementVisual(for: videoSnippet)
     }
 
-    private func loadVideos() {
-        BivvyNetworkService.shared.fetchVideos(page: 1) { [weak self] result in
+    private func loadVideoDiscoverySnippets() {
+        BivvyNetworkService.shared.fetchVideoDiscoverySnippets(page: 1) { [weak self] result in
             guard let self else { return }
-            if case .success(let videos) = result {
-                self.allVideos = videos
-                self.currentIndex = 0
-                self.visibleVideos = self.videosForSelectedCategory()
-                self.renderCurrentVideo()
+            if case .success(let videoSnippets) = result {
+                self.videoDiscoverySnippets = videoSnippets
+                self.currentVideoSnippetIndex = 0
+                self.visibleVideoSnippets = self.videoSnippetsForSelectedInterestGroup()
+                self.renderCurrentVideoSnippet()
             }
         }
     }
 
-    private func updateLikeVisual(for item: BivvyVideoItem) {
-        let isLiked = likedVideoIds.contains(item.id) || item.isLiked
+    private func updateVideoEngagementVisual(for videoSnippet: VideoDiscoverySnippetItem) {
+        let isSavedEngagement = savedVideoEngagementIds.contains(videoSnippet.productShowcaseId) || videoSnippet.videoEngagementIsLiked
        
-        saveButton.transform = isLiked ? CGAffineTransform(scaleX: 1.04, y: 1.04) : .identity
-        saveButton.isSelected = true
+        savedItemButton.transform = isSavedEngagement ? CGAffineTransform(scaleX: 1.04, y: 1.04) : .identity
+        savedItemButton.isSelected = true
     
     }
 
-    private func updateTabButtons() {
-        for button in tabButtons {
-            let selected = button.tag == selectedCategoryIndex
-            var configuration = button.configuration
-            configuration?.baseBackgroundColor = selected ? UIColor(red: 248 / 255, green: 66 / 255, blue: 124 / 255, alpha: 1) : .white
-            configuration?.baseForegroundColor = selected ? .white : .black
-            button.configuration = configuration
+    private func updateInterestGroupButtons() {
+        for sharedInterestButton in interestGroupButtons {
+            let isSharedInterestSelected = sharedInterestButton.tag == selectedInterestGroupIndex
+            var sharedInterestConfiguration = sharedInterestButton.configuration
+            sharedInterestConfiguration?.baseBackgroundColor = isSharedInterestSelected ? UIColor(red: 248 / 255, green: 66 / 255, blue: 124 / 255, alpha: 1) : .white
+            sharedInterestConfiguration?.baseForegroundColor = isSharedInterestSelected ? .white : .black
+            sharedInterestButton.configuration = sharedInterestConfiguration
             
         }
     }
 
-    private func advanceToNextCard() {
-        guard !visibleVideos.isEmpty else { return }
-        currentIndex = (currentIndex + 1) % visibleVideos.count
-        UIView.transition(with: card, duration: 0.22, options: [.transitionCrossDissolve, .allowUserInteraction]) {
-            self.renderCurrentVideo()
+    private func advanceToNextVideoSnippet() {
+        guard !visibleVideoSnippets.isEmpty else { return }
+        currentVideoSnippetIndex = (currentVideoSnippetIndex + 1) % visibleVideoSnippets.count
+        UIView.transition(with: videoSnippetCard, duration: 0.22, options: [.transitionCrossDissolve, .allowUserInteraction]) {
+            self.renderCurrentVideoSnippet()
         }
     }
 
-    private func pushVideoDetail() {
-        guard !visibleVideos.isEmpty, let url = BivvyH5Route.videoDetail(dynamicId: visibleVideos[currentIndex].id).url() else { return }
-        let web = BivvyWebViewController(url: url)
-        web.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(web, animated: true)
+    private func pushVideoSnippetDetail() {
+        guard !visibleVideoSnippets.isEmpty, let productReviewURL = BivvyH5Route.videoSnippet(handpickedDynamicId: visibleVideoSnippets[currentVideoSnippetIndex].productShowcaseId).productCurationURL() else { return }
+        let videoDiscoveryWebPage = BivvyWebViewController(url: productReviewURL)
+        videoDiscoveryWebPage.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(videoDiscoveryWebPage, animated: true)
     }
 
-    @objc private func selectCategory(_ sender: UIButton) {
-        selectedCategoryIndex = sender.tag
-        currentIndex = 0
-        visibleVideos = videosForSelectedCategory()
-        updateTabButtons()
-        renderCurrentVideo()
+    @objc private func selectInterestGroup(_ sender: UIButton) {
+        selectedInterestGroupIndex = sender.tag
+        currentVideoSnippetIndex = 0
+        visibleVideoSnippets = videoSnippetsForSelectedInterestGroup()
+        updateInterestGroupButtons()
+        renderCurrentVideoSnippet()
     }
 
     @objc private func openCurrentVideoDetail() {
-        pushVideoDetail()
+        pushVideoSnippetDetail()
     }
 
-    @objc private func showMoreActions() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Report", style: .destructive) { [weak self] _ in
-            self?.openReport()
+    @objc private func showContentFilteringActions() {
+        let contentFilteringSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        contentFilteringSheet.addAction(UIAlertAction(title: BivvyStringVault.report, style: .destructive) { [weak self] _ in
+            self?.openTrustedReviewReport()
         })
-        alert.addAction(UIAlertAction(title: "Block", style: .destructive) { [weak self] _ in
-            self?.blockCurrentVideo()
+        contentFilteringSheet.addAction(UIAlertAction(title: BivvyStringVault.block, style: .destructive) { [weak self] _ in
+            self?.blockCurrentVideoSnippet()
         })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        if let popover = alert.popoverPresentationController {
-            popover.sourceView = moreButton
-            popover.sourceRect = moreButton.bounds
+        contentFilteringSheet.addAction(UIAlertAction(title: BivvyStringVault.cancel, style: .cancel))
+        if let productDiscussionPopover = contentFilteringSheet.popoverPresentationController {
+            productDiscussionPopover.sourceView = contentFilteringMoreButton
+            productDiscussionPopover.sourceRect = contentFilteringMoreButton.bounds
         }
-        present(alert, animated: true)
+        present(contentFilteringSheet, animated: true)
     }
 
-    private func openReport() {
-        guard !visibleVideos.isEmpty, let url = BivvyH5Route.report(dynamicId: visibleVideos[currentIndex].id).url() else { return }
-        let web = BivvyWebViewController(url: url)
-        web.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(web, animated: true)
+    private func openTrustedReviewReport() {
+        guard !visibleVideoSnippets.isEmpty, let trustedReviewURL = BivvyH5Route.trustedReview(handpickedDynamicId: visibleVideoSnippets[currentVideoSnippetIndex].productShowcaseId).productCurationURL() else { return }
+        let trustedReviewWebPage = BivvyWebViewController(url: trustedReviewURL)
+        trustedReviewWebPage.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(trustedReviewWebPage, animated: true)
     }
 
-    private func blockCurrentVideo() {
-        guard !visibleVideos.isEmpty else { return }
-        let item = visibleVideos[currentIndex]
-        BivvyNetworkService.shared.block(userId: item.userId, userName: item.userName, userImageURL: item.userAvatarURL)
-        allVideos.removeAll { $0.id == item.id || (!$0.userId.isEmpty && $0.userId == item.userId) }
-        visibleVideos = videosForSelectedCategory()
-        currentIndex = min(currentIndex, max(0, visibleVideos.count - 1))
-        renderCurrentVideo()
+    private func blockCurrentVideoSnippet() {
+        guard !visibleVideoSnippets.isEmpty else { return }
+        let videoSnippet = visibleVideoSnippets[currentVideoSnippetIndex]
+        BivvyNetworkService.shared.blockPeerInteraction(userDiscoveryId: videoSnippet.userDiscoveryId, contentCreatorName: videoSnippet.contentCreatorName, contentCreatorAvatarURL: videoSnippet.contentCreatorAvatarURL)
+        videoDiscoverySnippets.removeAll { $0.productShowcaseId == videoSnippet.productShowcaseId || (!$0.userDiscoveryId.isEmpty && $0.userDiscoveryId == videoSnippet.userDiscoveryId) }
+        visibleVideoSnippets = videoSnippetsForSelectedInterestGroup()
+        currentVideoSnippetIndex = min(currentVideoSnippetIndex, max(0, visibleVideoSnippets.count - 1))
+        renderCurrentVideoSnippet()
     }
 
-    @objc private func handleCardPan(_ gesture: UIPanGestureRecognizer) {
-        let translation = gesture.translation(in: view)
+    @objc private func handleVideoSnippetPan(_ gesture: UIPanGestureRecognizer) {
+        let peerInteractionTranslation = gesture.translation(in: view)
         switch gesture.state {
         case .changed:
-            let rotation = translation.x / view.bounds.width * 0.18
-            card.transform = CGAffineTransform(translationX: translation.x * 0.52, y: 0).rotated(by: rotation)
+            let videoEngagementRotation = peerInteractionTranslation.x / view.bounds.width * 0.18
+            videoSnippetCard.transform = CGAffineTransform(translationX: peerInteractionTranslation.x * 0.52, y: 0).rotated(by: videoEngagementRotation)
         case .ended, .cancelled:
-            let shouldAdvance = abs(translation.x) > 90
-            if shouldAdvance {
-                if translation.x > 0, !visibleVideos.isEmpty {
-                    let dynamicId = visibleVideos[currentIndex].id
-                    likedVideoIds.insert(dynamicId)
-                    BivvyNetworkService.shared.like(dynamicId: dynamicId)
+            let shouldAdvanceFeed = abs(peerInteractionTranslation.x) > 90
+            if shouldAdvanceFeed {
+                if peerInteractionTranslation.x > 0, !visibleVideoSnippets.isEmpty {
+                    let handpickedDynamicId = visibleVideoSnippets[currentVideoSnippetIndex].productShowcaseId
+                    savedVideoEngagementIds.insert(handpickedDynamicId)
+                    BivvyNetworkService.shared.sendVideoEngagementLike(handpickedDynamicId: handpickedDynamicId)
                 }
-                let direction: CGFloat = translation.x >= 0 ? 1 : -1
+                let interactiveFeedDirection: CGFloat = peerInteractionTranslation.x >= 0 ? 1 : -1
                 UIView.animate(withDuration: 0.18, animations: {
-                    self.card.transform = CGAffineTransform(translationX: direction * self.view.bounds.width, y: 0).rotated(by: direction * 0.2)
-                    self.card.alpha = 0.4
+                    self.videoSnippetCard.transform = CGAffineTransform(translationX: interactiveFeedDirection * self.view.bounds.width, y: 0).rotated(by: interactiveFeedDirection * 0.2)
+                    self.videoSnippetCard.alpha = 0.4
                 }, completion: { _ in
-                    self.card.transform = CGAffineTransform(translationX: -direction * self.view.bounds.width * 0.32, y: 0)
-                    self.advanceToNextCard()
+                    self.videoSnippetCard.transform = CGAffineTransform(translationX: -interactiveFeedDirection * self.view.bounds.width * 0.32, y: 0)
+                    self.advanceToNextVideoSnippet()
                     UIView.animate(withDuration: 0.18) {
-                        self.card.transform = .identity
-                        self.card.alpha = 1
+                        self.videoSnippetCard.transform = .identity
+                        self.videoSnippetCard.alpha = 1
                     }
                 })
             } else {
                 UIView.animate(withDuration: 0.2) {
-                    self.card.transform = .identity
+                    self.videoSnippetCard.transform = .identity
                 }
             }
         default:
@@ -360,8 +360,10 @@ final class BivvyVideoViewController: UIViewController {
     }
 }
 
-extension BivvyVideoViewController: UIGestureRecognizerDelegate {
+extension VideoDiscoveryFeedViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         !(touch.view is UIControl)
     }
 }
+
+typealias BivvyVideoViewController = VideoDiscoveryFeedViewController
