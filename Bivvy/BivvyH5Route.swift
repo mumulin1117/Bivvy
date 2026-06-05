@@ -29,7 +29,7 @@ enum BivvyH5Route {
             return "\(Self.gateway)pages/HomePage/index?userId=\(userId)&token=\(token)&appID=\(Self.appId)"
         case .videoDetail(let dynamicId):
             return "\(Self.gateway)pages/DynamicDetails/index?dynamicId=\(dynamicId)&token=\(token)&appID=\(Self.appId)"
-        case .report(let dynamicId):
+        case .report:
             return "\(Self.gateway)pages/Report/index?token=\(token)&appID=\(Self.appId)"
         case .settings:
             return "\(Self.gateway)pages/Setting/index?token=\(token)&appID=\(Self.appId)"

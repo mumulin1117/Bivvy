@@ -31,9 +31,9 @@ final class BivvyHomeUserCell: UICollectionViewCell {
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = 18
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         nameLabel.font = .systemFont(ofSize: 13, weight: .bold)
-        nameLabel.textColor = UIColor.white
+        nameLabel.textColor = UIColor.red
         nameLabel.backgroundColor = UIColor(red: 0.72, green: 0.72, blue: 0.72, alpha: 1)
 
         [avatarView, nameLabel].forEach(contentView.addSubview)

@@ -53,11 +53,11 @@ final class BivvyFindDetailViewController: UIViewController {
 
         let reportButton = UIButton(type: .system)
         reportButton.translatesAutoresizingMaskIntoConstraints = false
-        reportButton.setTitle("Report", for: .normal)
-        reportButton.setTitleColor(BivvyAuthTheme.hotPink, for: .normal)
-        reportButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        reportButton.setImage(UIImage(systemName: "flag.fill"), for: .normal)
+        reportButton.tintColor = BivvyAuthTheme.hotPink
         reportButton.backgroundColor = UIColor.white.withAlphaComponent(0.92)
         reportButton.layer.cornerRadius = 18
+        reportButton.imageView?.contentMode = .scaleAspectFit
         reportButton.addTarget(self, action: #selector(openReport), for: .touchUpInside)
 
         let pageDots = makePageDots(count: carouselImageNames.count)
@@ -109,7 +109,7 @@ final class BivvyFindDetailViewController: UIViewController {
 
             reportButton.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
             reportButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            reportButton.widthAnchor.constraint(equalToConstant: 82),
+            reportButton.widthAnchor.constraint(equalToConstant: 36),
             reportButton.heightAnchor.constraint(equalToConstant: 36),
 
             pageDots.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),

@@ -4,10 +4,9 @@ final class BivvyHomeFindCell: UICollectionViewCell {
     static let reuseIdentifier = "BivvyHomeFindCell"
 
     private let imageView = UIImageView()
+    private let fadeView = BivvyGradientView()
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
-    private let likeLabel = UILabel()
-    private let saveLabel = UILabel()
     private let reportButton = UIButton(type: .system)
     var onReport: (() -> Void)?
 
@@ -23,83 +22,94 @@ final class BivvyHomeFindCell: UICollectionViewCell {
     func configure(with item: BivvyFindItem) {
         imageView.image = UIImage(named: item.imageName)
         titleLabel.text = item.title
-        subtitleLabel.text = item.subtitle
-        likeLabel.text = "Like \(item.likes)"
-        saveLabel.text = "Save \(item.saves)"
+        subtitleLabel.text = "  \(item.category ?? item.subtitle)  "
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageView.image = nil
         onReport = nil
     }
 
     private func buildLayout() {
-        contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 20
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowOpacity = 0.08
-        contentView.layer.shadowRadius = 14
-        contentView.layer.shadowOffset = CGSize(width: 0, height: 8)
+        contentView.backgroundColor = .clear
+        contentView.layer.cornerRadius = 18
+        contentView.layer.masksToBounds = true
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 16
+
+        fadeView.translatesAutoresizingMaskIntoConstraints = false
+        fadeView.isUserInteractionEnabled = false
+        fadeView.colors = [
+            UIColor.white.withAlphaComponent(0.02),
+            UIColor.white.withAlphaComponent(0.72)
+        ]
+        fadeView.startPoint = CGPoint(x: 0.5, y: 0.2)
+        fadeView.endPoint = CGPoint(x: 0.5, y: 1.0)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = .systemFont(ofSize: 14, weight: .bold)
-        titleLabel.textColor = BivvyAuthTheme.ink
+        titleLabel.font = makeCardTitleFont()
+        titleLabel.textColor = .black
         titleLabel.numberOfLines = 2
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.minimumScaleFactor = 0.82
 
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.font = .systemFont(ofSize: 11, weight: .semibold)
-        subtitleLabel.textColor = BivvyAuthTheme.hotPink
-
-        let metricStack = UIStackView(arrangedSubviews: [likeLabel, saveLabel])
-        metricStack.translatesAutoresizingMaskIntoConstraints = false
-        metricStack.axis = .horizontal
-        metricStack.spacing = 10
-        metricStack.distribution = .fillEqually
-
-        [likeLabel, saveLabel].forEach {
-            $0.font = .systemFont(ofSize: 11, weight: .medium)
-            $0.textColor = UIColor(red: 113 / 255, green: 107 / 255, blue: 124 / 255, alpha: 1)
-            $0.adjustsFontSizeToFitWidth = true
-        }
+        subtitleLabel.font = .systemFont(ofSize: 11, weight: .heavy)
+        subtitleLabel.textColor = .white
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.adjustsFontSizeToFitWidth = true
+        subtitleLabel.minimumScaleFactor = 0.75
+        subtitleLabel.backgroundColor = BivvyAuthTheme.hotPink.withAlphaComponent(0.9)
+        subtitleLabel.layer.cornerRadius = 14
+        subtitleLabel.layer.masksToBounds = true
 
         reportButton.translatesAutoresizingMaskIntoConstraints = false
-        reportButton.setTitle("Report", for: .normal)
-        reportButton.setTitleColor(BivvyAuthTheme.hotPink, for: .normal)
-        reportButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
-        reportButton.contentHorizontalAlignment = .right
+        reportButton.setImage(UIImage(systemName: "flag.fill"), for: .normal)
+        reportButton.tintColor = BivvyAuthTheme.hotPink
+        reportButton.backgroundColor = UIColor.white.withAlphaComponent(0.88)
+        reportButton.layer.cornerRadius = 16
+        reportButton.imageView?.contentMode = .scaleAspectFit
         reportButton.addTarget(self, action: #selector(reportTapped), for: .touchUpInside)
 
-        [imageView, titleLabel, subtitleLabel, metricStack, reportButton].forEach(contentView.addSubview)
+        [imageView, fadeView, subtitleLabel, titleLabel, reportButton].forEach(contentView.addSubview)
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            imageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.05),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            fadeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            fadeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            fadeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            fadeView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.46),
 
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            subtitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            subtitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            subtitleLabel.heightAnchor.constraint(equalToConstant: 28),
+            subtitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 86),
+            subtitleLabel.trailingAnchor.constraint(lessThanOrEqualTo: reportButton.leadingAnchor, constant: -8),
 
-            metricStack.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 10),
-            metricStack.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            metricStack.trailingAnchor.constraint(equalTo: reportButton.leadingAnchor, constant: -8),
-            metricStack.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -12),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -28),
 
-            reportButton.centerYAnchor.constraint(equalTo: metricStack.centerYAnchor),
-            reportButton.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            reportButton.widthAnchor.constraint(equalToConstant: 58),
+            reportButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            reportButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            reportButton.widthAnchor.constraint(equalToConstant: 32),
             reportButton.heightAnchor.constraint(equalToConstant: 32)
         ])
+    }
+
+    private func makeCardTitleFont() -> UIFont {
+        let baseFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        guard let descriptor = baseFont.fontDescriptor.withSymbolicTraits([.traitBold, .traitItalic]) else {
+            return baseFont
+        }
+        return UIFont(descriptor: descriptor, size: 20)
     }
 
     @objc private func reportTapped() {

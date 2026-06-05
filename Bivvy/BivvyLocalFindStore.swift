@@ -18,14 +18,16 @@ final class BivvyLocalFindStore {
         qualityGrade: String,
         city: String,
         exchangeDemand: String,
-        category: String
+        category: String,
+        imageName: String = "bivvy_find_card_daily",
+        detailImageNames: [String]? = nil
     ) {
         var userItems = loadUserItems()
         let item = BivvyFindItem(
             id: UUID().uuidString,
             title: title,
             subtitle: category,
-            imageName: "bivvy_find_card_daily",
+            imageName: imageName,
             likes: "0",
             saves: "0",
             detail: exchangeDemand,
@@ -36,7 +38,7 @@ final class BivvyLocalFindStore {
             city: city,
             exchangeDemand: exchangeDemand,
             category: category,
-            detailImageNames: ["bivvy_find_card_daily"]
+            detailImageNames: detailImageNames ?? [imageName]
         )
         userItems.insert(item, at: 0)
         saveUserItems(userItems)

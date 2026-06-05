@@ -208,7 +208,7 @@ final class BivvyProfileViewController: UIViewController {
         stack.spacing = 8
         statValueLabels.removeAll()
         [("0", "Friends"), ("0", "Followers"), ("0", "Following")].enumerated().forEach { index, item in
-            stack.addArrangedSubview(makeStat(value: item.0, label: item.1, tag: index))
+            stack.addArrangedSubview(makeStat(value: item.0 , label: item.1, tag: index + 1))
         }
         return stack
     }

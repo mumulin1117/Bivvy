@@ -1,6 +1,7 @@
 import UIKit
 
 final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController {
+    private let uploadButton = UIButton()
     private let productNameField = UITextField()
     private let priceField = UITextField()
     private let qualityField = UITextField()
@@ -10,10 +11,20 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
     private let errorLabel = UILabel()
     private var categoryButtons: [UIButton] = []
     private var selectedCategory = BivvyMockContent.categories.first?.title ?? "Trendy toys"
+    private var selectedImageName = "bivvy_find_card_daily"
+    private var selectedDetailImageNames = ["bivvy_find_card_daily"]
+    private let sampleUploads: [(title: String, category: String, imageName: String, detailImageNames: [String])] = [
+        ("Pink plush find", "Trendy toys", "bivvy_find_card_plush", ["bivvy_find_card_plush"]),
+        ("Travel organizer", "Apparel", "bivvy_find_local_10007_main", ["bivvy_find_local_10007_main", "bivvy_find_local_10007_detail_01"]),
+        ("Figure collection", "Figurines", "bivvy_find_card_figure", ["bivvy_find_card_figure"]),
+        ("Smart gadget", "Digital", "bivvy_find_local_10005_main", ["bivvy_find_local_10005_main", "bivvy_find_local_10005_detail_01"])
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         buildLayout()
+        configureInputs()
+        updateReleaseButtonState()
     }
 
     private func buildLayout() {
@@ -34,11 +45,12 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
         backButton.tintColor = .black
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
 
-        let uploadButton = UIButton()
         uploadButton.translatesAutoresizingMaskIntoConstraints = false
-        
         uploadButton.setImage(UIImage(named: "addImageNOing"), for: .normal)
         uploadButton.imageView?.contentMode = .scaleAspectFit
+        uploadButton.layer.cornerRadius = 28
+        uploadButton.clipsToBounds = true
+        uploadButton.addTarget(self, action: #selector(selectProductImage), for: .touchUpInside)
 
         let fields = [
             makeFieldBlock(title: "Product Name", field: productNameField, placeholder: "Enter product name..."),
@@ -115,6 +127,19 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
             errorLabel.trailingAnchor.constraint(equalTo: releaseButton.trailingAnchor, constant: -10),
             errorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -34)
         ])
+    }
+
+    private func configureInputs() {
+        let fields = [productNameField, priceField, qualityField, cityField, exchangeField]
+        fields.forEach {
+            $0.delegate = self
+            $0.clearButtonMode = .whileEditing
+            $0.returnKeyType = $0 === exchangeField ? .done : .next
+            $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        }
+        priceField.keyboardType = .decimalPad
+        productNameField.textContentType = .name
+        cityField.textContentType = .addressCity
     }
 
     private func makeFieldBlock(title: String, field: UITextField, placeholder: String) -> UIView {
@@ -198,36 +223,118 @@ final class BivvyFindPublishViewController: BivvyKeyboardAvoidingViewController 
     @objc private func selectCategory(_ sender: UIButton) {
         selectedCategory = BivvyMockContent.categories[sender.tag].title
         updateCategoryButtons()
+        updateReleaseButtonState()
     }
 
     @objc private func goBack() {
         navigationController?.popViewController(animated: true)
     }
 
+    @objc private func textFieldDidChange() {
+        errorLabel.text = nil
+        updateReleaseButtonState()
+    }
+
+    @objc private func selectProductImage() {
+        view.endEditing(true)
+        let sheet = UIAlertController(title: "Choose product photo", message: "Use a local sample image to preview the publishing flow.", preferredStyle: .actionSheet)
+        for upload in sampleUploads {
+            sheet.addAction(UIAlertAction(title: upload.title, style: .default) { [weak self] _ in
+                self?.applySelectedUpload(upload)
+            })
+        }
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        if let popover = sheet.popoverPresentationController {
+            popover.sourceView = uploadButton
+            popover.sourceRect = uploadButton.bounds
+        }
+        present(sheet, animated: true)
+    }
+
+    private func applySelectedUpload(_ upload: (title: String, category: String, imageName: String, detailImageNames: [String])) {
+        selectedImageName = upload.imageName
+        selectedDetailImageNames = upload.detailImageNames
+        selectedCategory = upload.category
+        uploadButton.setImage(UIImage(named: upload.imageName), for: .normal)
+        uploadButton.backgroundColor = UIColor.white.withAlphaComponent(0.58)
+        if productNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty != false {
+            productNameField.text = upload.title
+        }
+        errorLabel.text = nil
+        updateCategoryButtons()
+        updateReleaseButtonState()
+    }
+
+    private func updateReleaseButtonState() {
+        releaseButton.isEnabled = isFormReady
+    }
+
+    private var isFormReady: Bool {
+        !trimmed(productNameField).isEmpty &&
+        !trimmed(priceField).isEmpty &&
+        !trimmed(qualityField).isEmpty &&
+        !trimmed(cityField).isEmpty &&
+        !trimmed(exchangeField).isEmpty
+    }
+
+    private func trimmed(_ field: UITextField) -> String {
+        field.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    }
+
     @objc private func publishFind() {
-        let title = productNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let price = priceField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let quality = qualityField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let city = cityField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let exchange = exchangeField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let title = trimmed(productNameField)
+        let price = trimmed(priceField)
+        let quality = trimmed(qualityField)
+        let city = trimmed(cityField)
+        let exchange = trimmed(exchangeField)
         guard !title.isEmpty, !price.isEmpty, !quality.isEmpty, !city.isEmpty, !exchange.isEmpty else {
             errorLabel.text = "Please complete all product fields."
+            updateReleaseButtonState()
             return
         }
 
+        view.endEditing(true)
         releaseButton.isLoading = true
         errorLabel.text = nil
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
             BivvyLocalFindStore.shared.addFind(
                 title: title,
                 price: price,
                 qualityGrade: quality,
                 city: city,
                 exchangeDemand: exchange,
-                category: self.selectedCategory
+                category: self.selectedCategory,
+                imageName: self.selectedImageName,
+                detailImageNames: self.selectedDetailImageNames
             )
             self.releaseButton.isLoading = false
-            self.navigationController?.popViewController(animated: true)
+            self.showPublishSuccess()
         }
+    }
+
+    private func showPublishSuccess() {
+        let alert = UIAlertController(title: "Released", message: "Your find has been added to the local showcase.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "View on Home", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        })
+        present(alert, animated: true)
+    }
+}
+
+extension BivvyFindPublishViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case productNameField:
+            priceField.becomeFirstResponder()
+        case priceField:
+            qualityField.becomeFirstResponder()
+        case qualityField:
+            cityField.becomeFirstResponder()
+        case cityField:
+            exchangeField.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }

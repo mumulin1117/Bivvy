@@ -198,7 +198,14 @@ final class BivvyHomeViewController: UIViewController {
 
     private func updateFindCollectionHeight() {
         let rows = max(1, Int(ceil(Double(visibleFinds.count) / 2.0)))
-        findCollectionHeightConstraint?.constant = CGFloat(rows) * 266 + CGFloat(max(0, rows - 1)) * 16
+        let availableWidth = max(0, (view.bounds.width > 0 ? view.bounds.width : UIScreen.main.bounds.width) - 32)
+        let itemWidth = floor((availableWidth - 12) / 2)
+        let itemHeight = findItemHeight(for: itemWidth)
+        findCollectionHeightConstraint?.constant = CGFloat(rows) * itemHeight + CGFloat(max(0, rows - 1)) * 16
+    }
+
+    private func findItemHeight(for itemWidth: CGFloat) -> CGFloat {
+        max(196, itemWidth * 1.24)
     }
 
     private func loadRecommendationUsers() {
@@ -255,7 +262,7 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
         }
 
         let width = floor((collectionView.bounds.width - 12) / 2)
-        return CGSize(width: width, height: 266)
+        return CGSize(width: width, height: findItemHeight(for: width))
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
