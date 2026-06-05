@@ -26,20 +26,20 @@ final class SharedInterestAgreementRowView: UIControl {
 
         consciousSharingLabel.translatesAutoresizingMaskIntoConstraints = false
         consciousSharingLabel.numberOfLines = 0
-        consciousSharingLabel.text = "I have read and agree to"
+        consciousSharingLabel.text = BivvyStringVault.agreementIntro
         consciousSharingLabel.font = .systemFont(ofSize: 13)
         consciousSharingLabel.textColor = .gray
         addSubview(consciousSharingLabel)
 
         productDiscussionTermsButton.translatesAutoresizingMaskIntoConstraints = false
-        productDiscussionTermsButton.setTitle("Terms of Service", for: .normal)
+        productDiscussionTermsButton.setTitle(BivvyStringVault.terms, for: .normal)
         productDiscussionTermsButton.titleLabel?.font = .italicSystemFont(ofSize: 13)
         productDiscussionTermsButton.setTitleColor(.black, for: .normal)
         productDiscussionTermsButton.addTarget(self, action: #selector(openProductDiscussionTerms), for: .touchUpInside)
         addSubview(productDiscussionTermsButton)
 
         trustedVoicePrivacyButton.translatesAutoresizingMaskIntoConstraints = false
-        trustedVoicePrivacyButton.setTitle("Privacy Policy", for: .normal)
+        trustedVoicePrivacyButton.setTitle(BivvyStringVault.privacy, for: .normal)
         trustedVoicePrivacyButton.titleLabel?.font = .italicSystemFont(ofSize: 13)
         trustedVoicePrivacyButton.setTitleColor(.black, for: .normal)
         trustedVoicePrivacyButton.addTarget(self, action: #selector(openTrustedVoicePrivacy), for: .touchUpInside)
@@ -79,7 +79,7 @@ final class SharedInterestAgreementRowView: UIControl {
     }
 
     private func makeConsciousSharingAgreementText() -> NSAttributedString {
-        let sharedInterestText = "I have read and agree to Terms of Service and Privacy Policy."
+        let sharedInterestText = BivvyStringVault.agreementFull
         let meaningfulConnectionResult = NSMutableAttributedString(
             string: sharedInterestText,
             attributes: [
@@ -87,7 +87,7 @@ final class SharedInterestAgreementRowView: UIControl {
                 .foregroundColor: UIColor.black
             ]
         )
-        ["Terms of Service", "Privacy Policy"].forEach { productDiscussionPart in
+        [BivvyStringVault.terms, BivvyStringVault.privacy].forEach { productDiscussionPart in
             let trustedVoiceRange = (sharedInterestText as NSString).range(of: productDiscussionPart)
             meaningfulConnectionResult.addAttributes([
                 .font: UIFont.italicSystemFont(ofSize: 13),

@@ -1,8 +1,8 @@
 import UIKit
 
 final class ProductReviewLoginViewController: ContentFilteringKeyboardAvoidingViewController {
-    private let peerInteractionEmailField = ProductTaggingAuthTextFieldView(productTaggingTitle: "Email", conversationStarterPlaceholder: "Enter email address", productHighlightIconName: "bivvy_auth_email_icon")
-    private let contentFilteringPasswordField = ProductTaggingAuthTextFieldView(productTaggingTitle: "Password", conversationStarterPlaceholder: "Enter password", productHighlightIconName: "bivvy_auth_password_lock", contentFilteringIsPassword: true)
+    private let peerInteractionEmailField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.email, conversationStarterPlaceholder: BivvyStringVault.enterEmail, productHighlightIconName: "bivvy_auth_email_icon")
+    private let contentFilteringPasswordField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.password, conversationStarterPlaceholder: BivvyStringVault.enterPassword, productHighlightIconName: "bivvy_auth_password_lock", contentFilteringIsPassword: true)
     private let peerInteractionLoginButton = SharingMechanicGradientButton(title: BivvyStringVault.login)
    
     private let contentFilteringErrorLabel = UILabel()

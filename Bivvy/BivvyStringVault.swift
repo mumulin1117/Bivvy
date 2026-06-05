@@ -11,6 +11,10 @@ enum BivvyStringVault {
         return String(bytes: restoredBytes, encoding: .utf8) ?? ""
     }
 
+    static func communityText(_ bytes: [UInt8]) -> String {
+        dailyFind(bytes)
+    }
+
     static let routeGateway = dailyFind([164, 148, 129, 158, 111, 68, 113, 46, 242, 195, 185, 134, 7, 3, 53, 36, 27, 197, 211, 181, 154, 107, 43, 58, 12, 252, 140, 208, 206, 104, 77, 45, 59])
     static let appId = dailyFind([189, 149, 207, 204, 32, 10, 104, 100])
     static let tokenEmpty = dailyFind([])
@@ -126,4 +130,21 @@ enum BivvyStringVault {
     static let fallbackQuality = dailyFind([25, 58, 56, 245, 140, 171, 154, 31, 72, 35, 38, 0, 194, 154, 160, 156, 97, 108, 0, 91, 165, 212, 154, 154, 56, 28, 105, 106])
     static let fallbackPrice = dailyFind([33, 0, 106, 119])
     static let fallbackCity = dailyFind([152, 251, 158, 219, 47, 118, 40, 23, 238, 196, 145, 181, 56, 74, 54, 31])
+    static let email = dailyFind([152, 113, 88, 52, 22])
+    static let password = dailyFind([239, 209, 144, 131, 107, 74, 56, 3])
+    static let enterEmail = dailyFind([62, 50, 12, 195, 222, 182, 146, 47, 105, 36, 26, 230, 198, 223, 134, 125, 77, 55, 22])
+    static let enterPassword = dailyFind([182, 129, 96, 114, 62, 8, 234, 211, 223, 134, 125, 77, 55, 22])
+    static let emailNeedle = dailyFind([152, 113, 88, 52, 54])
+    static let atSign = dailyFind([19])
+    static let dotSign = dailyFind([125])
+    static let eyeSlash = dailyFind([19, 248, 194, 147, 135, 54, 92, 32, 54])
+    static let eye = dailyFind([92, 32, 54])
+    static let agreementIntro = dailyFind([195, 185, 213, 90, 94, 63, 38, 8, 145, 222, 188, 146, 47, 97, 44, 30, 249, 131, 154, 130, 121, 81, 121, 26])
+    static let terms = dailyFind([212, 217, 187, 133, 125, 96, 30, 91, 237, 204, 223, 135, 117, 75, 60, 7])
+    static let privacy = dailyFind([171, 144, 102, 105, 34, 43, 171, 218, 156, 149, 110, 80, 43, 3])
+    static let agreementFull = dailyFind([57, 42, 6, 240, 221, 134, 178, 42, 82, 52, 60, 19, 250, 209, 155, 247, 120, 94, 48, 65, 206, 204, 176, 155, 119, 120, 5, 70, 225, 212, 209, 130, 106, 69, 58, 31, 160, 195, 185, 213, 90, 94, 63, 38, 8, 145, 222, 188, 146, 47, 97, 44, 30, 249, 131, 154, 130, 121, 81, 121, 26])
+    static let eulaTitle = dailyFind([68, 1, 46, 206, 131, 223, 141, 110, 79, 48, 17])
+    static let male = dailyFind([125, 85, 56, 30])
+    static let female = dailyFind([154, 152, 121, 84, 60, 21])
+    static let howard = dailyFind([124, 106, 32, 26, 217, 131, 155, 134, 121, 78, 54, 27])
 }

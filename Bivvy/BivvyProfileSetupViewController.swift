@@ -3,7 +3,7 @@ import UIKit
 final class ProductCurationProfileSetupViewController: ContentFilteringKeyboardAvoidingViewController {
     private let peerInteractionEmail: String
     private let contentFilteringPassword: String
-    private let contentCreatorNameField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.name, conversationStarterPlaceholder: "Howard Ramos")
+    private let contentCreatorNameField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.name, conversationStarterPlaceholder: BivvyStringVault.howard)
     private let authenticReviewAboutField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.aboutMe, conversationStarterPlaceholder: BivvyStringVault.pleaseEnter)
     private let dailyRoutineBirthdayButton = UIButton(type: .system)
     private let dailyRoutineDatePicker = UIDatePicker()
@@ -11,7 +11,7 @@ final class ProductCurationProfileSetupViewController: ContentFilteringKeyboardA
     private let interestMatchingFemaleButton = UIButton(type: .system)
     private let communitySharingEnterButton = SharingMechanicGradientButton(title: BivvyStringVault.enter)
     private let contentFilteringErrorLabel = UILabel()
-    private var selectedInterestMatchingGender = "Male"
+    private var selectedInterestMatchingGender = BivvyStringVault.male
 
     init(email: String, password: String) {
         self.peerInteractionEmail = email
@@ -178,17 +178,17 @@ final class ProductCurationProfileSetupViewController: ContentFilteringKeyboardA
     }
 
     @objc private func selectInterestMatchingMale() {
-        selectedInterestMatchingGender = "Male"
+        selectedInterestMatchingGender = BivvyStringVault.male
         updateInterestMatchingButtons()
     }
 
     @objc private func selectInterestMatchingFemale() {
-        selectedInterestMatchingGender = "Female"
+        selectedInterestMatchingGender = BivvyStringVault.female
         updateInterestMatchingButtons()
     }
 
     private func updateInterestMatchingButtons() {
-        let interestMatchingMaleSelected = selectedInterestMatchingGender == "Male"
+        let interestMatchingMaleSelected = selectedInterestMatchingGender == BivvyStringVault.male
         styleInterestMatchingButton(interestMatchingMaleButton, selected: interestMatchingMaleSelected)
         styleInterestMatchingButton(interestMatchingFemaleButton, selected: !interestMatchingMaleSelected)
     }

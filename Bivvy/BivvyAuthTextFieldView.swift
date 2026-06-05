@@ -10,7 +10,7 @@ final class ProductTaggingAuthTextFieldView: UIView {
     private let contentFilteringIsPassword: Bool
 
     var text: String {
-        productTaggingTextField.text ?? ""
+        productTaggingTextField.text ?? BivvyStringVault.tokenEmpty
     }
 
     init(productTaggingTitle: String, conversationStarterPlaceholder: String, productHighlightIconName: String? = nil, contentFilteringIsPassword: Bool = false) {
@@ -39,7 +39,7 @@ final class ProductTaggingAuthTextFieldView: UIView {
         productTaggingTextField.isSecureTextEntry = contentFilteringIsPassword
         productTaggingTextField.autocapitalizationType = .none
         productTaggingTextField.autocorrectionType = .no
-        productTaggingTextField.keyboardType = productTaggingTitle.lowercased().contains("email") ? .emailAddress : .default
+        productTaggingTextField.keyboardType = productTaggingTitle.lowercased().contains(BivvyStringVault.emailNeedle) ? .emailAddress : .default
         addSubview(productTaggingTextField)
 
         productHighlightIconContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ final class ProductTaggingAuthTextFieldView: UIView {
 
         contentFilteringPasswordToggle.translatesAutoresizingMaskIntoConstraints = false
         contentFilteringPasswordToggle.tintColor = CommunitySharingAuthTheme.favoriteFindPink
-        contentFilteringPasswordToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        contentFilteringPasswordToggle.setImage(UIImage(systemName: BivvyStringVault.eyeSlash), for: .normal)
         contentFilteringPasswordToggle.addTarget(self, action: #selector(toggleContentFilteringPasswordVisibility), for: .touchUpInside)
         contentFilteringPasswordToggle.isHidden = !contentFilteringIsPassword
         productHighlightIconContainer.addSubview(contentFilteringPasswordToggle)
@@ -91,7 +91,7 @@ final class ProductTaggingAuthTextFieldView: UIView {
 
     @objc private func toggleContentFilteringPasswordVisibility() {
         productTaggingTextField.isSecureTextEntry.toggle()
-        let contentFilteringIconName = productTaggingTextField.isSecureTextEntry ? "eye.slash" : "eye"
+        let contentFilteringIconName = productTaggingTextField.isSecureTextEntry ? BivvyStringVault.eyeSlash : BivvyStringVault.eye
         contentFilteringPasswordToggle.setImage(UIImage(systemName: contentFilteringIconName), for: .normal)
     }
 }

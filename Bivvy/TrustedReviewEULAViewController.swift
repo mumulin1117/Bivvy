@@ -31,7 +31,7 @@ final class TrustedReviewEULAViewController: UIViewController {
 
         let trustedReviewTitle = UILabel()
         trustedReviewTitle.translatesAutoresizingMaskIntoConstraints = false
-        trustedReviewTitle.text = "Bivvy  EULA"
+        trustedReviewTitle.text = BivvyStringVault.eulaTitle
         trustedReviewTitle.font = CommunitySharingAuthTheme.sharingMechanicButtonFont(size: 24)
         trustedReviewTitle.textAlignment = .center
 

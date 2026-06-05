@@ -1,8 +1,8 @@
 import UIKit
 
 final class CommunitySharingRegisterViewController: ContentFilteringKeyboardAvoidingViewController {
-    private let peerInteractionEmailField = ProductTaggingAuthTextFieldView(productTaggingTitle: "Email", conversationStarterPlaceholder: "Enter email address", productHighlightIconName: "bivvy_auth_email_icon")
-    private let contentFilteringPasswordField = ProductTaggingAuthTextFieldView(productTaggingTitle: "Password", conversationStarterPlaceholder: "Enter password", productHighlightIconName: "bivvy_auth_password_lock", contentFilteringIsPassword: true)
+    private let peerInteractionEmailField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.email, conversationStarterPlaceholder: BivvyStringVault.enterEmail, productHighlightIconName: "bivvy_auth_email_icon")
+    private let contentFilteringPasswordField = ProductTaggingAuthTextFieldView(productTaggingTitle: BivvyStringVault.password, conversationStarterPlaceholder: BivvyStringVault.enterPassword, productHighlightIconName: "bivvy_auth_password_lock", contentFilteringIsPassword: true)
     private let communitySharingNextButton = SharingMechanicGradientButton(title: BivvyStringVault.next)
     private let contentFilteringErrorLabel = UILabel()
 
@@ -122,7 +122,7 @@ final class CommunitySharingRegisterViewController: ContentFilteringKeyboardAvoi
     }
 
     @objc private func continueToProductCurationProfile() {
-        guard peerInteractionEmailField.text.contains("@"), peerInteractionEmailField.text.contains(".") else {
+        guard peerInteractionEmailField.text.contains(BivvyStringVault.atSign), peerInteractionEmailField.text.contains(BivvyStringVault.dotSign) else {
             contentFilteringErrorLabel.text = BivvyStringVault.validEmail
             return
         }
