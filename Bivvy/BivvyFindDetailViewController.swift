@@ -51,6 +51,15 @@ final class BivvyFindDetailViewController: UIViewController {
         backButton.tintColor = .white
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
 
+        let reportButton = UIButton(type: .system)
+        reportButton.translatesAutoresizingMaskIntoConstraints = false
+        reportButton.setTitle("Report", for: .normal)
+        reportButton.setTitleColor(BivvyAuthTheme.hotPink, for: .normal)
+        reportButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        reportButton.backgroundColor = UIColor.white.withAlphaComponent(0.92)
+        reportButton.layer.cornerRadius = 18
+        reportButton.addTarget(self, action: #selector(openReport), for: .touchUpInside)
+
         let pageDots = makePageDots(count: carouselImageNames.count)
         let detailCard = makeDetailCard()
        
@@ -67,6 +76,7 @@ final class BivvyFindDetailViewController: UIViewController {
         contentView.addSubview(pageDots)
         contentView.addSubview(detailCard)
         view.addSubview(backButton)
+        view.addSubview(reportButton)
         view.addSubview(outlineHeart)
         view.addSubview(contactButton)
 
@@ -96,6 +106,11 @@ final class BivvyFindDetailViewController: UIViewController {
             backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             backButton.widthAnchor.constraint(equalToConstant: 36),
             backButton.heightAnchor.constraint(equalToConstant: 36),
+
+            reportButton.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
+            reportButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            reportButton.widthAnchor.constraint(equalToConstant: 82),
+            reportButton.heightAnchor.constraint(equalToConstant: 36),
 
             pageDots.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
             pageDots.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: -58),
@@ -241,6 +256,13 @@ final class BivvyFindDetailViewController: UIViewController {
 
     @objc private func goBack() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func openReport() {
+        guard let url = BivvyH5Route.report(dynamicId: item.id).url() else { return }
+        let web = BivvyWebViewController(url: url)
+        web.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(web, animated: true)
     }
 }
 

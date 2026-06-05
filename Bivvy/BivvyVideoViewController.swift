@@ -4,7 +4,7 @@ final class BivvyVideoViewController: UIViewController {
     private let categories = ["For you", "Fun", "Friend"]
     private var selectedCategoryIndex = 0
     private var currentIndex = 0
-    private var allVideos = BivvyMockContent.videos
+    private var allVideos: [BivvyVideoItem] = []
     private var visibleVideos: [BivvyVideoItem] = []
     private var likedVideoIds: Set<String> = []
 
@@ -15,6 +15,7 @@ final class BivvyVideoViewController: UIViewController {
     private let nameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let coverImageView = UIImageView()
+    private let emptyLabel = UILabel()
    
     private let saveButton = UIButton()
     private let commentButton = UIButton()
@@ -48,7 +49,15 @@ final class BivvyVideoViewController: UIViewController {
         view.addSubview(background)
         view.addSubview(topTabs)
         view.addSubview(shadowCard)
+        view.addSubview(emptyLabel)
         shadowCard.addSubview(card)
+
+        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyLabel.text = "No data available."
+        emptyLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        emptyLabel.textColor = UIColor.black.withAlphaComponent(0.48)
+        emptyLabel.textAlignment = .center
+        emptyLabel.isHidden = true
 
         NSLayoutConstraint.activate([
             background.topAnchor.constraint(equalTo: view.topAnchor),
@@ -69,7 +78,12 @@ final class BivvyVideoViewController: UIViewController {
             card.topAnchor.constraint(equalTo: shadowCard.topAnchor, constant: 20),
             card.leadingAnchor.constraint(equalTo: shadowCard.leadingAnchor),
             card.trailingAnchor.constraint(equalTo: shadowCard.trailingAnchor),
-            card.bottomAnchor.constraint(equalTo: shadowCard.bottomAnchor)
+            card.bottomAnchor.constraint(equalTo: shadowCard.bottomAnchor),
+
+            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
 
@@ -106,6 +120,7 @@ final class BivvyVideoViewController: UIViewController {
         card.transform = CGAffineTransform(rotationAngle: 0.055)
 
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
+        coverImageView.image = UIImage(named: "bivvy_video_cover_featured")
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.clipsToBounds = true
         coverImageView.layer.cornerRadius = 24
@@ -193,11 +208,22 @@ final class BivvyVideoViewController: UIViewController {
     private func videosForSelectedCategory() -> [BivvyVideoItem] {
         let category = categories[selectedCategoryIndex]
         let filtered = allVideos.filter { $0.category == category }
-        return filtered.isEmpty ? allVideos : filtered
+        return filtered
     }
 
     private func renderCurrentVideo() {
-        guard !visibleVideos.isEmpty else { return }
+        guard !visibleVideos.isEmpty else {
+            card.isHidden = true
+            shadowCard.isHidden = true
+            emptyLabel.isHidden = false
+            coverImageView.image = UIImage(named: "bivvy_video_cover_featured")
+            nameLabel.text = nil
+            descriptionLabel.text = nil
+            return
+        }
+        card.isHidden = false
+        shadowCard.isHidden = false
+        emptyLabel.isHidden = true
         currentIndex = min(currentIndex, visibleVideos.count - 1)
         let item = visibleVideos[currentIndex]
         nameLabel.text = item.userName
@@ -209,7 +235,7 @@ final class BivvyVideoViewController: UIViewController {
     private func loadVideos() {
         BivvyNetworkService.shared.fetchVideos(page: 1) { [weak self] result in
             guard let self else { return }
-            if case .success(let videos) = result, !videos.isEmpty {
+            if case .success(let videos) = result {
                 self.allVideos = videos
                 self.currentIndex = 0
                 self.visibleVideos = self.videosForSelectedCategory()
@@ -266,14 +292,35 @@ final class BivvyVideoViewController: UIViewController {
 
     @objc private func showMoreActions() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Report", style: .destructive))
-        alert.addAction(UIAlertAction(title: "Block", style: .destructive))
+        alert.addAction(UIAlertAction(title: "Report", style: .destructive) { [weak self] _ in
+            self?.openReport()
+        })
+        alert.addAction(UIAlertAction(title: "Block", style: .destructive) { [weak self] _ in
+            self?.blockCurrentVideo()
+        })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         if let popover = alert.popoverPresentationController {
             popover.sourceView = moreButton
             popover.sourceRect = moreButton.bounds
         }
         present(alert, animated: true)
+    }
+
+    private func openReport() {
+        guard !visibleVideos.isEmpty, let url = BivvyH5Route.report(dynamicId: visibleVideos[currentIndex].id).url() else { return }
+        let web = BivvyWebViewController(url: url)
+        web.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(web, animated: true)
+    }
+
+    private func blockCurrentVideo() {
+        guard !visibleVideos.isEmpty else { return }
+        let item = visibleVideos[currentIndex]
+        BivvyNetworkService.shared.block(userId: item.userId, userName: item.userName, userImageURL: item.userAvatarURL)
+        allVideos.removeAll { $0.id == item.id || (!$0.userId.isEmpty && $0.userId == item.userId) }
+        visibleVideos = videosForSelectedCategory()
+        currentIndex = min(currentIndex, max(0, visibleVideos.count - 1))
+        renderCurrentVideo()
     }
 
     @objc private func handleCardPan(_ gesture: UIPanGestureRecognizer) {

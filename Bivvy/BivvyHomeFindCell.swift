@@ -8,6 +8,8 @@ final class BivvyHomeFindCell: UICollectionViewCell {
     private let subtitleLabel = UILabel()
     private let likeLabel = UILabel()
     private let saveLabel = UILabel()
+    private let reportButton = UIButton(type: .system)
+    var onReport: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +26,11 @@ final class BivvyHomeFindCell: UICollectionViewCell {
         subtitleLabel.text = item.subtitle
         likeLabel.text = "Like \(item.likes)"
         saveLabel.text = "Save \(item.saves)"
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        onReport = nil
     }
 
     private func buildLayout() {
@@ -60,7 +67,14 @@ final class BivvyHomeFindCell: UICollectionViewCell {
             $0.adjustsFontSizeToFitWidth = true
         }
 
-        [imageView, titleLabel, subtitleLabel, metricStack].forEach(contentView.addSubview)
+        reportButton.translatesAutoresizingMaskIntoConstraints = false
+        reportButton.setTitle("Report", for: .normal)
+        reportButton.setTitleColor(BivvyAuthTheme.hotPink, for: .normal)
+        reportButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
+        reportButton.contentHorizontalAlignment = .right
+        reportButton.addTarget(self, action: #selector(reportTapped), for: .touchUpInside)
+
+        [imageView, titleLabel, subtitleLabel, metricStack, reportButton].forEach(contentView.addSubview)
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
@@ -78,8 +92,17 @@ final class BivvyHomeFindCell: UICollectionViewCell {
 
             metricStack.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 10),
             metricStack.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            metricStack.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            metricStack.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -12)
+            metricStack.trailingAnchor.constraint(equalTo: reportButton.leadingAnchor, constant: -8),
+            metricStack.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -12),
+
+            reportButton.centerYAnchor.constraint(equalTo: metricStack.centerYAnchor),
+            reportButton.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            reportButton.widthAnchor.constraint(equalToConstant: 58),
+            reportButton.heightAnchor.constraint(equalToConstant: 32)
         ])
+    }
+
+    @objc private func reportTapped() {
+        onReport?()
     }
 }

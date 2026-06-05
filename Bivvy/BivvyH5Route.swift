@@ -4,9 +4,13 @@ enum BivvyH5Route {
     case aiAssistant
     case userProfile(userId: String)
     case videoDetail(dynamicId: String)
+    case report(dynamicId: String)
+    case settings
+    case editProfile
+    case followList(type: String)
     case termsOfService
     case privacyPolicy
-case CreateRole
+    case CreateRole
     private static let gateway = "http://www.digitrex88store.shop/#"
     private static let appId = "71388066"
 
@@ -25,6 +29,14 @@ case CreateRole
             return "\(Self.gateway)pages/homepage/index?userId=\(userId)&token=\(token)&appID=\(Self.appId)"
         case .videoDetail(let dynamicId):
             return "\(Self.gateway)pages/DynamicDetails/index?dynamicId=\(dynamicId)&token=\(token)&appID=\(Self.appId)"
+        case .report(let dynamicId):
+            return "\(Self.gateway)pages/report/index?dynamicId=\(dynamicId)&token=\(token)&appID=\(Self.appId)"
+        case .settings:
+            return "\(Self.gateway)pages/SetUp/index?token=\(token)&appID=\(Self.appId)"
+        case .editProfile:
+            return "\(Self.gateway)pages/EditData/index?token=\(token)&appID=\(Self.appId)"
+        case .followList(let type):
+            return "\(Self.gateway)pages/attentionList/index?type=\(type)&token=\(token)&appID=\(Self.appId)"
         case .termsOfService:
             return "\(Self.gateway)pages/Agreement/index?type=1&token=\(token)&appID=\(Self.appId)"
         case .privacyPolicy:

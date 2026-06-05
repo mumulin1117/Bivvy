@@ -90,7 +90,7 @@ final class BivvyNetworkService {
                         name: BivvyJSON.string(item, keys: ["productReview", "nickName", "nickname", "userName", "name"]) ?? "Bivvy User",
                         avatarName: "bivvy_tab_profile_idlesel",
                         avatarURL: BivvyJSON.string(item, keys: ["communityFind", "avatar", "avatarUrl", "headImg", "headImgUrl", "userAvatar"]),
-                        brief: BivvyJSON.string(item, keys: ["itemCollection", "signature", "aboutMe", "intro"]) ?? "communityFind"
+                        brief: BivvyJSON.string(item, keys: ["itemCollection", "signature", "aboutMe", "intro"]) ?? "No data available."
                     )
                 }
             })
@@ -116,11 +116,13 @@ final class BivvyNetworkService {
                     }
                     return BivvyVideoItem(
                         id: BivvyJSON.string(item, keys: ["handpickedItem", "dynamicId", "id", "videoId"]) ?? "remote-video-\(index)",
+                        userId: BivvyJSON.string(item, keys: ["userDiscovery", "userId"]) ?? "",
                         category: ["For you", "Fun", "Friend"][index % 3],
                         userName: BivvyJSON.string(item, keys: ["interactiveFeed", "nickName", "nickname", "userName", "name"]) ?? "Bivvy Creator",
                         description: BivvyJSON.string(item, keys: ["hiddenGem", "trendingProduct", "content", "dynamicContent", "description", "title"]) ?? "authenticReview",
                         coverImageName: "bivvy_video_cover_featured",
                         coverURL: cover,
+                        userAvatarURL: BivvyJSON.string(item, keys: ["contentCreator", "userImgUrl", "avatarUrl"]),
                         likes: BivvyJSON.countString(item, keys: ["videoUpload", "likeNum", "likeCount", "likes"]),
                         saves: BivvyJSON.countString(item, keys: ["communityMarket", "collectNum", "saveCount", "saves"]),
                         comments: BivvyJSON.countString(item, keys: ["productHighlight", "commentNum", "commentCount", "comments"]),
@@ -160,7 +162,7 @@ final class BivvyNetworkService {
                     return BivvyProfileItem(
                         imageName: ["bivvy_profile_grid_find_one", "bivvy_profile_grid_find_two", "bivvy_profile_grid_find_three"][index % 3],
                         imageURL: imageURL,
-                        title: BivvyJSON.string(item, keys: ["hiddenGem", "trendingProduct", "content", "dynamicContent", "title"]) ?? "productShowcase",
+                        title: BivvyJSON.string(item, keys: ["hiddenGem", "trendingProduct", "content", "dynamicContent", "title"]) ?? "No data available.",
                         dynamicId: BivvyJSON.string(item, keys: ["handpickedItem", "dynamicId", "id"])
                     )
                 }
@@ -170,6 +172,21 @@ final class BivvyNetworkService {
 
     func like(dynamicId: String, completion: ((Result<Void, Error>) -> Void)? = nil) {
         request(path: "/sbphtdz/rfsdoukc", payload: ["dailyInspiration": dynamicId, "creativeVlog": currentUserId ?? "", "productInspiration": "1"]) { result in
+            completion?(result.map { _ in () })
+        }
+    }
+
+    func block(userId: String, userName: String, userImageURL: String?, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        request(
+            path: "/jgcuuvzdlz/wveqxmkfkm",
+            payload: [
+                "videoEngagement": userId,
+                "communityInteraction": userName,
+                "discussionStarter": userImageURL ?? "",
+                "topicThread": "2",
+                "lifestyleDiscovery": "1"
+            ]
+        ) { result in
             completion?(result.map { _ in () })
         }
     }

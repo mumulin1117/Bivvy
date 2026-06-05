@@ -52,9 +52,7 @@ final class BivvyMockAuthStore {
     }
 
     private func users() -> [String: String] {
-        defaults.dictionary(forKey: registeredUsersKey) as? [String: String] ?? [
-            "bivvy@example.com": "123456"
-        ]
+        defaults.dictionary(forKey: registeredUsersKey) as? [String: String] ?? [:]
     }
 
     enum AuthError: LocalizedError {

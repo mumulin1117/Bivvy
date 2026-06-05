@@ -26,11 +26,13 @@ struct BivvyCategoryItem {
 
 struct BivvyVideoItem {
     let id: String
+    let userId: String
     let category: String
     let userName: String
     let description: String
     let coverImageName: String
     let coverURL: String?
+    let userAvatarURL: String?
     let likes: String
     let saves: String
     let comments: String
@@ -76,78 +78,9 @@ enum BivvyMockContent {
         BivvyFindItem(id: "local-handpicked-accessory", title: "Handpicked Accessory", subtitle: "Apparel", imageName: "bivvy_find_local_10017_main", likes: "1.9k", saves: "464", detail: "A stylish everydayHero accessory for outfitOfTheDay and lifestyleSharing posts.", authorName: "Nora Quinn", createdAt: "May 30", price: "$19", qualityGrade: "Like New", city: "Portland", exchangeDemand: "Looking for a useful accessory in similar condition.", category: "Apparel", detailImageNames: ["bivvy_find_local_10017_main"])
     ]
 
-    static let recommendationUsers: [BivvyRecommendationUser] = [
-        BivvyRecommendationUser(id: "creator-howard", name: "Howard", avatarName: "bivvy_profile_avatar_main", avatarURL: nil, brief: "productDemo"),
-        BivvyRecommendationUser(id: "creator-mira", name: "Mira", avatarName: "bivvy_auth_profile_avatar", avatarURL: nil, brief: "hiddenGem"),
-        BivvyRecommendationUser(id: "creator-cole", name: "Cole", avatarName: "bivvy_profile_avatar_main", avatarURL: nil, brief: "homeGood")
-    ]
+    static let recommendationUsers: [BivvyRecommendationUser] = []
 
-    static let videos: [BivvyVideoItem] = [
-        BivvyVideoItem(
-            id: "video-anders-flower",
-            category: "For you",
-            userName: "Anders",
-            description: "Can't believe I didn't get this sooner",
-            coverImageName: "bivvy_video_cover_featured",
-            coverURL: nil,
-            likes: "23.8k",
-            saves: "4.1k",
-            comments: "862",
-            isLiked: false
-        ),
-        BivvyVideoItem(
-            id: "video-fun-desk-gadget",
-            category: "Fun",
-            userName: "Mira",
-            description: "A tiny desk gadget that made my workspace feel cleaner.",
-            coverImageName: "bivvy_find_local_10005_main",
-            coverURL: nil,
-            likes: "9.6k",
-            saves: "1.8k",
-            comments: "324",
-            isLiked: false
-        ),
-        BivvyVideoItem(
-            id: "video-friend-travel-bag",
-            category: "Friend",
-            userName: "Nora",
-            description: "This organizer bag saved my weekend packing routine.",
-            coverImageName: "bivvy_find_local_10007_main",
-            coverURL: nil,
-            likes: "12.4k",
-            saves: "2.2k",
-            comments: "491",
-            isLiked: false
-        ),
-        BivvyVideoItem(
-            id: "video-foryou-water-bottle",
-            category: "For you",
-            userName: "Ari",
-            description: "Reusable bottle check for outdoor days and daily hydration.",
-            coverImageName: "bivvy_find_local_10010_main",
-            coverURL: nil,
-            likes: "7.3k",
-            saves: "980",
-            comments: "215",
-            isLiked: false
-        ),
-        BivvyVideoItem(
-            id: "video-fun-keyboard",
-            category: "Fun",
-            userName: "Evan",
-            description: "A compact keyboard that makes short reviews easier to write.",
-            coverImageName: "bivvy_find_local_10011_main",
-            coverURL: nil,
-            likes: "18.1k",
-            saves: "3.6k",
-            comments: "738",
-            isLiked: false
-        )
-    ]
+    static let videos: [BivvyVideoItem] = []
 
-    static let profileGrid: [BivvyProfileItem] = [
-        BivvyProfileItem(imageName: "bivvy_profile_grid_find_one", imageURL: nil, title: "productShowcase", dynamicId: nil),
-        BivvyProfileItem(imageName: "bivvy_profile_grid_find_two", imageURL: nil, title: "favoriteFind", dynamicId: nil),
-        BivvyProfileItem(imageName: "bivvy_profile_grid_find_three", imageURL: nil, title: "communityFind", dynamicId: nil)
-    ]
+    static let profileGrid: [BivvyProfileItem] = []
 }

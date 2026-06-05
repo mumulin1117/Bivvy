@@ -6,7 +6,7 @@ final class BivvyHomeViewController: UIViewController {
     private let findCollectionView: UICollectionView
     private var allFinds: [BivvyFindItem] = []
     private var visibleFinds: [BivvyFindItem] = []
-    private var recommendationUsers = BivvyMockContent.recommendationUsers
+    private var recommendationUsers: [BivvyRecommendationUser] = []
     private var selectedCategoryIndex = 0
     private var findCollectionHeightConstraint: NSLayoutConstraint?
 
@@ -241,7 +241,11 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
         }
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BivvyHomeFindCell.reuseIdentifier, for: indexPath) as! BivvyHomeFindCell
-        cell.configure(with: visibleFinds[indexPath.item])
+        let item = visibleFinds[indexPath.item]
+        cell.configure(with: item)
+        cell.onReport = { [weak self] in
+            self?.openFindReport(itemId: item.id)
+        }
         return cell
     }
 
@@ -286,6 +290,11 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
 
     private func openUserWeb(userId: String) {
         guard let url = BivvyH5Route.userProfile(userId: userId).url() else { return }
+        pushSecondary(BivvyWebViewController(url: url))
+    }
+
+    private func openFindReport(itemId: String) {
+        guard let url = BivvyH5Route.report(dynamicId: itemId).url() else { return }
         pushSecondary(BivvyWebViewController(url: url))
     }
 

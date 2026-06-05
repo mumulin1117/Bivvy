@@ -5,8 +5,9 @@ final class BivvyProfileViewController: UIViewController {
     private let avatarView = UIImageView(image: UIImage(named: "bivvy_tab_profile_idlesel"))
     private let nameLabel = UILabel()
     private let bioLabel = UILabel()
+    private let gridEmptyLabel = UILabel()
     private var statValueLabels: [UILabel] = []
-    private var gridItems = BivvyMockContent.profileGrid
+    private var gridItems: [BivvyProfileItem] = []
     private var selectedSegmentIndex = 0
     private var segmentButtons: [UIButton] = []
     private var gridCollectionHeightConstraint: NSLayoutConstraint?
@@ -67,6 +68,7 @@ final class BivvyProfileViewController: UIViewController {
         messageButton.addTarget(self, action: #selector(openMessages), for: .touchUpInside)
 
         let settingsButton = makeCircleIconButton(systemName: "gearshape.fill")
+        settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
 
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.contentMode = .scaleAspectFill
@@ -79,16 +81,17 @@ final class BivvyProfileViewController: UIViewController {
         editButton.tintColor = .white
         editButton.backgroundColor = .black
         editButton.layer.cornerRadius = 16
+        editButton.addTarget(self, action: #selector(openEditProfile), for: .touchUpInside)
 
         let stats = makeStatsStack()
 
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = "No Name"
+        nameLabel.text = "No data available."
         nameLabel.font = BivvyAuthTheme.titleFont(size: 24)
         nameLabel.textColor = .black
 
         bioLabel.translatesAutoresizingMaskIntoConstraints = false
-        bioLabel.text = "No signiture"
+        bioLabel.text = "No data available."
         bioLabel.font = .systemFont(ofSize: 15, weight: .regular)
         bioLabel.textColor = UIColor(red: 74 / 255, green: 74 / 255, blue: 74 / 255, alpha: 1)
         bioLabel.numberOfLines = 2
@@ -102,12 +105,18 @@ final class BivvyProfileViewController: UIViewController {
         gridCollectionView.delegate = self
         gridCollectionView.register(BivvyProfileGridCell.self, forCellWithReuseIdentifier: BivvyProfileGridCell.reuseIdentifier)
 
+        gridEmptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        gridEmptyLabel.text = "No data available."
+        gridEmptyLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+        gridEmptyLabel.textColor = UIColor.black.withAlphaComponent(0.46)
+        gridEmptyLabel.textAlignment = .center
+
         view.addSubview(background)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [title, messageButton, settingsButton, avatarView, editButton, stats, nameLabel, bioLabel, segments, gridCollectionView].forEach(contentView.addSubview)
+        [title, messageButton, settingsButton, avatarView, editButton, stats, nameLabel, bioLabel, segments, gridCollectionView, gridEmptyLabel].forEach(contentView.addSubview)
 
-        gridCollectionHeightConstraint = gridCollectionView.heightAnchor.constraint(equalToConstant: 610)
+        gridCollectionHeightConstraint = gridCollectionView.heightAnchor.constraint(equalToConstant: 96)
 
         NSLayoutConstraint.activate([
             background.topAnchor.constraint(equalTo: view.topAnchor),
@@ -171,8 +180,13 @@ final class BivvyProfileViewController: UIViewController {
             gridCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             gridCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             gridCollectionHeightConstraint!,
-            gridCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -28)
+            gridCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -28),
+
+            gridEmptyLabel.topAnchor.constraint(equalTo: segments.bottomAnchor, constant: 36),
+            gridEmptyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            gridEmptyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
+        updateGridHeight()
     }
 
     private func makeCircleIconButton(systemName: String) -> UIButton {
@@ -193,13 +207,13 @@ final class BivvyProfileViewController: UIViewController {
         stack.distribution = .fillEqually
         stack.spacing = 8
         statValueLabels.removeAll()
-        [("0", "Friends"), ("0", "Followers"), ("0", "Following")].forEach {
-            stack.addArrangedSubview(makeStat(value: $0.0, label: $0.1))
+        [("0", "Friends"), ("0", "Followers"), ("0", "Following")].enumerated().forEach { index, item in
+            stack.addArrangedSubview(makeStat(value: item.0, label: item.1, tag: index))
         }
         return stack
     }
 
-    private func makeStat(value: String, label: String) -> UIView {
+    private func makeStat(value: String, label: String, tag: Int) -> UIView {
         let valueLabel = UILabel()
         valueLabel.text = value
         valueLabel.font = .systemFont(ofSize: 20, weight: .bold)
@@ -217,6 +231,11 @@ final class BivvyProfileViewController: UIViewController {
         stack.axis = .vertical
         stack.spacing = 4
         stack.alignment = .center
+        stack.tag = tag
+        stack.isUserInteractionEnabled = tag != 0
+        if tag != 0 {
+            stack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openFollowList(_:))))
+        }
         return stack
     }
 
@@ -275,12 +294,33 @@ final class BivvyProfileViewController: UIViewController {
         navigationController?.pushViewController(message, animated: true)
     }
 
+    @objc private func openSettings() {
+        openWebRoute(.settings)
+    }
+
+    @objc private func openEditProfile() {
+        openWebRoute(.editProfile)
+    }
+
+    @objc private func openFollowList(_ gesture: UITapGestureRecognizer) {
+        guard let tag = gesture.view?.tag else { return }
+        let type = tag == 1 ? "2" : "1"
+        openWebRoute(.followList(type: type))
+    }
+
+    private func openWebRoute(_ route: BivvyH5Route) {
+        guard let url = route.url() else { return }
+        let web = BivvyWebViewController(url: url)
+        web.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(web, animated: true)
+    }
+
     private func loadProfileData() {
         BivvyNetworkService.shared.fetchProfile { [weak self] result in
             guard let self else { return }
             if case .success(let profile) = result {
-                self.nameLabel.text = profile.name
-                self.bioLabel.text = profile.about
+                self.nameLabel.text = profile.name.isEmpty ? "No data available." : profile.name
+                self.bioLabel.text = profile.about.isEmpty ? "No data available." : profile.about
                 BivvyRemoteImageLoader.shared.load(profile.avatarURL, into: self.avatarView, placeholder: UIImage(named: "bivvy_tab_profile_idlesel"))
                 let values = [profile.friendsCount, profile.followersCount, profile.followingCount]
                 for (index, value) in values.enumerated() where self.statValueLabels.indices.contains(index) {
@@ -291,7 +331,7 @@ final class BivvyProfileViewController: UIViewController {
 
         BivvyNetworkService.shared.fetchMyContent { [weak self] result in
             guard let self else { return }
-            if case .success(let items) = result, !items.isEmpty {
+            if case .success(let items) = result {
                 self.gridItems = items
                 self.gridCollectionView.reloadData()
                 self.updateGridHeight()
@@ -303,7 +343,9 @@ final class BivvyProfileViewController: UIViewController {
         let availableWidth = max(0, view.bounds.width - 48)
         let itemWidth = floor((availableWidth - 14) / 2)
         let rows = max(1, Int(ceil(Double(gridItems.count) / 2.0)))
-        gridCollectionHeightConstraint?.constant = CGFloat(rows) * (itemWidth * 1.05 + 46) + CGFloat(max(0, rows - 1)) * 14
+        gridEmptyLabel.isHidden = !gridItems.isEmpty
+        gridCollectionView.isHidden = gridItems.isEmpty
+        gridCollectionHeightConstraint?.constant = gridItems.isEmpty ? 96 : CGFloat(rows) * (itemWidth * 1.05 + 46) + CGFloat(max(0, rows - 1)) * 14
     }
 }
 

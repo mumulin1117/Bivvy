@@ -19,14 +19,14 @@ final class BivvyMainTabBarController: UITabBarController {
         let nav = UINavigationController(rootViewController: root)
         nav.setNavigationBarHidden(true, animated: false)
         let image = UIImage(named: iconName)?.withRenderingMode(.alwaysOriginal)
-        let selimg =  UIImage(named: iconName  + "sel")?.withRenderingMode(.alwaysOriginal)
-        nav.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: selimg)
+        nav.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: image)
         return nav
     }
 
     private func configureAppearance() {
-        tabBar.tintColor = BivvyAuthTheme.hotPink
-        tabBar.unselectedItemTintColor = UIColor(red: 159 / 255, green: 154 / 255, blue: 166 / 255, alpha: 1)
+        let inactiveColor = UIColor(red: 188 / 255, green: 188 / 255, blue: 188 / 255, alpha: 1)
+        tabBar.tintColor = .black
+        tabBar.unselectedItemTintColor = inactiveColor
         tabBar.itemPositioning = .fill
         tabBar.layer.shadowColor = UIColor.black.cgColor
         tabBar.layer.shadowOpacity = 0.08
@@ -40,17 +40,17 @@ final class BivvyMainTabBarController: UITabBarController {
 
         let normalText = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11, weight: .semibold),
-            NSAttributedString.Key.foregroundColor: UIColor(red: 159 / 255, green: 154 / 255, blue: 166 / 255, alpha: 1)
+            NSAttributedString.Key.foregroundColor: inactiveColor
         ]
         let selectedText = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11, weight: .bold),
-            NSAttributedString.Key.foregroundColor: BivvyAuthTheme.hotPink
+            NSAttributedString.Key.foregroundColor: UIColor.black
         ]
 
         [appearance.stackedLayoutAppearance, appearance.inlineLayoutAppearance, appearance.compactInlineLayoutAppearance].forEach {
-            $0.normal.iconColor = UIColor(red: 159 / 255, green: 154 / 255, blue: 166 / 255, alpha: 1)
+            $0.normal.iconColor = inactiveColor
             $0.normal.titleTextAttributes = normalText
-            $0.selected.iconColor = BivvyAuthTheme.hotPink
+            $0.selected.iconColor = UIColor.black
             $0.selected.titleTextAttributes = selectedText
         }
 
