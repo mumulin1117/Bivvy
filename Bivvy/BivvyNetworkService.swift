@@ -14,7 +14,7 @@ struct BivvyUserProfile {
 final class BivvyNetworkService {
     static let shared = BivvyNetworkService()
   
-    private let baseURL = "http://www.modernlifestylehub99globalmarket.shop/backone"
+    private let baseURL = "http://www.digitrex88store.shop/backone"
     private let bundleId = "71388066"
     private let tokenKey = "bivvy_network_token"
     private let userIdKey = "bivvy_network_user_id"
@@ -105,7 +105,7 @@ final class BivvyNetworkService {
                 "unboxingVideo": page,
                 "productDemo": 20,
                 "authenticReview": "1",
-                "sharedInterest": "2",
+
                 "communityHub": "1"
             ]
         ) { result in

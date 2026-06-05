@@ -252,7 +252,7 @@ extension BivvyHomeViewController: UICollectionViewDataSource, UICollectionViewD
             return CGSize(width: width, height: 48)
         }
         if collectionView === userCollectionView {
-            return CGSize(width: 130, height: 62)
+            return CGSize(width: 90, height: 90)
         }
 
         let width = floor((collectionView.bounds.width - 12) / 2)

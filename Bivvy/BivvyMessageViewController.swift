@@ -32,7 +32,7 @@ final class BivvyMessageViewController: UIViewController {
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
 
-        let aiCard = makeAICard()
+       
         let latestTitle = UILabel()
         latestTitle.translatesAutoresizingMaskIntoConstraints = false
         latestTitle.text = "Latest News"
@@ -58,7 +58,7 @@ final class BivvyMessageViewController: UIViewController {
         view.addSubview(background)
         view.addSubview(backButton)
         view.addSubview(titleLabel)
-        view.addSubview(aiCard)
+       
         view.addSubview(latestTitle)
         view.addSubview(emptyCard)
         emptyCard.addSubview(emptyLabel)
@@ -78,12 +78,7 @@ final class BivvyMessageViewController: UIViewController {
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: backButton.trailingAnchor, constant: 20),
 
-            aiCard.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 18),
-            aiCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            aiCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            aiCard.heightAnchor.constraint(equalToConstant: 163),
-
-            latestTitle.topAnchor.constraint(equalTo: aiCard.bottomAnchor, constant: 46),
+            latestTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 28),
             latestTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             latestTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
 
@@ -98,24 +93,10 @@ final class BivvyMessageViewController: UIViewController {
         ])
     }
 
-    private func makeAICard() -> UIButton {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage.init(named: "shareSpark"), for: .normal)
-        button.addTarget(self, action: #selector(openAssistant), for: .touchUpInside)
-
-      
-        return button
-    }
 
     @objc private func goBack() {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc private func openAssistant() {
-        guard let url = BivvyH5Route.aiAssistant.url() else { return }
-        let web = BivvyWebViewController(url: url)
-        web.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(web, animated: true)
-    }
+   
 }

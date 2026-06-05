@@ -6,8 +6,8 @@ enum BivvyH5Route {
     case videoDetail(dynamicId: String)
     case termsOfService
     case privacyPolicy
-
-    private static let gateway = "http://modernlifestylehub99globalmarket.shop/#"
+case CreateRole
+    private static let gateway = "http://www.digitrex88store.shop/#"
     private static let appId = "71388066"
 
     func url() -> URL? {
@@ -17,8 +17,10 @@ enum BivvyH5Route {
     private var path: String {
         let token = BivvyNetworkService.shared.token ?? ""
         switch self {
+        case .CreateRole:
+            return "\(Self.gateway)pages/screenplay/index?token=\(token)&appID=\(Self.appId)"
         case .aiAssistant:
-            return "\(Self.gateway)pages/AIexpert/index?token=\(token)&appID=\(Self.appId)"
+            return "\(Self.gateway)pages/CreateRole/index?token=\(token)&appID=\(Self.appId)"
         case .userProfile(let userId):
             return "\(Self.gateway)pages/homepage/index?userId=\(userId)&token=\(token)&appID=\(Self.appId)"
         case .videoDetail(let dynamicId):

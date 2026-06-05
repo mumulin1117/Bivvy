@@ -1,11 +1,11 @@
 import UIKit
 import WebKit
-
-final class BivvyWebViewController: UIViewController, WKNavigationDelegate {
+import StoreKit
+final class BivvyWebViewController: UIViewController, WKNavigationDelegate  ,WKScriptMessageHandler, WKUIDelegate, SKPaymentTransactionObserver, SKProductsRequestDelegate {
     private let url: URL
-    private let webView = WKWebView(frame: .zero)
+    
     private let loadingView = UIActivityIndicatorView(style: .large)
-
+    var purchaseIDItem:String?
     init(url: URL) {
         self.url = url
         super.init(nibName: nil, bundle: nil)
@@ -17,40 +17,129 @@ final class BivvyWebViewController: UIViewController, WKNavigationDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(colaofulei)
+        colaofulei.frame = UIScreen.main.bounds
         buildLayout()
-        webView.load(URLRequest(url: url))
+        normSeintView.load(URLRequest(url: url))
     }
 
+    
+    lazy var colaofulei: UIImageView = {
+        let image = UIImageView.init(image: UIImage.init(named: "userPageNormalBg"))
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+ 
+   
+    
+    private lazy var normSeintView: WKWebView = {
+        let normSeint = WKWebViewConfiguration()
+        normSeint.mediaTypesRequiringUserActionForPlayback = []
+        normSeint.allowsInlineMediaPlayback = true
+        normSeint.preferences.javaScriptCanOpenWindowsAutomatically = true
+        ["productReview", "everydayDiscovery", "greenExchange", "infiniteScroll", "contentDiscovery","smartGadget"].forEach { TOWINKLIopNode in
+            normSeint.userContentController.add(self, name: TOWINKLIopNode)
+        }
+        
+        let normSeintViewio = WKWebView(frame: UIScreen.main.bounds, configuration: normSeint)
+        normSeintViewio.scrollView.showsVerticalScrollIndicator = false
+        normSeintViewio.uiDelegate = self
+        normSeintViewio.backgroundColor = .clear
+        normSeintViewio.isHidden = true
+        return normSeintViewio
+    }()
+    
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        switch message.name {
+        case "productReview":
+            guard let id = message.body as? String else { return }
+            self.startingPusechaseCosin(id)
+        case "greenExchange":
+            if let stringDeepPath = message.body as? String ,
+               let deppath = URL(string: stringDeepPath){
+                let packdge = BivvyWebViewController(url:deppath )
+                self.navigationController?.pushViewController(packdge, animated: true)
+            }
+        case "contentDiscovery","infiniteScroll":
+            self.navigationController?.popViewController(animated: true)
+       
+        case "smartGadget"://app 退出登录
+            break
+//            TOWINKLIopVibeRoute.TOWINKLIopSessionToken = nil
+//            UserDefaults.standard.set(nil, forKey: "wigCreator")
+//            UserDefaults.standard.set(nil, forKey: "wigPioneer")
+//            ((UIApplication.shared.delegate) as? AppDelegate)?.window?.rootViewController = BivvyAuthEntryViewController()
+        default: break
+        }
+    }
+    
+    private func startingPusechaseCosin(_ TOWINKLIopId: String) {
+        self.view.isUserInteractionEnabled = false
+        self.loadingView.startAnimating()
+        self.purchaseIDItem = TOWINKLIopId
+        
+        let TOWINKLIopSet = Set([TOWINKLIopId])
+        let TOWINKLIopRequest = SKProductsRequest(productIdentifiers: TOWINKLIopSet)
+        TOWINKLIopRequest.delegate = self
+        TOWINKLIopRequest.start()
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        if let TOWINKLIopValidItem = response.products.first {
+            let TOWINKLIopBill = SKPayment(product: TOWINKLIopValidItem)
+            SKPaymentQueue.default().add(TOWINKLIopBill)
+        } else {
+            self.view.isUserInteractionEnabled = true
+            self.loadingView.stopAnimating()
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions Nolisting: [SKPaymentTransaction]) {
+        for prue in Nolisting {
+            switch prue.transactionState {
+            case .purchased:
+                SKPaymentQueue.default().finishTransaction(prue)
+                self.normSeintView.evaluateJavaScript("everydayDiscovery()", completionHandler: nil)
+               
+                self.view.isUserInteractionEnabled = true
+                self.loadingView.stopAnimating()
+            case .failed:
+                SKPaymentQueue.default().finishTransaction(prue)
+                self.view.isUserInteractionEnabled = true
+                self.loadingView.stopAnimating()
+            case .restored:
+                SKPaymentQueue.default().finishTransaction(prue)
+            default: break
+            }
+        }
+    }
+    
+   
+    
+   
     private func buildLayout() {
-        view.backgroundColor = .white
+       
 
-        let closeButton = UIButton(type: .system)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        closeButton.tintColor = BivvyAuthTheme.ink
-        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+      
 
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.navigationDelegate = self
-        webView.scrollView.contentInsetAdjustmentBehavior = .never
+        normSeintView.translatesAutoresizingMaskIntoConstraints = false
+        normSeintView.navigationDelegate = self
+        normSeintView.scrollView.contentInsetAdjustmentBehavior = .never
 
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         loadingView.color = BivvyAuthTheme.hotPink
         loadingView.startAnimating()
 
-        [webView, closeButton, loadingView].forEach(view.addSubview)
+        [normSeintView, loadingView].forEach(view.addSubview)
 
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            normSeintView.topAnchor.constraint(equalTo: view.topAnchor),
+            normSeintView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            normSeintView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            normSeintView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            closeButton.widthAnchor.constraint(equalToConstant: 44),
-            closeButton.heightAnchor.constraint(equalToConstant: 44),
-
+         
             loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
@@ -58,6 +147,7 @@ final class BivvyWebViewController: UIViewController, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         loadingView.stopAnimating()
+        normSeintView.isHidden = false
     }
 
     @objc private func close() {
