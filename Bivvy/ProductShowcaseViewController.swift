@@ -5,14 +5,29 @@ final class ProductShowcaseViewController: UIViewController, WKNavigationDelegat
     private let productShowcaseURL: URL
     
     private let smartDiscoveryLoadingView = UIActivityIndicatorView(style: .large)
+    private var productReviewRequest: SKProductsRequest?
     var productReviewIdentifier: String?
     init(url: URL) {
         self.productShowcaseURL = url
         super.init(nibName: nil, bundle: nil)
+        SKPaymentQueue.default().add(self)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        SKPaymentQueue.default().remove(self)
+        guard isViewLoaded else { return }
+        [
+            BivvyStringVault.productReviewBridge,
+            BivvyStringVault.everydayDiscoveryBridge,
+            BivvyStringVault.greenExchangeBridge,
+            BivvyStringVault.infiniteScrollBridge,
+            BivvyStringVault.contentDiscoveryBridge,
+            BivvyStringVault.smartGadgetBridge
+        ].forEach { productShowcaseWebView.configuration.userContentController.removeScriptMessageHandler(forName: $0) }
     }
 
     override func viewDidLoad() {
@@ -78,6 +93,13 @@ final class ProductShowcaseViewController: UIViewController, WKNavigationDelegat
     }
     
     private func startProductReviewPurchase(_ productReviewId: String) {
+        guard SKPaymentQueue.canMakePayments() else {
+            view.isUserInteractionEnabled = true
+            smartDiscoveryLoadingView.stopAnimating()
+            presentProductReviewPaymentMessage(BivvyStringVault.paymentUnavailable)
+            return
+        }
+
         self.view.isUserInteractionEnabled = false
         self.smartDiscoveryLoadingView.startAnimating()
         self.productReviewIdentifier = productReviewId
@@ -85,16 +107,31 @@ final class ProductShowcaseViewController: UIViewController, WKNavigationDelegat
         let productReviewSet = Set([productReviewId])
         let productReviewRequest = SKProductsRequest(productIdentifiers: productReviewSet)
         productReviewRequest.delegate = self
+        self.productReviewRequest = productReviewRequest
         productReviewRequest.start()
     }
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        productReviewRequest = nil
         if let trustedReviewProduct = response.products.first {
             let productReviewPayment = SKPayment(product: trustedReviewProduct)
             SKPaymentQueue.default().add(productReviewPayment)
         } else {
+            DispatchQueue.main.async {
+                self.view.isUserInteractionEnabled = true
+                self.smartDiscoveryLoadingView.stopAnimating()
+                self.presentProductReviewPaymentMessage(BivvyStringVault.productUnavailable)
+            }
+           
+        }
+    }
+
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        productReviewRequest = nil
+        DispatchQueue.main.async {
             self.view.isUserInteractionEnabled = true
             self.smartDiscoveryLoadingView.stopAnimating()
+            self.presentProductReviewPaymentMessage(BivvyStringVault.paymentFailed)
         }
     }
     
@@ -102,20 +139,43 @@ final class ProductShowcaseViewController: UIViewController, WKNavigationDelegat
         for productReviewTransaction in productReviewTransactions {
             switch productReviewTransaction.transactionState {
             case .purchased:
-                SKPaymentQueue.default().finishTransaction(productReviewTransaction)
-                self.productShowcaseWebView.evaluateJavaScript(BivvyStringVault.everydayDiscoveryCallback, completionHandler: nil)
+                
+                DispatchQueue.main.async {
+                    SKPaymentQueue.default().finishTransaction(productReviewTransaction)
+                    self.productShowcaseWebView.evaluateJavaScript(BivvyStringVault.everydayDiscoveryCallback, completionHandler: nil)
+                   
+                    self.view.isUserInteractionEnabled = true
+                    self.smartDiscoveryLoadingView.stopAnimating()
+                    self.presentProductReviewPaymentMessage(BivvyStringVault.paymentSuccessful)
+                }
                
-                self.view.isUserInteractionEnabled = true
-                self.smartDiscoveryLoadingView.stopAnimating()
             case .failed:
-                SKPaymentQueue.default().finishTransaction(productReviewTransaction)
-                self.view.isUserInteractionEnabled = true
-                self.smartDiscoveryLoadingView.stopAnimating()
+                DispatchQueue.main.async {
+                    SKPaymentQueue.default().finishTransaction(productReviewTransaction)
+                    self.view.isUserInteractionEnabled = true
+                    self.smartDiscoveryLoadingView.stopAnimating()
+                    self.presentProductReviewPaymentMessage(BivvyStringVault.paymentFailed)
+                }
+                
             case .restored:
-                SKPaymentQueue.default().finishTransaction(productReviewTransaction)
+                DispatchQueue.main.async {
+                    SKPaymentQueue.default().finishTransaction(productReviewTransaction)
+                }
+                
             default: break
             }
         }
+    }
+
+    private func presentProductReviewPaymentMessage(_ productReviewMessage: String) {
+        guard presentedViewController == nil else { return }
+        let productReviewAlert = UIAlertController(
+            title: nil,
+            message: productReviewMessage,
+            preferredStyle: .alert
+        )
+        productReviewAlert.addAction(UIAlertAction(title: BivvyStringVault.ok, style: .default))
+        present(productReviewAlert, animated: true)
     }
     
    
