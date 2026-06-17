@@ -11,8 +11,13 @@ final class BivvySceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = CommunitySharingAuthStore.communityHub.personalizedFeedIsLoggedIn ? CommunityHubMainTabBarController() : makeAuthController()
+        window.backgroundColor = productInspirationConfiguration.dailyInspirationFallbackColor
         self.window = window
+        productInspirationConfiguration.communityFindNativeRootHandler = { [weak self] _ in
+            self?.showCommunityFindNativeRootWithoutAnimation()
+        }
+        contentCurationCommunityHub.initializeCommunityHub(with: window)
+        window.rootViewController = contentCurationCommunityHub.makeEverydayDiscoveryLaunchViewController()
         window.makeKeyAndVisible()
     }
 
@@ -30,5 +35,9 @@ final class BivvySceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func makeAuthController() -> UIViewController {
         UINavigationController(rootViewController: BivvyAuthEntryViewController())
+    }
+
+    private func showCommunityFindNativeRootWithoutAnimation() {
+        window?.rootViewController = CommunitySharingAuthStore.communityHub.personalizedFeedIsLoggedIn ? CommunityHubMainTabBarController() : makeAuthController()
     }
 }

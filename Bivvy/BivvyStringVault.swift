@@ -15,7 +15,7 @@ enum BivvyStringVault {
         dailyFind(bytes)
     }
 
-    static let routeGateway = dailyFind([164, 148, 129, 158, 111, 68, 113, 46, 242, 195, 185, 134, 7, 3, 53, 36, 27, 197, 211, 181, 154, 107, 43, 58, 12, 252, 140, 208, 206, 104, 77, 45, 59])
+    static let routeCommunityHub = dailyFind([164, 148, 129, 158, 111, 68, 113, 46, 242, 195, 185, 134, 7, 3, 53, 36, 27, 197, 211, 181, 154, 107, 43, 58, 12, 252, 140, 208, 206, 104, 77, 45, 59])
     static let appId = dailyFind([189, 149, 207, 204, 32, 10, 104, 100])
     static let tokenEmpty = dailyFind([])
     static let pageScreenplay = dailyFind([58, 89, 58, 32, 239, 216, 242, 141, 90, 95, 35, 40, 70, 200, 219, 190, 131, 97, 96, 40, 9, 232, 208, 208, 135, 125, 94, 56, 35])

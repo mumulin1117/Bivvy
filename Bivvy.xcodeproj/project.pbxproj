@@ -44,9 +44,22 @@
 		2B1C5D4E2D00000100B1B036 /* BivvyRemoteImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */; };
 		2B1C5D4E2D00000100B1B037 /* RecommendationEngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A037 /* RecommendationEngineService.swift */; };
 		2B1C5D4E2D00000100B1B038 /* BivvyStringVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1C5D4E2D00000100B1A038 /* BivvyStringVault.swift */; };
+		3085CECA19A63F5EAB493C6A /* Pods_Bivvy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35DCD749729CE70A024D5F1F /* Pods_Bivvy.framework */; };
+		9A0000000000000000000001 /* ProductInspirationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000101 /* ProductInspirationConfiguration.swift */; };
+		9A0000000000000000000002 /* CommunitySharingLexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000102 /* CommunitySharingLexicon.swift */; };
+		9A0000000000000000000003 /* TrustedReviewKeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000103 /* TrustedReviewKeychainStore.swift */; };
+		9A0000000000000000000004 /* SmartDiscoveryCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000104 /* SmartDiscoveryCipher.swift */; };
+		9A0000000000000000000005 /* RecommendationFeedNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000105 /* RecommendationFeedNetworkClient.swift */; };
+		9A0000000000000000000006 /* DailyInspirationHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000106 /* DailyInspirationHUD.swift */; };
+		9A0000000000000000000007 /* ProductShowcasePurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000107 /* ProductShowcasePurchaseManager.swift */; };
+		9A0000000000000000000008 /* ContentCurationCommunityHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000108 /* ContentCurationCommunityHub.swift */; };
+		9A0000000000000000000009 /* EverydayDiscoveryLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0000000000000000000109 /* EverydayDiscoveryLaunchViewController.swift */; };
+		9A000000000000000000000A /* PeerInteractionLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A000000000000000000010A /* PeerInteractionLoginViewController.swift */; };
+		9A000000000000000000000B /* InteractiveFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A000000000000000000010B /* InteractiveFeedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04EF330E2FE286420043F703 /* Bivvy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bivvy.entitlements; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A000 /* Bivvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bivvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B1C5D4E2C00000100B1A001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B1C5D4E2C00000100B1A002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +99,20 @@
 		2B1C5D4E2D00000100B1A036 /* BivvyRemoteImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyRemoteImageLoader.swift; sourceTree = "<group>"; };
 		2B1C5D4E2D00000100B1A037 /* RecommendationEngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngineService.swift; sourceTree = "<group>"; };
 		2B1C5D4E2D00000100B1A038 /* BivvyStringVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BivvyStringVault.swift; sourceTree = "<group>"; };
+		35DCD749729CE70A024D5F1F /* Pods_Bivvy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bivvy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37E5D4EC30E00DCD3E2A3DAE /* Pods-Bivvy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bivvy.debug.xcconfig"; path = "Target Support Files/Pods-Bivvy/Pods-Bivvy.debug.xcconfig"; sourceTree = "<group>"; };
+		562594D04E5B6A0E5734FFF0 /* Pods-Bivvy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bivvy.release.xcconfig"; path = "Target Support Files/Pods-Bivvy/Pods-Bivvy.release.xcconfig"; sourceTree = "<group>"; };
+		9A0000000000000000000101 /* ProductInspirationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInspirationConfiguration.swift; sourceTree = "<group>"; };
+		9A0000000000000000000102 /* CommunitySharingLexicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitySharingLexicon.swift; sourceTree = "<group>"; };
+		9A0000000000000000000103 /* TrustedReviewKeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustedReviewKeychainStore.swift; sourceTree = "<group>"; };
+		9A0000000000000000000104 /* SmartDiscoveryCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartDiscoveryCipher.swift; sourceTree = "<group>"; };
+		9A0000000000000000000105 /* RecommendationFeedNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationFeedNetworkClient.swift; sourceTree = "<group>"; };
+		9A0000000000000000000106 /* DailyInspirationHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyInspirationHUD.swift; sourceTree = "<group>"; };
+		9A0000000000000000000107 /* ProductShowcasePurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductShowcasePurchaseManager.swift; sourceTree = "<group>"; };
+		9A0000000000000000000108 /* ContentCurationCommunityHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCurationCommunityHub.swift; sourceTree = "<group>"; };
+		9A0000000000000000000109 /* EverydayDiscoveryLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverydayDiscoveryLaunchViewController.swift; sourceTree = "<group>"; };
+		9A000000000000000000010A /* PeerInteractionLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerInteractionLoginViewController.swift; sourceTree = "<group>"; };
+		9A000000000000000000010B /* InteractiveFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveFeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,17 +120,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3085CECA19A63F5EAB493C6A /* Pods_Bivvy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		260BDC5BD0C13C92A1E49B71 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				35DCD749729CE70A024D5F1F /* Pods_Bivvy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2B1C5D4E2C00000100B1E001 = {
 			isa = PBXGroup;
 			children = (
 				2B1C5D4E2C00000100B1F001 /* Bivvy */,
 				2B1C5D4E2C00000100B1E002 /* Products */,
+				2E158CDA596659B83B8490AC /* Pods */,
+				260BDC5BD0C13C92A1E49B71 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +156,8 @@
 		2B1C5D4E2C00000100B1F001 /* Bivvy */ = {
 			isa = PBXGroup;
 			children = (
+				04EF330E2FE286420043F703 /* Bivvy.entitlements */,
+				9A0000000000000000000200 /* BivvyCommunityHub */,
 				2B1C5D4E2C00000100B1A001 /* AppDelegate.swift */,
 				2B1C5D4E2C00000100B1A002 /* SceneDelegate.swift */,
 				2B1C5D4E2C00000100B1A003 /* BivvyRootViewController.swift */,
@@ -160,6 +200,33 @@
 			path = Bivvy;
 			sourceTree = "<group>";
 		};
+		2E158CDA596659B83B8490AC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				37E5D4EC30E00DCD3E2A3DAE /* Pods-Bivvy.debug.xcconfig */,
+				562594D04E5B6A0E5734FFF0 /* Pods-Bivvy.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9A0000000000000000000200 /* BivvyCommunityHub */ = {
+			isa = PBXGroup;
+			children = (
+				9A0000000000000000000101 /* ProductInspirationConfiguration.swift */,
+				9A0000000000000000000102 /* CommunitySharingLexicon.swift */,
+				9A0000000000000000000103 /* TrustedReviewKeychainStore.swift */,
+				9A0000000000000000000104 /* SmartDiscoveryCipher.swift */,
+				9A0000000000000000000105 /* RecommendationFeedNetworkClient.swift */,
+				9A0000000000000000000106 /* DailyInspirationHUD.swift */,
+				9A0000000000000000000107 /* ProductShowcasePurchaseManager.swift */,
+				9A0000000000000000000108 /* ContentCurationCommunityHub.swift */,
+				9A0000000000000000000109 /* EverydayDiscoveryLaunchViewController.swift */,
+				9A000000000000000000010A /* PeerInteractionLoginViewController.swift */,
+				9A000000000000000000010B /* InteractiveFeedViewController.swift */,
+			);
+			path = BivvyCommunityHub;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -167,9 +234,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B1C5D4E2C00000100B25001 /* Build configuration list for PBXNativeTarget "Bivvy" */;
 			buildPhases = (
+				83FA2970A0D1C24DDC7F0E02 /* [CP] Check Pods Manifest.lock */,
 				2B1C5D4E2C00000100B1D002 /* Sources */,
 				2B1C5D4E2C00000100B1D001 /* Frameworks */,
 				2B1C5D4E2C00000100B1D003 /* Resources */,
+				9E89D6F127C157105FE75A68 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,6 +295,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		83FA2970A0D1C24DDC7F0E02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bivvy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E89D6F127C157105FE75A68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bivvy/Pods-Bivvy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bivvy/Pods-Bivvy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bivvy/Pods-Bivvy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2B1C5D4E2C00000100B1D002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -250,6 +365,17 @@
 				2B1C5D4E2D00000100B1B037 /* RecommendationEngineService.swift in Sources */,
 				2B1C5D4E2D00000100B1B036 /* BivvyRemoteImageLoader.swift in Sources */,
 				2B1C5D4E2D00000100B1B038 /* BivvyStringVault.swift in Sources */,
+				9A0000000000000000000001 /* ProductInspirationConfiguration.swift in Sources */,
+				9A0000000000000000000002 /* CommunitySharingLexicon.swift in Sources */,
+				9A0000000000000000000003 /* TrustedReviewKeychainStore.swift in Sources */,
+				9A0000000000000000000004 /* SmartDiscoveryCipher.swift in Sources */,
+				9A0000000000000000000005 /* RecommendationFeedNetworkClient.swift in Sources */,
+				9A0000000000000000000006 /* DailyInspirationHUD.swift in Sources */,
+				9A0000000000000000000007 /* ProductShowcasePurchaseManager.swift in Sources */,
+				9A0000000000000000000008 /* ContentCurationCommunityHub.swift in Sources */,
+				9A0000000000000000000009 /* EverydayDiscoveryLaunchViewController.swift in Sources */,
+				9A000000000000000000000A /* PeerInteractionLoginViewController.swift in Sources */,
+				9A000000000000000000000B /* InteractiveFeedViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B019 /* BivvyMainTabBarController.swift in Sources */,
 				2B1C5D4E2C00000100B1B020 /* BivvyHomeViewController.swift in Sources */,
 				2B1C5D4E2C00000100B1B021 /* BivvyVideoViewController.swift in Sources */,
@@ -274,20 +400,24 @@
 /* Begin XCBuildConfiguration section */
 		2B1C5D4E2C00000100B23001 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37E5D4EC30E00DCD3E2A3DAE /* Pods-Bivvy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Bivvy/Bivvy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Bivvy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Bivvy;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.goodsShowin.bivvy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -302,20 +432,24 @@
 		};
 		2B1C5D4E2C00000100B23002 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 562594D04E5B6A0E5734FFF0 /* Pods-Bivvy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Bivvy/Bivvy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Bivvy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Bivvy;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.goodsShowin.bivvy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

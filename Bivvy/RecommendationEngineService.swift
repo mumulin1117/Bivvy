@@ -198,7 +198,7 @@ final class RecommendationEngineService {
 
     func peerInteractionEmailLogin(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         performRecommendationRequest(
-            path: BivvyStringVault.loginPath,
+            communityBoard: BivvyStringVault.loginPath,
             payload: [
                 RecommendationEngineToken.rareFind: productReviewBundleId,
                 RecommendationEngineToken.retroFind: email,
@@ -218,7 +218,7 @@ final class RecommendationEngineService {
 
     func communitySharingRegister(communitySharingDraft: BivvyProfileDraft, completion: @escaping (Result<Void, Error>) -> Void) {
         performRecommendationRequest(
-            path: BivvyStringVault.loginPath,
+            communityBoard: BivvyStringVault.loginPath,
             payload: [
                 RecommendationEngineToken.rareFind: productReviewBundleId,
                 RecommendationEngineToken.retroFind: communitySharingDraft.peerInteraction,
@@ -240,7 +240,7 @@ final class RecommendationEngineService {
     }
 
     func fetchUserRecommendationProfiles(completion: @escaping (Result<[UserRecommendationProfile], Error>) -> Void) {
-        performRecommendationRequest(path: BivvyStringVault.usersPath, payload: [RecommendationEngineToken.recommendationFeed: productReviewBundleId]) { result in
+        performRecommendationRequest(communityBoard: BivvyStringVault.usersPath, payload: [RecommendationEngineToken.recommendationFeed: productReviewBundleId]) { result in
             completion(result.map { json in
                 BivvyJSON.dataItems(from: json).prefix(20).enumerated().map { index, item in
                     UserRecommendationProfile(
@@ -257,7 +257,7 @@ final class RecommendationEngineService {
 
     func fetchVideoDiscoverySnippets(page: Int, completion: @escaping (Result<[VideoDiscoverySnippetItem], Error>) -> Void) {
         performRecommendationRequest(
-            path: BivvyStringVault.videosPath,
+            communityBoard: BivvyStringVault.videosPath,
             payload: [
                 RecommendationEngineToken.interestGroup: productReviewBundleId,
                 RecommendationEngineToken.unboxingVideo: page,
@@ -292,7 +292,7 @@ final class RecommendationEngineService {
     }
 
     func fetchCommunityHubProfile(completion: @escaping (Result<CommunityHubUserProfile, Error>) -> Void) {
-        performRecommendationRequest(path: BivvyStringVault.profilePath, payload: [RecommendationEngineToken.hobbyItem: currentUserId ?? BivvyStringVault.tokenEmpty, RecommendationEngineToken.collectibleShowcase: BivvyStringVault.typeOne]) { result in
+        performRecommendationRequest(communityBoard: BivvyStringVault.profilePath, payload: [RecommendationEngineToken.hobbyItem: currentUserId ?? BivvyStringVault.tokenEmpty, RecommendationEngineToken.collectibleShowcase: BivvyStringVault.typeOne]) { result in
             completion(result.map { json in
                 let item = BivvyJSON.firstObject(from: json)
                 return CommunityHubUserProfile(
@@ -310,7 +310,7 @@ final class RecommendationEngineService {
     }
 
     func fetchContentCreatorCollection(completion: @escaping (Result<[ContentCreatorProfileItem], Error>) -> Void) {
-        performRecommendationRequest(path: BivvyStringVault.profilePath, payload: [RecommendationEngineToken.hobbyItem: currentUserId ?? BivvyStringVault.tokenEmpty, RecommendationEngineToken.collectibleShowcase: BivvyStringVault.typeOne]) { result in
+        performRecommendationRequest(communityBoard: BivvyStringVault.profilePath, payload: [RecommendationEngineToken.hobbyItem: currentUserId ?? BivvyStringVault.tokenEmpty, RecommendationEngineToken.collectibleShowcase: BivvyStringVault.typeOne]) { result in
             completion(result.map { json in
                 let root = BivvyJSON.firstObject(from: json)
                 let list = root[RecommendationEngineToken.honestReview] as? [[String: Any]] ?? BivvyJSON.dataItems(from: json)
@@ -329,14 +329,14 @@ final class RecommendationEngineService {
     }
 
     func sendVideoEngagementLike(handpickedDynamicId: String, completion: ((Result<Void, Error>) -> Void)? = nil) {
-        performRecommendationRequest(path: BivvyStringVault.likePath, payload: [RecommendationEngineToken.dailyInspiration: handpickedDynamicId, RecommendationEngineToken.creativeVlog: currentUserId ?? BivvyStringVault.tokenEmpty, RecommendationEngineToken.productInspiration: BivvyStringVault.typeOne]) { result in
+        performRecommendationRequest(communityBoard: BivvyStringVault.likePath, payload: [RecommendationEngineToken.dailyInspiration: handpickedDynamicId, RecommendationEngineToken.creativeVlog: currentUserId ?? BivvyStringVault.tokenEmpty, RecommendationEngineToken.productInspiration: BivvyStringVault.typeOne]) { result in
             completion?(result.map { _ in () })
         }
     }
 
     func blockPeerInteraction(userDiscoveryId: String, contentCreatorName: String, contentCreatorAvatarURL: String?, completion: ((Result<Void, Error>) -> Void)? = nil) {
         performRecommendationRequest(
-            path: BivvyStringVault.blockPath,
+            communityBoard: BivvyStringVault.blockPath,
             payload: [
                 RecommendationEngineToken.videoEngagement: userDiscoveryId,
                 RecommendationEngineToken.communityInteraction: contentCreatorName,
@@ -349,13 +349,13 @@ final class RecommendationEngineService {
         }
     }
 
-    private func performRecommendationRequest(path: String, payload: [String: Any], completion: @escaping (Result<Any, Error>) -> Void) {
-        guard let url = URL(string: recommendationEngineBaseURL + path) else {
+    private func performRecommendationRequest(communityBoard: String, payload: [String: Any], completion: @escaping (Result<Any, Error>) -> Void) {
+        guard let url = URL(string: recommendationEngineBaseURL + communityBoard) else {
             completion(.failure(BivvyNetworkError.invalidURL))
             return
         }
 
-        logRecommendationRequest(path: path, payload: payload)
+        logRecommendationRequest(communityBoard: communityBoard, payload: payload)
 
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 30)
         request.httpMethod = BivvyStringVault.post
@@ -368,49 +368,49 @@ final class RecommendationEngineService {
         URLSession.shared.dataTask(with: request) { data, _, error in
             DispatchQueue.main.async {
                 if let error {
-                    self.logRecommendationFailure(path: path, error: error)
+                    self.logRecommendationFailure(communityBoard: communityBoard, error: error)
                     completion(.failure(error))
                     return
                 }
                 guard let data else {
-                    self.logRecommendationFailure(path: path, error: BivvyNetworkError.emptyData)
+                    self.logRecommendationFailure(communityBoard: communityBoard, error: BivvyNetworkError.emptyData)
                     completion(.failure(BivvyNetworkError.emptyData))
                     return
                 }
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments])
-                    self.logRecommendationResponse(path: path, json: json)
+                    self.logRecommendationResponse(communityBoard: communityBoard, json: json)
                     if let message = BivvyJSON.failureMessage(from: json) {
                         completion(.failure(BivvyNetworkError.server(message)))
                     } else {
                         completion(.success(json))
                     }
                 } catch {
-                    self.logRecommendationFailure(path: path, error: error)
+                    self.logRecommendationFailure(communityBoard: communityBoard, error: error)
                     completion(.failure(error))
                 }
             }
         }.resume()
     }
 
-    private func logRecommendationRequest(path: String, payload: [String: Any]) {
+    private func logRecommendationRequest(communityBoard: String, payload: [String: Any]) {
         #if DEBUG
         let tokenState = (token?.isEmpty == false) ? BivvyStringVault.present : BivvyStringVault.empty
-        print("\(BivvyStringVault.apiReq1)\(path)")
+        print("\(BivvyStringVault.apiReq1)\(communityBoard)")
         print("\(BivvyStringVault.apiReq2)\(tokenState)\(BivvyStringVault.payload)\(payload)")
         #endif
     }
 
-    private func logRecommendationResponse(path: String, json: Any) {
+    private func logRecommendationResponse(communityBoard: String, json: Any) {
         #if DEBUG
-        print("\(BivvyStringVault.apiRes1)\(path)")
+        print("\(BivvyStringVault.apiRes1)\(communityBoard)")
         print("\(BivvyStringVault.apiRes2)\(BivvyJSON.debugSummary(from: json))")
         #endif
     }
 
-    private func logRecommendationFailure(path: String, error: Error) {
+    private func logRecommendationFailure(communityBoard: String, error: Error) {
         #if DEBUG
-        print("\(BivvyStringVault.apiFail)\(path)\(BivvyStringVault.errorText)\(error.localizedDescription)")
+        print("\(BivvyStringVault.apiFail)\(communityBoard)\(BivvyStringVault.errorText)\(error.localizedDescription)")
         #endif
     }
 
