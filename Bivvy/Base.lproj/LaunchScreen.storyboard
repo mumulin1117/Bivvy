@@ -12,13 +12,13 @@
         <scene sceneID="launch-screen-scene">
             <objects>
                 <viewController id="launch-screen-controller" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="launch-screen-view">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="launch-screen-view">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bivvyLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="vh6-iG-TA3">
+                            <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bivvyLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="vh6-iG-TA3">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <color key="backgroundColor" red="0.0" green="0.45882352939999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="launch-screen-safe-area"/>

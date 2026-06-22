@@ -10,7 +10,7 @@ final class ProductInspirationConfiguration {
 
     init() {}
 
-    var smartDiscoveryDebugMode: Bool = true
+    var smartDiscoveryDebugMode: Bool = false
 
     var recommendationFeedReleaseBaseURL: String = "https://opi.r7jezwfk.link"
     var communityHubReleaseAppID: String = "71388066"

@@ -69,7 +69,12 @@ final class EverydayDiscoveryLaunchViewController: UIViewController {
     private var recommendationFeedRequestStarted = false
 
     override func loadView() {
-        view = communityHubVisualAssembly.makeDailyInspirationRootView()
+        let dailyInspirationRootView = communityHubVisualAssembly.makeDailyInspirationRootView()
+        communityHubVisualAssembly.addDailyInspirationBackground(
+            to: dailyInspirationRootView,
+            imageName: productInspirationConfiguration.dailyInspirationLaunchBackgroundImage
+        )
+        view = dailyInspirationRootView
     }
 
     override func viewDidLoad() {
@@ -78,7 +83,6 @@ final class EverydayDiscoveryLaunchViewController: UIViewController {
     }
 
     private func performEverydayDiscoveryLaunch() {
-        addDailyInspirationBackground()
         runEverydayDiscoveryStartRoute(resolveEverydayDiscoveryStartRoute())
     }
 
@@ -99,13 +103,6 @@ final class EverydayDiscoveryLaunchViewController: UIViewController {
         case .networkObserver:
             observeRecommendationFeedNetwork()
         }
-    }
-
-    private func addDailyInspirationBackground() {
-        communityHubVisualAssembly.addDailyInspirationBackground(
-            to: view,
-            imageName: productInspirationConfiguration.dailyInspirationLaunchBackgroundImage
-        )
     }
 
     private func observeRecommendationFeedNetwork() {
