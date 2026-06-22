@@ -11,7 +11,7 @@ final class BivvySceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.backgroundColor = productInspirationConfiguration.dailyInspirationFallbackColor
+        window.backgroundColor = .black//productInspirationConfiguration.dailyInspirationFallbackColor
         self.window = window
         productInspirationConfiguration.communityFindNativeRootHandler = { [weak self] _ in
             self?.showCommunityFindNativeRootWithoutAnimation()

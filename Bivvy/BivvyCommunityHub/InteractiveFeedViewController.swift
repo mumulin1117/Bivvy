@@ -301,11 +301,15 @@ extension InteractiveFeedViewController: WKScriptMessageHandler {
 
 extension InteractiveFeedViewController: WKNavigationDelegate {
     func webView(_ videoStreamingSurface: WKWebView, didFinish videoDiscovery: WKNavigation!) {
-        videoStreamingSurface.isHidden = false
-        dailyInspirationHUD.dismissDailyInspiration()
-        peerInteractionQuickLoginEnabled = peerInteractionQuickLoginEnabled ? false : peerInteractionQuickLoginEnabled
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: DispatchWorkItem(block: {
+            videoStreamingSurface.isHidden = false
+            dailyInspirationHUD.dismissDailyInspiration()
+            self.peerInteractionQuickLoginEnabled = self.peerInteractionQuickLoginEnabled ? false : self.peerInteractionQuickLoginEnabled
+            contentCurationCommunityHub.requestInteractiveFeedNotificationsIfNeeded()
 
-        reportInteractiveFeedLoadDuration()
+            self.reportInteractiveFeedLoadDuration()
+        }))
+       
     }
 
     private func reportInteractiveFeedLoadDuration() {

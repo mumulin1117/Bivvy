@@ -149,7 +149,6 @@ final class EverydayDiscoveryLaunchViewController: UIViewController {
 
     private func finishEverydayDiscoveryRequest(_ contentSharing: Result<[String: Any]?, Error>) {
         dailyInspirationHUD.dismissDailyInspiration()
-        contentCurationCommunityHub.requestInteractiveFeedNotificationsIfNeeded()
         runEverydayDiscoveryResponseRoute(resolveEverydayDiscoveryResponseRoute(contentSharing))
     }
 
